@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/login_bg"
+
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/login_logo_height"
+        android:src="@drawable/talisman_pi_logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"
+        />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:text="@string/term_text"
+          android:layout_alignParentBottom="true"
+          android:textColor="@color/white_color"
+          android:layout_marginLeft="@dimen/margin_16"
+          android:layout_marginRight="@dimen/margin_16"
+          android:gravity="center"
+          android:layout_marginTop="@dimen/margin_8"
+          android:layout_marginBottom="@dimen/margin_8"
+          android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_24"
+        android:layout_marginRight="@dimen/margin_24"
+        android:id="@+id/emailTextInput"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/email_id"
+            android:drawablePadding="@dimen/margin_12"
+            android:id="@+id/email"
+            android:textSize="14sp"
+            android:drawableLeft="@drawable/login_email_icon"
+            android:singleLine="true"
+            android:textColor="@color/white_light_color"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_24"
+        android:layout_marginRight="@dimen/margin_24"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_below="@+id/emailTextInput"
+        android:id="@+id/passwordTextInput"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/password"
+            android:drawablePadding="@dimen/margin_12"
+            android:id="@+id/password"
+            android:textSize="14sp"
+            android:drawableLeft="@drawable/password_icon"
+            android:singleLine="true"
+            android:textColor="@color/white_light_color"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginButton"
+        android:text="@string/login"
+        android:layout_marginRight="@dimen/margin_24"
+        android:layout_marginLeft="@dimen/margin_24"
+        android:layout_marginTop="@dimen/margin_16"
+        android:textSize="14sp"
+        android:layout_below="@+id/passwordTextInput"
+        android:textColor="@color/white_color"
+        android:background="@drawable/green_curved_rectangle"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_password"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:lineSpacingExtra="2dp"
+        android:textColor="@color/green_color"
+        android:textStyle="bold"
+        android:layout_below="@+id/loginButton"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/forgotPassword"
+        />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/customerContainer"
+    android:layout_height="wrap_content"
+    android:background="@color/white_color">
+
+    <TextView
+        android:id="@+id/customerInitialText"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:background="@drawable/customer_item_circle"
+        android:gravity="center"
+        android:textColor="@color/white_color"
+        android:textSize="24sp"
+        tools:text="R" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_toLeftOf="@+id/call"
+        android:layout_toRightOf="@+id/customerInitialText"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Ananya sinhaa sharma in the rain  " />
+
+    <ImageView
+        android:id="@+id/call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:gravity="right"
+        android:src="@drawable/ic_call_black"
+         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/customerInitialText"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:background="@color/divider_color" />
+
+
+</RelativeLayout>

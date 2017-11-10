@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:id="@+id/notificationIcon"
+        android:orderInCategory="100"
+        android:icon="@drawable/notification_bell_icon"
+        android:title="Notification"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/dontDistrub"
+        android:icon="@drawable/available"
+        android:orderInCategory="100"
+        android:title="Do not disturb"
+        app:showAsAction="ifRoom" />
+</menu>

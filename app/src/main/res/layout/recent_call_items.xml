@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/recentCallContainer"
+    android:background="@color/white_color">
+
+    <ImageView
+        android:id="@+id/callStatusIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_16"
+        tools:src="@drawable/ic_call_missed" />
+
+
+    <LinearLayout
+        android:id="@+id/nameOrNumberContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingTop="@dimen/margin_8"
+        android:paddingBottom="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_12"
+        android:layout_toLeftOf="@+id/date"
+        android:layout_toRightOf="@+id/callStatusIcon"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameOrNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Ananya sinhaa sharma singh" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin4"
+            android:visibility="visible"
+            android:textSize="14sp"
+            android:text="Answered by dedicated desk"
+            tools:visibility="visible" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:gravity="right"
+        tools:text="12:30 AM" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_below="@+id/nameOrNumberContainer"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:background="@color/divider_color" />
+
+
+</RelativeLayout>

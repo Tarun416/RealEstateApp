@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/ticketContainer"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:id="@+id/ticketNo"
+        android:textSize="18sp"
+        android:paddingTop="@dimen/margin_16"
+        android:textColor="@color/black_color"
+        android:layout_marginLeft="@dimen/margin_16"
+        tools:text="Ticket No:300"/>
+
+
+    <TextView
+        android:id="@+id/problem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/margin_16"
+        android:layout_below="@+id/ticketNo"
+        android:textSize="14sp"
+        android:layout_marginTop="@dimen/margin_6"
+        android:layout_marginLeft="@dimen/margin_16"
+        tools:text="Hardware problem"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/problem"
+        android:layout_height="1dp"
+        android:background="@color/divider_color"/>
+
+    <View
+        android:layout_width="5dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/view"
+        android:background="@color/holo_blue_color"/>
+
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="term_text">By clicking Sign In, You acknowledge that you have read and agreed to our Terms of Use</string>
+    <string name="email_id">Email Id</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="talismanPi">Talisman PI</string>
+    <string name="open_drawer">open</string>
+    <string name="close_drawer">close</string>
+    <string name="appName">TalismanPI</string>
+    <string name="recent_calls">Recent Calls</string>
+    <string name="customers">Customers</string>
+    <string name="tickets">Tickets</string>
+</resources>
