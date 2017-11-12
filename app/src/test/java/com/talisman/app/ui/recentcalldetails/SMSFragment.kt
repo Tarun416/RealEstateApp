@@ -12,6 +12,19 @@ import com.example.tarun.talismanpi.R
  */
 class SMSFragment : Fragment()
 {
+    companion object {
+        /**
+         * new instance pattern for fragment
+         */
+        @JvmStatic
+        fun newInstance(): SMSFragment {
+            val fragment = SMSFragment()
+            val args = Bundle()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_sms,container,false)
     }

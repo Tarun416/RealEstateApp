@@ -12,6 +12,19 @@ import com.example.tarun.talismanpi.R
  */
 class CallBackFragment : Fragment()
 {
+    companion object {
+        /**
+         * new instance pattern for fragment
+         */
+        @JvmStatic
+        fun newInstance(): CallBackFragment {
+            val fragment = CallBackFragment()
+            val args = Bundle()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_callback,container,false)
     }

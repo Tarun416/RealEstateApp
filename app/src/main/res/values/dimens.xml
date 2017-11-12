@@ -10,4 +10,5 @@
     <dimen name="margin4">4dp</dimen>
     <dimen name="margin_6">6dp</dimen>
     <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_64">64dp</dimen>
 </resources>

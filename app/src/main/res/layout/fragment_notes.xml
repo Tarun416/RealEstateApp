@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/firstContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_toRightOf="@+id/view"
+            tools:text="Rohit saluja"
+            android:textColor="@color/black_color"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_toRightOf="@+id/view"
+            android:textSize="16sp"
+            android:layout_marginBottom="@dimen/margin_16"
+            tools:text="Mobile : +919883444444" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color"
+            android:id="@+id/firstView"
+            android:layout_below="@+id/mobile"/>
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="6dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/firstView"
+            android:background="@color/colorPrimary" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/dateTimeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeToCallText"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/margin_12"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/divider_color"
+            android:text="EDIT"
+            android:textColor="@color/black_color" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/green_color"
+            android:text="SAVE"
+            android:textColor="@color/white_color" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

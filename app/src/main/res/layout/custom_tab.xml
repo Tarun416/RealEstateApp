@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/tabText"
-    android:textColor="@color/colorAccent"
+    android:textColor="@color/black_color"
     android:textSize="12sp"
     android:gravity="center"
     />

@@ -6,7 +6,6 @@ import kotlinx.android.synthetic.main.toolbar_home.*
 import android.view.LayoutInflater
 import android.widget.TextView
 import com.example.tarun.talismanpi.R
-import com.talisman.app.ui.home.PagerAdapter
 import kotlinx.android.synthetic.main.activity_recent_calls.*
 
 
@@ -20,8 +19,11 @@ class RecentCallActivity : AppCompatActivity() {
     private lateinit var tabThree: TextView
     private lateinit var tabFour: TextView
 
+    private lateinit var pagerAdapter: PagerAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recent_calls)
         setSupportActionBar(toolbar)
@@ -37,35 +39,32 @@ class RecentCallActivity : AppCompatActivity() {
         finish()
     }
 
-
-    private lateinit var pagerAdapter: PagerAdapter
-
     private fun setUpTabIcons() {
 
-        pagerAdapter= PagerAdapter(supportFragmentManager,3)
-        pager.adapter=pagerAdapter
+        pagerAdapter = PagerAdapter(supportFragmentManager, 4)
+        pager.adapter = pagerAdapter
 
         tabs.setupWithViewPager(pager)
 
         tabOne = LayoutInflater.from(this).inflate(R.layout.custom_tab, null) as TextView
         tabOne.text = "Schedule"
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.app_icon, 0, 0)
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.green_schedule_icon, 0, 0)
         tabs.getTabAt(0)!!.customView = tabOne
 
         tabTwo = LayoutInflater.from(this).inflate(R.layout.custom_tab, null) as TextView
         tabTwo.text = "Notes"
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.app_icon, 0, 0)
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.green_notes_icon, 0, 0)
         tabs.getTabAt(1)!!.customView = tabTwo
 
         tabThree = LayoutInflater.from(this).inflate(R.layout.custom_tab, null) as TextView
         tabThree.text = "SMS"
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.app_icon, 0, 0)
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.green_sms_icon, 0, 0)
         tabs.getTabAt(2)!!.customView = tabThree
 
-       /* tabFour = LayoutInflater.from(this).inflate(R.layout.custom_tab, null) as TextView
+        tabFour = LayoutInflater.from(this).inflate(R.layout.custom_tab, null) as TextView
         tabFour.text = "Call Back"
-        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.app_icon, 0, 0)
-        tabs.getTabAt(3)!!.customView = tabFour*/
+        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.green_call_back_icon, 0, 0)
+        tabs.getTabAt(3)!!.customView = tabFour
 
     }
 

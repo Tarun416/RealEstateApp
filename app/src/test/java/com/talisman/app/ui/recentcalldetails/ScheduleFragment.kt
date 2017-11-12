@@ -12,6 +12,20 @@ import com.example.tarun.talismanpi.R
  */
 class ScheduleFragment : Fragment()
 {
+
+    companion object {
+        /**
+         * new instance pattern for fragment
+         */
+        @JvmStatic
+        fun newInstance(): ScheduleFragment {
+            val fragment = ScheduleFragment()
+            val args = Bundle()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_schedule,container,false)
     }
