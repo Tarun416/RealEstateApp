@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/firstContainer"
         android:layout_width="match_parent"
+        android:background="@color/white_color"
         android:layout_height="wrap_content">
 
         <TextView
@@ -16,10 +17,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"
-            android:layout_toRightOf="@+id/view"
-            tools:text="Rohit saluja"
+            android:layout_toRightOf="@+id/firstVerticalView"
             android:textColor="@color/black_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="Rohit saluja" />
 
 
         <TextView
@@ -27,20 +28,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
+            android:layout_marginBottom="@dimen/margin_16"
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
-            android:layout_toRightOf="@+id/view"
+            android:layout_toRightOf="@+id/firstVerticalView"
             android:textSize="16sp"
-            android:layout_marginBottom="@dimen/margin_16"
             tools:text="Mobile : +919883444444" />
 
 
         <View
+            android:id="@+id/firstHorizontalView"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/divider_color"
+            android:layout_below="@+id/mobile"
+            android:background="@color/divider_color" />
+
+
+        <View
+            android:id="@+id/firstVerticalView"
+            android:layout_width="6dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/firstHorizontalView"
+            android:background="@color/colorPrimary" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/secondContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_color"
+        android:layout_below="@+id/firstContainer">
+
+        <TextView
+            android:id="@+id/createdOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_toRightOf="@+id/view"
+            android:textSize="16sp"
+            tools:text="Created On: 01/02/2929 06:44:$4AM" />
+
+        <View
             android:id="@+id/firstView"
-            android:layout_below="@+id/mobile"/>
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/createdOn"
+            android:background="@color/divider_color" />
 
 
         <View
@@ -48,16 +85,77 @@
             android:layout_width="6dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/firstView"
-            android:background="@color/colorPrimary" />
+            android:background="@color/green_color" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/editSaveContainer"
+        android:layout_below="@+id/secondContainer"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:id="@+id/addressContainer"
+            android:layout_width="match_parent"
+            android:background="@color/white_color"
+            android:layout_marginLeft="@dimen/margin_6"
+            android:layout_height="200dp">
+
+            <TextView
+                android:id="@+id/addressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:textColor="@color/black_color"
+                android:textSize="16sp"
+                android:text="Address"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addressText"
+                tools:text="Silk board"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_8"/>
+
+
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/ticketButton"
+            android:layout_marginBottom="-16dp"
+           android:layout_alignBottom="@+id/addressContainer"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ticket_green"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/notes"
+            android:layout_width="wrap_content"
+            tools:text="Hakuma"
+            android:layout_marginTop="@dimen/margin_32"
+            android:textColor="@color/white_color"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_below="@+id/addressContainer"
+            android:layout_height="wrap_content" />
+
 
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/dateTimeContainer"
+        android:id="@+id/editSaveContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/timeToCallText"
         android:layout_alignParentBottom="true"
+        android:layout_below="@+id/timeToCallText"
         android:layout_marginTop="@dimen/margin_12"
         android:orientation="horizontal"
         android:weightSum="2">

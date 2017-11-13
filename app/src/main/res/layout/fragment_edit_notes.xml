@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_height="wrap_content"></Spinner>
+    
+    <EditText
+        android:id="@+id/firstName"
+        android:layout_width="match_parent"
+        android:hint="First Name"
+        android:layout_below="@+id/spinner"
+        android:layout_margin="@dimen/margin_16"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/lastName"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/firstName"
+        android:hint="Last Name"
+        android:layout_margin="@dimen/margin_16"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/lastName"
+        android:hint="Address"
+        android:layout_margin="@dimen/margin_16"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/typeNotes"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/address"
+        android:hint="Type Notes"
+        android:layout_margin="@dimen/margin_16"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
