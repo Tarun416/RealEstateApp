@@ -7,7 +7,7 @@ import com.example.tarun.talismanpi.R
 import kotlinx.android.synthetic.main.toolbar_customer_details.*
 
 /**
- * Created by varun on 11/10/17.
+ * Created by tarun on 11/10/17.
  */
 class ProfileActivity : AppCompatActivity()
 {

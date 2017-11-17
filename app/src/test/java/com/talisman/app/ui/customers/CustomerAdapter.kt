@@ -10,7 +10,7 @@ import com.example.tarun.talismanpi.R
 import kotlinx.android.synthetic.main.customer_items.view.*
 
 /**
- * Created by varun on 11/9/17.
+ * Created by tarun on 11/9/17.
  */
 class CustomerAdapter(private var context: Context, private var customerClickListener: OnCustomerClick) : RecyclerView.Adapter<CustomerAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {

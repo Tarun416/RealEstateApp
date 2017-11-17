@@ -12,7 +12,7 @@ import com.talisman.app.ui.recentcalldetails.RecentCallActivity
 import kotlinx.android.synthetic.main.fragment_recent_call.*
 
 /**
- * Created by varun on 11/9/17.
+ * Created by tarun on 11/9/17.
  */
 class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener
 {

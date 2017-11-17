@@ -10,7 +10,7 @@ import com.example.tarun.talismanpi.R
 import kotlinx.android.synthetic.main.recent_call_items.view.*
 
 /**
- * Created by varun on 11/9/17.
+ * Created by tarun on 11/9/17.
  */
 class RecentCallAdapter(private var context: Context, private var callClickListener : ItemClickListener) : RecyclerView.Adapter<RecentCallAdapter.ViewHolder>()
 {

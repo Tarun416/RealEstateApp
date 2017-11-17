@@ -12,7 +12,7 @@ import com.mindorks.placeholderview.annotations.View
 
 
 /**
- * Created by varun on 11/8/17.
+ * Created by tarun on 11/8/17.
  */
 @Layout(R.layout.drawer_item)
 class DrawerMenuItem(private val mContext: Context, private val mMenuPosition: Int,private var mCallBack: DrawerCallBack) {

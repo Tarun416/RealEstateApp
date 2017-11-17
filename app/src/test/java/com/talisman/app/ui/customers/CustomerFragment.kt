@@ -12,10 +12,9 @@ import com.talisman.app.ui.customerdetails.CustomerDetailActivity
 import kotlinx.android.synthetic.main.fragment_customers.*
 
 /**
- * Created by varun on 11/9/17.
+ * Created by tarun on 11/9/17.
  */
-class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick
-{
+class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick {
     private lateinit var customerAdapter: CustomerAdapter
 
     companion object {
@@ -31,24 +30,24 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_customers,container,false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater?.inflate(R.layout.fragment_customers, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
     }
 
     private fun setRecyclerView() {
-        customerRecyclerView.layoutManager= LinearLayoutManager(activity)
+        customerRecyclerView.layoutManager = LinearLayoutManager(activity)
         customerRecyclerView.setHasFixedSize(true)
-        customerAdapter=CustomerAdapter(activity,this@CustomerFragment)
-        customerRecyclerView.adapter=customerAdapter
+        customerAdapter = CustomerAdapter(activity, this@CustomerFragment)
+        customerRecyclerView.adapter = customerAdapter
     }
 
     override fun onCustomerClick() {
-        startActivity(Intent(activity,CustomerDetailActivity::class.java))
+        startActivity(Intent(activity, CustomerDetailActivity::class.java))
     }
 
 

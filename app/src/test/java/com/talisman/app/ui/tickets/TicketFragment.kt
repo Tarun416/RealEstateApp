@@ -12,12 +12,11 @@ import com.talisman.app.ui.ticketdetails.TicketDetailsActivity
 import kotlinx.android.synthetic.main.fragment_tickets.*
 
 /**
- * Created by varun on 11/9/17.
+ * Created by tarun on 11/9/17.
  */
-class TicketFragment : Fragment(), TicketAdapter.OnTicketClick
-{
+class TicketFragment : Fragment(), TicketAdapter.OnTicketClick {
 
-    private lateinit var ticketAdapter : TicketAdapter
+    private lateinit var ticketAdapter: TicketAdapter
 
     companion object {
         /**
@@ -34,7 +33,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_tickets,container,false)
+        return inflater?.inflate(R.layout.fragment_tickets, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -43,14 +42,14 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick
     }
 
     private fun setRecyclerView() {
-        ticketRecyclerView.layoutManager= LinearLayoutManager(activity)
+        ticketRecyclerView.layoutManager = LinearLayoutManager(activity)
         ticketRecyclerView.setHasFixedSize(true)
-        ticketAdapter=TicketAdapter(activity,this@TicketFragment)
-        ticketRecyclerView.adapter=ticketAdapter
+        ticketAdapter = TicketAdapter(activity, this@TicketFragment)
+        ticketRecyclerView.adapter = ticketAdapter
     }
 
     override fun onTicketClick() {
-        startActivity(Intent(activity,TicketDetailsActivity::class.java))
+        startActivity(Intent(activity, TicketDetailsActivity::class.java))
     }
 
 }

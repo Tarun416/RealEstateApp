@@ -11,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 /**
- * Created by varun on 11/8/17.
+ * Created by tarun on 11/8/17.
  */
 class SplashActivity : AppCompatActivity()
 {

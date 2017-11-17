@@ -1,26 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/divider_color"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/searchContainer"
         android:background="@drawable/white_curved_rectangle"
         android:layout_margin="@dimen/margin_16"
-        android:id="@+id/search"
-        android:hint="Search"
-        android:padding="@dimen/margin_12"
-        android:textSize="12sp"
-        android:singleLine="true"
-        />
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/margin_12"
+            android:singleLine="true"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_12"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_cancel_black"/>
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/customerRecyclerView"
         android:layout_width="match_parent"
-        android:background="@color/white_color"
         android:layout_height="match_parent"
-        android:layout_below="@+id/search"></android.support.v7.widget.RecyclerView>
+        android:layout_below="@+id/searchContainer"
+        android:background="@color/white_color"></android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/createTicket"
+        android:text="CREATE TICKET"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"/>
+
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_below="@+id/createTicket"
+        android:layout_marginRight="@dimen/margin_16"
+        android:id="@+id/selectStatus"
+        android:layout_marginTop="@dimen/margin_24"></Spinner>
+
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_below="@+id/selectStatus"
+        android:id="@+id/selectPriority"
+        android:layout_marginTop="@dimen/margin_24"></Spinner>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:hint="Agent Name"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_below="@+id/selectPriority"
+        android:layout_marginTop="@dimen/margin_24"
+        android:id="@+id/agentName"/>
+
+    <EditText
+        android:id="@+id/problem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:hint="Problem"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_below="@+id/agentName"
+        android:layout_marginTop="@dimen/margin_24" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:hint="Resolution"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_below="@+id/problem"
+        android:layout_marginTop="@dimen/margin_24" />
+
+
+
+</RelativeLayout>

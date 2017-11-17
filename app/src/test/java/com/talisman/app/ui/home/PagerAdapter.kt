@@ -9,7 +9,7 @@ import com.talisman.app.ui.tickets.TicketFragment
 
 
 /**
- * Created by varun on 11/9/17.
+ * Created by tarun on 11/9/17.
  */
 class PagerAdapter(fm: FragmentManager, private var mNumOfTabs: Int) : FragmentStatePagerAdapter(fm) {
 

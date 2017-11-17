@@ -156,7 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/timeToCallText"
-        android:layout_marginTop="@dimen/margin_12"
+
         android:orientation="horizontal"
         android:weightSum="2">
 

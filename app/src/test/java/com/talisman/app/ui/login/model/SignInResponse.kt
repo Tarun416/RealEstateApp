@@ -4,10 +4,10 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
 /**
- * Created by varun on 11/8/17.
+ * Created by Tarun on 11/17/17.
  */
 @Entity()
-class LoginResponse()
+class SignInResponse()
 {
     @PrimaryKey(autoGenerate = true)
     var uid: Long?=0

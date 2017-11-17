@@ -10,7 +10,7 @@ import com.talisman.app.ui.customers.CustomerAdapter
 import kotlinx.android.synthetic.main.ticket_items.view.*
 
 /**
- * Created by varun on 11/9/17.
+ * Created by tarun on 11/9/17.
  */
 class TicketAdapter(private var context: Context,private var ticketClickListener: OnTicketClick) : RecyclerView.Adapter<TicketAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {

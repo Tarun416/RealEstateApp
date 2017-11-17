@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 
 /**
- * Created by varun on 11/8/17.
+ * Created by tarun on 11/8/17.
  */
 class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
 

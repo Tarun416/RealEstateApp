@@ -11,7 +11,7 @@ import com.mindorks.placeholderview.annotations.View
 
 
 /**
- * Created by varun on 11/8/17.
+ * Created by tarun on 11/8/17.
  */
 @NonReusable
 @Layout(R.layout.drawer_header)

@@ -15,6 +15,14 @@
        android:layout_below="@+id/toolbar"
        android:background="@color/divider_color"
        android:elevation="6dp"
+       app:tabIndicatorColor="@color/green_color"
+       app:pstsDividerColor="@android:color/transparent"
+       app:pstsDividerWidth="1dp"
+       app:tabIndicatorHeight="2.5dp"
+       app:pstsIndicatorColor="@color/white_color"
+       app:pstsIndicatorHeight="4dp"
+       app:pstsShouldExpand="true"
+       app:pstsUnderlineHeight="0dp"
       />
 
    <android.support.v4.view.ViewPager
