@@ -1,5 +1,6 @@
 package com.talisman.app
 
+import com.talisman.app.ui.forgotpassword.model.ForgotPasswordResponse
 import com.talisman.app.ui.login.model.LogInResponse
 import io.reactivex.Flowable
 import retrofit2.http.Body
@@ -13,4 +14,7 @@ interface ApiInterface {
 
     @POST("login")
     fun login(@Body loginHashMap : HashMap<String,String> ) : Flowable<LogInResponse>
+
+    @POST("forgot_password")
+    fun forgotPassword(@Body forgotPwdHashMap : HashMap<String,String>) : Flowable<ForgotPasswordResponse>
 }

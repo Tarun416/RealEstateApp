@@ -4,14 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.example.tarun.kotlin.isEmailValid
 import com.example.tarun.talismanpi.R
+import com.jakewharton.rxbinding.widget.RxTextView
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.ui.forgotpassword.ForgotPasswordActivity
 import com.talisman.app.ui.home.HomeActivity
 import com.talisman.app.utils.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_login.*
+import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
 /**
@@ -22,6 +25,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
     @Inject
     lateinit var loginPresenter: LoginPresenter
 
+    private var compositeSubscription: CompositeSubscription = CompositeSubscription()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -31,8 +36,22 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
                 .loginModule(LoginModule(this@LoginActivity))
                 .build().inject(this@LoginActivity)
 
+
+        initUi()
+    }
+
+    private fun initUi() {
         loginButton.setOnClickListener(this)
         forgotPassword.setOnClickListener(this)
+
+        val pwdETDoneSub = RxTextView.editorActionEvents(password).subscribe { textViewEditorActionEvent ->
+            if (textViewEditorActionEvent.actionId() == EditorInfo.IME_ACTION_DONE) {
+                KeyboardUtils.hideKeyboard(this@LoginActivity, password)
+                loginButton.callOnClick()
+            }
+        }
+
+        compositeSubscription.add(pwdETDoneSub)
     }
 
     override fun onClick(p0: View?) {
@@ -100,6 +119,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
 
     override fun onDestroy() {
         super.onDestroy()
+        compositeSubscription.unsubscribe()
         loginPresenter.onStop()
     }
 
