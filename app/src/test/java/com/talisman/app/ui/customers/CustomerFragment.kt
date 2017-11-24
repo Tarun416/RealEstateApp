@@ -7,15 +7,24 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.tarun.talismanpi.R
+import com.talisman.app.TalismanPiApplication
 import com.talisman.app.ui.customerdetails.CustomerDetailActivity
+import com.talisman.app.ui.customers.model.Entry
 import kotlinx.android.synthetic.main.fragment_customers.*
+import javax.inject.Inject
 
 /**
  * Created by tarun on 11/9/17.
  */
-class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick {
+class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnClickListener, CustomerContract.View {
+
     private lateinit var customerAdapter: CustomerAdapter
+    private lateinit var customerList : ArrayList<Entry>
+
+    @Inject
+    lateinit var customerPresenter: CustomerPresenter
 
     companion object {
         /**
@@ -36,19 +45,102 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        DaggerCustomerComponent.builder()
+                .netComponent(TalismanPiApplication.mNetComponent)
+                .customerModule(CustomerModule(this@CustomerFragment))
+                .build().inject(this@CustomerFragment)
+        initUi()
+
+        customerPresenter.crmLogin()
+
+    }
+
+    private fun initUi() {
+        customerList= ArrayList()
         setRecyclerView()
+        clear_search.setOnClickListener(this)
     }
 
     private fun setRecyclerView() {
         customerRecyclerView.layoutManager = LinearLayoutManager(activity)
         customerRecyclerView.setHasFixedSize(true)
-        customerAdapter = CustomerAdapter(activity, this@CustomerFragment)
+        customerAdapter = CustomerAdapter(activity, this@CustomerFragment,customerList)
         customerRecyclerView.adapter = customerAdapter
     }
 
     override fun onCustomerClick() {
         startActivity(Intent(activity, CustomerDetailActivity::class.java))
     }
+
+    override fun onClick(p0: View?) {
+        when (p0!!.id) {
+            R.id.clear_search -> search.text.clear()
+        }
+    }
+
+    override val isNetworkConnected: Boolean
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+
+    override fun showProgress(message: String) {
+
+    }
+
+    override fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        progressBar.visibility = View.GONE
+    }
+
+    override fun onUnknownError(message: String, error: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onTimeout() {
+
+    }
+
+    override fun onNetworkError() {
+
+    }
+
+    override fun onFailure(errorMsg: String) {
+
+    }
+
+    override fun onConnectionError() {
+
+    }
+
+    override fun crmLoginDone() {
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        customerPresenter.onStop()
+    }
+
+    override fun showCustomers(entry_list: List<Entry>) {
+        customerList.clear()
+        searchContainer.visibility=View.VISIBLE
+        customerRecyclerView.visibility=View.VISIBLE
+        emptyText.visibility=View.GONE
+        customerList.addAll(entry_list)
+        customerAdapter.notifyDataSetChanged()
+    }
+
+    override fun onError(message: String?) {
+      Toast.makeText(activity,message,Toast.LENGTH_LONG).show()
+      searchContainer.visibility=View.GONE
+      customerRecyclerView.visibility=View.GONE
+      emptyText.visibility=View.VISIBLE
+
+    }
+
 
 
 }

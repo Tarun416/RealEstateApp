@@ -7,15 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.tarun.talismanpi.R
+import com.talisman.app.ui.customers.model.Entry
 import kotlinx.android.synthetic.main.customer_items.view.*
+import java.security.KeyStore
 
 /**
  * Created by tarun on 11/9/17.
  */
-class CustomerAdapter(private var context: Context, private var customerClickListener: OnCustomerClick) : RecyclerView.Adapter<CustomerAdapter.ViewHolder>() {
+class CustomerAdapter(private var context: Context, private var customerClickListener: OnCustomerClick, private var customerList : ArrayList<Entry>) : RecyclerView.Adapter<CustomerAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder!!.initialText.text = "S"
-        holder!!.name.text = "Ananya"
+        holder!!.name.text = customerList[position].name_value_list.first_name.value
 
         holder.customerContainer.setOnClickListener {
             customerClickListener.onCustomerClick()
@@ -23,7 +25,7 @@ class CustomerAdapter(private var context: Context, private var customerClickLis
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return customerList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

@@ -11,6 +11,14 @@ class Constants
         val PASSWORD = "password"
         val DEVICE_ID = "deviceId"
         val OS_VERSION = "osVersion"
+        val LOGIN_DONE = "tutorial_done"
+        val CONTENT_TYPE = "application/json"
+        val DEVELOPER_ID = "c2ac"
+        val APP_TYPE = "mobileapp"
+        val ACTUAL_NUMBER = "x-actual-number"
+        val REFERENCE_NO ="x-business-id"
+        val AGENT_NO = "agentNo"
+        val BUSINESS_ID = "businessId"
     }
 
 }

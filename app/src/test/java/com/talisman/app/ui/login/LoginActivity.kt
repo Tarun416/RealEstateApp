@@ -10,6 +10,7 @@ import com.example.tarun.kotlin.isEmailValid
 import com.example.tarun.talismanpi.R
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.talisman.app.TalismanPiApplication
+import com.talisman.app.TalismanPiPreferences
 import com.talisman.app.ui.forgotpassword.ForgotPasswordActivity
 import com.talisman.app.ui.home.HomeActivity
 import com.talisman.app.utils.KeyboardUtils
@@ -24,6 +25,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
 
     @Inject
     lateinit var loginPresenter: LoginPresenter
+
+    @Inject
+    lateinit var preferences : TalismanPiPreferences
 
     private var compositeSubscription: CompositeSubscription = CompositeSubscription()
 
@@ -113,8 +117,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
     }
 
     override fun login() {
+        preferences.loginDone=true
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     override fun onDestroy() {

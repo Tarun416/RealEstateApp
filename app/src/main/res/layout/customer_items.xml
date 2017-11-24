@@ -26,7 +26,7 @@
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_toLeftOf="@+id/call"
         android:layout_toRightOf="@+id/customerInitialText"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         tools:text="Ananya sinhaa sharma in the rain  " />
 

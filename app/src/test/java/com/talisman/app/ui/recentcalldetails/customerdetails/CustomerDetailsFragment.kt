@@ -1,4 +1,4 @@
-package com.talisman.app.ui.recentcalldetails
+package com.talisman.app.ui.recentcalldetails.customerdetails
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,8 +6,9 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.tarun.talismanpi.R
-import kotlinx.android.synthetic.main.fragment_schedule.*
+import kotlinx.android.synthetic.main.fragment_call_customer_details.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import java.util.*
@@ -16,15 +17,15 @@ import java.util.*
 /**
  * Created by tarun on 11/10/17.
  */
-class ScheduleFragment : Fragment(), View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+class CustomerDetailsFragment : Fragment(), View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     companion object {
         /**
          * new instance pattern for fragment
          */
         @JvmStatic
-        fun newInstance(): ScheduleFragment {
-            val fragment = ScheduleFragment()
+        fun newInstance(): CustomerDetailsFragment {
+            val fragment = CustomerDetailsFragment()
             val args = Bundle()
             fragment.arguments = args
             return fragment
@@ -32,7 +33,7 @@ class ScheduleFragment : Fragment(), View.OnClickListener, DatePickerDialog.OnDa
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_schedule, container, false)
+        return inflater?.inflate(R.layout.fragment_call_customer_details, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -59,15 +60,24 @@ class ScheduleFragment : Fragment(), View.OnClickListener, DatePickerDialog.OnDa
 
 
             R.id.time -> {
-                val now = Calendar.getInstance()
-                val tpd = TimePickerDialog.newInstance(
-                        this,
-                        now.get(Calendar.HOUR),
-                        now.get(Calendar.MINUTE),
-                        false)
-                tpd.setMinTime(now.get(Calendar.HOUR), now.get(Calendar.MINUTE), now.get(Calendar.SECOND))
-                tpd.accentColor = ContextCompat.getColor(activity, R.color.green_color)
-                tpd.show(activity.fragmentManager, "Timepickerdialog")
+                when {
+                    date.text.toString().equals("set date",true) -> {
+                        Toast.makeText(activity,"Please select date first",Toast.LENGTH_LONG).show()
+                        return
+                    }
+                    else -> {
+                        val now = Calendar.getInstance()
+                        val tpd = TimePickerDialog.newInstance(
+                                this,
+                                now.get(Calendar.HOUR),
+                                now.get(Calendar.MINUTE),
+                                false)
+                        tpd.setMinTime(now.get(Calendar.HOUR), now.get(Calendar.MINUTE), now.get(Calendar.SECOND))
+                        tpd.accentColor = ContextCompat.getColor(activity, R.color.green_color)
+                        tpd.show(activity.fragmentManager, "Timepickerdialog")
+
+                    }
+                }
 
             }
 
@@ -77,6 +87,9 @@ class ScheduleFragment : Fragment(), View.OnClickListener, DatePickerDialog.OnDa
 
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         date.text = dayOfMonth.toString() + "/" + monthOfYear.toString() + "/" + year.toString()
+        when {
+            time.text.toString().equals("set time",true) -> time.callOnClick()
+        }
     }
 
     override fun onTimeSet(view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int) {

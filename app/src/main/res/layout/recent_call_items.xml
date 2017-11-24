@@ -23,7 +23,6 @@
         android:paddingTop="@dimen/margin_8"
         android:paddingBottom="@dimen/margin_8"
         android:layout_marginLeft="@dimen/margin_12"
-        android:layout_toLeftOf="@+id/date"
         android:layout_toRightOf="@+id/callStatusIcon"
         android:orientation="vertical">
 
@@ -31,31 +30,34 @@
             android:id="@+id/nameOrNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             tools:text="Ananya sinhaa sharma singh" />
 
 
         <TextView
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin4"
             android:visibility="visible"
-            android:textSize="14sp"
-            android:text="Answered by dedicated desk"
+            android:textSize="12sp"
+            android:text="11:08:08 PM"
             tools:visibility="visible" />
 
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/date"
+    <ImageView
+        android:id="@+id/call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_marginRight="@dimen/margin_16"
+        android:src="@drawable/ic_call_black"
+        android:textSize="12sp"
         android:gravity="right"
         tools:text="12:30 AM" />
 

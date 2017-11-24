@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include layout="@layout/toolbar_customer_details"/>
@@ -21,6 +23,8 @@
         android:layout_below="@+id/firstNameText"
         android:layout_marginLeft="@dimen/margin_16"
         android:textColor="@color/black_color"
+        tools:text="Akdk"
+        android:textSize="14sp"
         android:layout_marginRight="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_height="wrap_content" />
@@ -41,6 +45,7 @@
         android:layout_below="@+id/lastNameText"
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_marginRight="@dimen/margin_16"
+        android:textSize="14sp"
         android:textColor="@color/black_color"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_height="wrap_content" />
@@ -61,6 +66,7 @@
         android:layout_below="@+id/phoneNumberText"
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_marginRight="@dimen/margin_16"
+        android:textSize="14sp"
         android:textColor="@color/black_color"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_height="wrap_content" />
@@ -84,6 +90,7 @@
         android:layout_marginRight="@dimen/margin_16"
         android:textColor="@color/black_color"
         android:layout_marginTop="@dimen/margin_8"
+        android:textSize="14sp"
         android:layout_height="wrap_content" />
 
 
@@ -102,6 +109,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/notesText"
         android:layout_marginLeft="@dimen/margin_16"
+        android:textSize="14sp"
         android:layout_marginRight="@dimen/margin_16"
         android:textColor="@color/black_color"
         android:layout_marginTop="@dimen/margin_8"

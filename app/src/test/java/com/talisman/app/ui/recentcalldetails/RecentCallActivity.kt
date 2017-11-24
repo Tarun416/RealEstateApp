@@ -31,7 +31,7 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recent_calls)
         setSupportActionBar(toolbar)
-        toolbarText.text = "Recent Calls"
+        toolbarText.text = "Customer"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -52,7 +52,7 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         tabs.setupWithViewPager(pager)
 
         tabOne = LayoutInflater.from(this).inflate(R.layout.custom_tab, null) as TextView
-        tabOne.text = "Schedule"
+        tabOne.text = "Details"
         tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.selector_schedule, 0, 0)
         tabs.getTabAt(0)!!.customView = tabOne
 
@@ -62,12 +62,12 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         tabs.getTabAt(1)!!.customView = tabTwo
 
         tabThree = LayoutInflater.from(this).inflate(R.layout.custom_tab, null) as TextView
-        tabThree.text = "SMS"
+        tabThree.text = "Tickets"
         tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.selector_sms, 0, 0)
         tabs.getTabAt(2)!!.customView = tabThree
 
         tabFour = LayoutInflater.from(this).inflate(R.layout.custom_tab, null) as TextView
-        tabFour.text = "Call Back"
+        tabFour.text = "Call History"
         tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.selector_callback, 0, 0)
         tabs.getTabAt(3)!!.customView = tabFour
 

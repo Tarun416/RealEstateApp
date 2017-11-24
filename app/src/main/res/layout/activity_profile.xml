@@ -99,39 +99,6 @@
             tools:text="+91939393993" />
 
 
-        <TextView
-            android:id="@+id/changePasswordText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mobileNumber"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_32"
-            android:text="Change Password"
-            android:textColor="@color/black_color"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-
-        <EditText
-            android:id="@+id/oldPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/changePasswordText"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:layout_marginRight="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_8"
-            android:hint="Old Password" />
-
-        <EditText
-            android:id="@+id/newPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/oldPassword"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:layout_marginRight="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:hint="New Password" />
-
 
     </RelativeLayout>
 </ScrollView>

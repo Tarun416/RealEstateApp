@@ -2,10 +2,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/divider_color"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:elevation="2dp"
+        android:id="@+id/progressBar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emptyView"
+        android:layout_centerInParent="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:text="No Recent Calls"/>
 
     <RelativeLayout
         android:id="@+id/searchContainer"
@@ -22,13 +42,16 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:hint="Search"
+            android:layout_toLeftOf="@+id/clear_search"
             android:padding="@dimen/margin_12"
             android:singleLine="true"
             android:textSize="12sp" />
 
         <ImageView
+            android:id="@+id/clear_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_4"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_12"

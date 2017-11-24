@@ -7,16 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.tarun.talismanpi.R
+import com.talisman.app.ui.recentcalls.model.CDRJSON
+import com.talisman.app.ui.recentcalls.model.RecentCallResponse
 import kotlinx.android.synthetic.main.recent_call_items.view.*
+import java.text.SimpleDateFormat
 
 /**
  * Created by tarun on 11/9/17.
  */
-class RecentCallAdapter(private var context: Context, private var callClickListener : ItemClickListener) : RecyclerView.Adapter<RecentCallAdapter.ViewHolder>()
+class RecentCallAdapter(private var context: Context, private var callClickListener : ItemClickListener , private var recentCallList : ArrayList<CDRJSON>) : RecyclerView.Adapter<RecentCallAdapter.ViewHolder>()
 {
+    private val simpledateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    var df1 = SimpleDateFormat("d/MMM/yyyy HH:mm:ss")
+
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder!!.name.text="Ananya Chauhan"
-        holder!!.date.text="11:37 PM"
+        holder!!.name.text=recentCallList[position].cli
+        holder!!.date.text=df1.format(simpledateFormat.parse(recentCallList[position].startTime))
         holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_call_missed))
 
         holder.recentCallContainer.setOnClickListener {
@@ -25,7 +31,7 @@ class RecentCallAdapter(private var context: Context, private var callClickListe
     }
 
     override fun getItemCount(): Int {
-         return 10
+         return recentCallList.size
     }
 
     interface ItemClickListener

@@ -12,4 +12,11 @@
     <string name="recent_calls">Recent Calls</string>
     <string name="customers">Customers</string>
     <string name="tickets">Tickets</string>
+    <string name="sort_by">Sort By</string>
+    <string name="newText">New</string>
+    <string name="open">Open</string>
+    <string name="clear">Clear</string>
+    <string name="closed">Close</string>
+    <string name="edit">Edit</string>
+    <string name="done">Done</string>
 </resources>

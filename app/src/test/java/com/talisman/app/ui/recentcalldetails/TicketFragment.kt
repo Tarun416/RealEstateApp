@@ -10,15 +10,15 @@ import com.example.tarun.talismanpi.R
 /**
  * Created by tarun on 11/10/17.
  */
-class CallBackFragment : Fragment()
+class TicketFragment : Fragment()
 {
     companion object {
         /**
          * new instance pattern for fragment
          */
         @JvmStatic
-        fun newInstance(): CallBackFragment {
-            val fragment = CallBackFragment()
+        fun newInstance(): TicketFragment {
+            val fragment = TicketFragment()
             val args = Bundle()
             fragment.arguments = args
             return fragment
@@ -26,7 +26,7 @@ class CallBackFragment : Fragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_callback,container,false)
+        return inflater?.inflate(R.layout.fragment_recentcall_tickets,container,false)
     }
 
 }

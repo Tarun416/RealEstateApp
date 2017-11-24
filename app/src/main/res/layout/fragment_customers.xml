@@ -5,6 +5,24 @@
     android:background="@color/divider_color"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:elevation="2dp"
+        android:layout_centerInParent="true"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="No Customer Found"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:id="@+id/emptyText"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:id="@+id/searchContainer"
@@ -18,19 +36,23 @@
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search"
             android:background="@android:color/transparent"
+            android:hint="Search"
+            android:layout_toLeftOf="@+id/clear_search"
             android:padding="@dimen/margin_12"
             android:singleLine="true"
             android:textSize="12sp" />
 
         <ImageView
+            android:id="@+id/clear_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_4"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_12"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_cancel_black"/>
+            android:src="@drawable/ic_cancel_black" />
+
 
     </RelativeLayout>
 

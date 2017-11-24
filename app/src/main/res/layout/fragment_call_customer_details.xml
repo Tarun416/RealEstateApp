@@ -12,21 +12,22 @@
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_marginRight="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"
-        android:text="Customer Name"
+        android:text="Name"
         android:textColor="@color/black_color"
         android:textSize="16sp" />
 
 
-    <TextView
+    <EditText
         android:id="@+id/customerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:layout_below="@+id/customerText"
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_marginRight="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_8"
         android:textSize="14sp"
-        tools:text="Rohil Saluja" />
+        android:text="Rohil Saluja" />
 
 
     <TextView
@@ -37,40 +38,80 @@
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_marginRight="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_24"
-        android:text="Customer Number"
+        android:text="Number"
         android:textColor="@color/black_color"
         android:textSize="16sp" />
 
 
-    <TextView
+    <EditText
         android:id="@+id/customerNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/customerNumberText"
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_marginRight="@dimen/margin_16"
+        android:enabled="false"
         android:layout_marginTop="@dimen/margin_8"
         android:textSize="14sp"
         tools:text="+919292882828" />
 
-
     <TextView
-        android:id="@+id/timeToCallText"
+        android:id="@+id/addressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/customerNumber"
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_marginRight="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_24"
-        android:text="Time To Call"
+        android:text="Address"
         android:textColor="@color/black_color"
         android:textSize="16sp" />
+
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:layout_below="@+id/addressText"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_8"
+        android:textSize="14sp"
+        tools:text="332/555 njdjndjdcd  jjdjdm" />
+
+
+    <TextView
+        android:id="@+id/timeToCallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/margin_24"
+        android:text="Schedule a Call"
+        android:textColor="@color/black_color"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/scheduleCallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeToCallText"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_4"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:text="Call has been set to 13feb 17"
+        android:textColor="@android:color/holo_red_dark"/>
 
     <LinearLayout
         android:id="@+id/dateTimeContainer"
         android:layout_width="match_parent"
+        android:visibility="visible"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/timeToCallText"
+        android:layout_below="@+id/scheduleCallText"
         android:layout_marginTop="@dimen/margin_12"
         android:orientation="horizontal"
         android:weightSum="2">
@@ -100,6 +141,7 @@
         android:layout_height="42dp"
         android:layout_centerHorizontal="true"
         android:paddingRight="@dimen/margin_64"
+        android:visibility="gone"
         android:text="Submit"
         android:paddingLeft="@dimen/margin_64"
         android:id="@+id/submit"

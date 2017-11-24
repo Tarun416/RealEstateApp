@@ -35,6 +35,7 @@ class NetModule(baseUrl: String,application: TalismanPiApplication) {
         return cache
     }
 
+
     // Dagger will only look for methods annotated with @Provides
     @Provides
     @Singleton

@@ -77,5 +77,11 @@
             >
         </activity>
 
+        <activity
+            android:name="com.talisman.app.ui.settings.SettingsActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
     </application>
 </manifest>

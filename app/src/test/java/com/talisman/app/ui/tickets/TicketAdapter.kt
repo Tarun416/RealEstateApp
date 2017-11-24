@@ -7,22 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.tarun.talismanpi.R
 import com.talisman.app.ui.customers.CustomerAdapter
+import com.talisman.app.ui.tickets.model.Entry
 import kotlinx.android.synthetic.main.ticket_items.view.*
 
 /**
  * Created by tarun on 11/9/17.
  */
-class TicketAdapter(private var context: Context,private var ticketClickListener: OnTicketClick) : RecyclerView.Adapter<TicketAdapter.ViewHolder>() {
+class TicketAdapter(private var context: Context,private var ticketClickListener: OnTicketClick, private var ticketList : ArrayList<Entry>) : RecyclerView.Adapter<TicketAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder!!.ticketNo.text = "Ticket No : 223"
-        holder.problem.text = "Hardware problem"
+        holder!!.ticketNo.text = "Ticket No : "+ticketList[position].name_value_list.case_number.value
+        holder.problem.text = ticketList[position].name_value_list.description.value
         holder.ticketContainer.setOnClickListener{
             ticketClickListener.onTicketClick()
         }
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return ticketList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

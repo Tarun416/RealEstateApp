@@ -10,11 +10,14 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.tarun.talismanpi.R
+import com.talisman.app.TalismanPiPreferences
 
 import com.talisman.app.ui.drawer.DrawerHeader
 import com.talisman.app.ui.drawer.DrawerMenuItem
+import com.talisman.app.ui.login.LoginActivity
 import com.talisman.app.ui.notifications.NotificationActivity
 import com.talisman.app.ui.profile.ProfileActivity
+import com.talisman.app.ui.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 
@@ -24,6 +27,7 @@ import kotlinx.android.synthetic.main.toolbar_home.*
 class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
 
     private lateinit var pagerAdapter: PagerAdapter
+    val preference = TalismanPiPreferences()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +40,7 @@ class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
     }
 
     private fun setUpDrawer() {
-        drawerView.addView(DrawerHeader("", "Ananya", "2232323232"))
+        drawerView.addView(DrawerHeader("", "Test", preference.agentNo!!))
                 .addView(DrawerMenuItem(this.applicationContext, DrawerMenuItem.DRAWER_MENU_ITEM_HOME, this))
                 .addView(DrawerMenuItem(this.applicationContext, DrawerMenuItem.DRAWER_MENU_ITEM_PROFILE, this))
                 .addView(DrawerMenuItem(this.applicationContext, DrawerMenuItem.DRAWER_MENU_ITEM_SETTINGS, this))
@@ -56,11 +60,13 @@ class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
 
     override fun onProfileMenuSelected() {
         drawerLayout.closeDrawer(Gravity.START)
-        startActivity(Intent(this@HomeActivity,ProfileActivity::class.java))
+        startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
     }
 
     override fun onSettingsMenuSelected() {
         drawerLayout.closeDrawer(Gravity.START)
+        startActivity(Intent(this@HomeActivity, SettingsActivity::class.java))
+
     }
 
     override fun onAboutMenuSelected() {
@@ -69,16 +75,20 @@ class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
 
     override fun onLogoutMenuSelected() {
         drawerLayout.closeDrawer(Gravity.START)
+        preference.loginDone = false
+        startActivity(Intent(this@HomeActivity, LoginActivity::class.java))
+        finish()
+
     }
 
     private fun setViewPager() {
-        tab_layout.addTab( tab_layout.newTab().setText(getString(R.string.recent_calls)))
-        tab_layout.addTab( tab_layout.newTab().setText(getString(R.string.customers)))
-        tab_layout.addTab( tab_layout.newTab().setText(getString(R.string.tickets)))
+        tab_layout.addTab(tab_layout.newTab().setText(getString(R.string.recent_calls)))
+        tab_layout.addTab(tab_layout.newTab().setText(getString(R.string.customers)))
+        tab_layout.addTab(tab_layout.newTab().setText(getString(R.string.tickets)))
         tab_layout.tabGravity = TabLayout.GRAVITY_FILL
 
-        pagerAdapter= PagerAdapter(supportFragmentManager,tab_layout.tabCount)
-        pager.adapter=pagerAdapter
+        pagerAdapter = PagerAdapter(supportFragmentManager, tab_layout.tabCount)
+        pager.adapter = pagerAdapter
 
         pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
         tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -97,18 +107,16 @@ class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main,menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId)
-        {
-            R.id.notificationIcon -> startActivity(Intent(this@HomeActivity,NotificationActivity::class.java))
+        when (item!!.itemId) {
+            R.id.notificationIcon -> startActivity(Intent(this@HomeActivity, NotificationActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
-
 
 
 }

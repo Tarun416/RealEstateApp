@@ -3,6 +3,7 @@ package com.talisman.app.ui.recentcalldetails
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import com.talisman.app.ui.recentcalldetails.customerdetails.CustomerDetailsFragment
 
 /**
  * Created by tarun on 11/10/17.
@@ -13,16 +14,16 @@ class PagerAdapter(fm: FragmentManager, private var mNumOfTabs: Int) : FragmentS
 
         return when (position) {
             0 -> {
-                ScheduleFragment()
+                CustomerDetailsFragment()
             }
             1 -> {
                 NotesFragment()
             }
             2 -> {
-                SMSFragment()
+                TicketFragment()
             }
             3 -> {
-                CallBackFragment()
+                CallHistoryFragment()
             }
             else -> null
         }
