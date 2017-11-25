@@ -1,182 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/firstContainer"
-        android:layout_width="match_parent"
-        android:background="@color/white_color"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_toRightOf="@+id/firstVerticalView"
-            android:textColor="@color/black_color"
-            android:textSize="16sp"
-            tools:text="Rohit saluja" />
-
-
-        <TextView
-            android:id="@+id/mobile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_toRightOf="@+id/firstVerticalView"
-            android:textSize="16sp"
-            tools:text="Mobile : +919883444444" />
-
-
-        <View
-            android:id="@+id/firstHorizontalView"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/mobile"
-            android:background="@color/divider_color" />
-
-
-        <View
-            android:id="@+id/firstVerticalView"
-            android:layout_width="6dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/firstHorizontalView"
-            android:background="@color/colorPrimary" />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/secondContainer"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/createNewNoteText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white_color"
-        android:layout_below="@+id/firstContainer">
-
-        <TextView
-            android:id="@+id/createdOn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_toRightOf="@+id/view"
-            android:textSize="16sp"
-            tools:text="Created On: 01/02/2929 06:44:$4AM" />
-
-        <View
-            android:id="@+id/firstView"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/createdOn"
-            android:background="@color/divider_color" />
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:text="Create New Note :"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="6dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/firstView"
-            android:background="@color/green_color" />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/editSaveContainer"
-        android:layout_below="@+id/secondContainer"
-        android:background="@color/colorPrimary">
-
-        <RelativeLayout
-            android:id="@+id/addressContainer"
-            android:layout_width="match_parent"
-            android:background="@color/white_color"
-            android:layout_marginLeft="@dimen/margin_6"
-            android:layout_height="200dp">
-
-            <TextView
-                android:id="@+id/addressText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_16"
-                android:textColor="@color/black_color"
-                android:textSize="16sp"
-                android:text="Address"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/addressText"
-                tools:text="Silk board"
-                android:layout_marginLeft="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_8"/>
-
-
-
-        </RelativeLayout>
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:id="@+id/ticketButton"
-            android:layout_marginBottom="-16dp"
-           android:layout_alignBottom="@+id/addressContainer"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ticket_green"
-            android:layout_height="wrap_content" />
-
-
-        <TextView
-            android:id="@+id/notes"
-            android:layout_width="wrap_content"
-            tools:text="Hakuma"
-            android:layout_marginTop="@dimen/margin_32"
-            android:textColor="@color/white_color"
-            android:layout_marginLeft="@dimen/margin_16"
-            android:layout_below="@+id/addressContainer"
-            android:layout_height="wrap_content" />
-
-
-    </RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin_16"
+        android:src="@drawable/ic_mode_edit_black"/>
 
     <LinearLayout
-        android:id="@+id/editSaveContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/timeToCallText"
-
+        android:id="@+id/sendContainer"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="1"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_below="@+id/createNewNoteText"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@color/divider_color"
-            android:text="EDIT"
-            android:textColor="@color/black_color" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@color/green_color"
-            android:text="SAVE"
-            android:textColor="@color/white_color" />
+    <EditText
+        android:id="@+id/notes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_weight=".8"
+        android:layout_gravity="center"
+        android:maxLines="3"
+        tools:text="Hi hcddnv ndvndmn mnd djnvndjjnd  djnejdnjnjnedjdjnjdnjddjnjndjnejndejnejdnjdnjdcjdnc njdncjdjddndndjcjdj"
+        android:layout_toLeftOf="@+id/send"
+        android:hint="Add Note" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/send"
+        android:layout_gravity="center"
+        android:layout_weight=".3"
+        android:layout_below="@+id/createNewNoteText"
+        android:src="@drawable/ic_send_black"/>
 
     </LinearLayout>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sendContainer"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_24"
+        android:textSize="16sp"
+
+        android:textStyle="bold"
+        android:text="Previous Notes :"
+        android:id="@+id/previousNoteText"/>
 
 
 </RelativeLayout>

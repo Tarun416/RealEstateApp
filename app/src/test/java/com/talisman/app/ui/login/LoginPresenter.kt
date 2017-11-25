@@ -36,11 +36,13 @@ constructor(private var retrofit: Retrofit,
                 .subscribeWith(object : CallbackWrapper<LogInResponse>(view) {
                     override fun onSuccess(t: LogInResponse) {
                         view.hideProgress()
-                        preferences.actualNumber=t.data.User.mobile
-                        preferences.agentNo=t.data.User.mobile
-                        preferences.referenceNo =t.data.Business.reference_number
-                        preferences.businessid = t.data.Business.crm_business_id
-                        view.login()
+                        if(t.data!=null ) {
+                            preferences.actualNumber = t.data.User.mobile
+                            preferences.agentNo = t.data.User.mobile
+                            preferences.referenceNo = t.data.Business.reference_number
+                            preferences.businessid = t.data.Business.crm_business_id
+                            view.login()
+                        }
                     }
 
                 })

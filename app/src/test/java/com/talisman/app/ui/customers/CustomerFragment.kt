@@ -12,6 +12,7 @@ import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.ui.customerdetails.CustomerDetailActivity
 import com.talisman.app.ui.customers.model.Entry
+import com.talisman.app.ui.recentcalldetails.RecentCallActivity
 import kotlinx.android.synthetic.main.fragment_customers.*
 import javax.inject.Inject
 
@@ -70,7 +71,7 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     }
 
     override fun onCustomerClick() {
-        startActivity(Intent(activity, CustomerDetailActivity::class.java))
+        startActivity(Intent(activity, RecentCallActivity::class.java))
     }
 
     override fun onClick(p0: View?) {

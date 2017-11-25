@@ -29,7 +29,7 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val parent = JSONObject()
     private val jsonObject = JSONObject()
-    private val customerJsonObject = JSONObject()
+    private val ticketJsonObject = JSONObject()
 
     override fun crmLogin() {
 
@@ -39,14 +39,14 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
             parent.put("user_auth", jsonObject)
             Timber.d("output", parent.toString())
 
-            hitApi()
+            hitLoginApi()
 
         } catch (e: JSONException) {
             e.printStackTrace()
         }
     }
 
-    private fun hitApi() {
+    private fun hitLoginApi() {
         view.showProgress()
         apiInterface = ApiUtils.getApiService(BuildConfig.CRM_SERVER_URL, TalismanPiApplication.instance)
         val disposable =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.crmLogin("login", "JSON", "JSON", parent.toString())
@@ -78,16 +78,16 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
     override fun getTickets(id: String) {
 
         try {
-            customerJsonObject.put("session", id)
-            customerJsonObject.put("module_name", "Cases")
-            customerJsonObject.put("query", "cases.account_id" + " = '" + preferences.businessid + "'")
-            customerJsonObject.put("order_by", "cases.date_entered")
-            customerJsonObject.put("offset", 0)
-            customerJsonObject.put("select_fields","")
-            customerJsonObject.put("max_results", 50)
-            customerJsonObject.put("deleted", "false")
+            ticketJsonObject.put("session", id)
+            ticketJsonObject.put("module_name", "Cases")
+            ticketJsonObject.put("query", "cases.account_id" + " = '" + preferences.businessid + "'")
+            ticketJsonObject.put("order_by", "cases.date_entered")
+            ticketJsonObject.put("offset", 0)
+            ticketJsonObject.put("select_fields","")
+            ticketJsonObject.put("max_results", 50)
+            ticketJsonObject.put("deleted", "false")
 
-            Log.d("output",customerJsonObject.toString())
+            Log.d("output", ticketJsonObject.toString())
 
             hitTicketsApi()
 
@@ -99,7 +99,7 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
     private fun hitTicketsApi() {
 
         apiInterface = ApiUtils.getApiService(BuildConfig.CRM_SERVER_URL, TalismanPiApplication.instance)
-        val disposable1 =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.getTickets("get_entry_list", "JSON", "JSON", customerJsonObject.toString())
+        val disposable1 =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.getTickets("get_entry_list", "JSON", "JSON", ticketJsonObject.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSubscriber<TicketResponse>() {

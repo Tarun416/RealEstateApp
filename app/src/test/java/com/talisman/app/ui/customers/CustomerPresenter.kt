@@ -41,14 +41,14 @@ constructor(val view: CustomerContract.View) : CustomerContract.Presenter {
             parent.put("user_auth", jsonObject)
             Timber.d("output", parent.toString())
 
-            hitApi()
+            hitLoginApi()
 
         } catch (e: JSONException) {
             e.printStackTrace()
         }
     }
 
-    private fun hitApi() {
+    private fun hitLoginApi() {
         view.showProgress()
         apiInterface = ApiUtils.getApiService(BuildConfig.CRM_SERVER_URL, TalismanPiApplication.instance)
         val disposable =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.crmLogin("login", "JSON", "JSON", parent.toString())
@@ -85,12 +85,12 @@ constructor(val view: CustomerContract.View) : CustomerContract.Presenter {
             customerJsonObject.put("query", "leads.account_id" + " = '" + preferences.businessid + "'")
             customerJsonObject.put("order_by", "leads.last_name")
             customerJsonObject.put("offset", 0)
-            customerJsonObject.put("select_fields","")
+            customerJsonObject.put("select_fields", "")
             customerJsonObject.put("max_results", 50)
             customerJsonObject.put("deleted", "false")
             //customerJsonObject.put("link_name_to_fields_array","")
 
-            Log.d("output",customerJsonObject.toString())
+            Log.d("output", customerJsonObject.toString())
 
             hitCustomerApi()
 
