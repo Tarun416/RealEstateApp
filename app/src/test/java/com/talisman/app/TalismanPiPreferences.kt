@@ -8,8 +8,10 @@ import com.example.tarun.kotlin.Preferences
 class TalismanPiPreferences : Preferences()
 {
     var loginDone by booleanPref(Constants.LOGIN_DONE)
-    var actualNumber by stringPref(Constants.ACTUAL_NUMBER)
+    var agentNo by stringPref(Constants.ACTUAL_NUMBER)
     var referenceNo by stringPref(Constants.REFERENCE_NO)
-    var agentNo by stringPref(Constants.AGENT_NO)
-    var businessid by stringPref(Constants.BUSINESS_ID)
+    var crmbusinessid by stringPref(Constants.CRM_BUSINESS_ID)
+    var status by stringPref(Constants.STATUS)
+    var businessId by stringPref(Constants.BUSINESS_ID)
+    var userId by stringPref(Constants.USER_ID)
 }

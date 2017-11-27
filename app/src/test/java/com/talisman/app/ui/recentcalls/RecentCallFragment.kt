@@ -13,10 +13,9 @@ import android.widget.Toast
 import com.example.tarun.kotlin.isOnline
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
-import com.talisman.app.TalismanPiPreferences
 import com.talisman.app.ui.recentcalldetails.RecentCallActivity
+import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import com.talisman.app.ui.recentcalls.model.CDRJSON
-import com.talisman.app.ui.recentcalls.model.RecentCallResponse
 import kotlinx.android.synthetic.main.fragment_recent_call.*
 import javax.inject.Inject
 
@@ -97,8 +96,9 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
         recentCallRecyclerView.adapter = recentCallApapter
     }
 
-    override fun onCallClick() {
-        startActivity(Intent(activity, RecentCallActivity::class.java))
+    override fun onCallClick(position : Int) {
+        recentCallPresenter.getCustomerDetails("8951577970")
+       // startActivity(Intent(activity, RecentCallActivity::class.java))
     }
 
     override fun onClick(p0: View?) {
@@ -161,6 +161,18 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
         recentCallRecyclerView.visibility = View.GONE
         emptyView.visibility=View.VISIBLE
     }
+
+    override fun passCustomerDetails(customerDetailsResponse: CustomerDetailsResponse?) {
+        val intent = Intent(activity,RecentCallActivity::class.java)
+        if(customerDetailsResponse!!.assigned_user_name!=null) {
+            intent.putExtra("name", customerDetailsResponse!!.assigned_user_name.value)
+            intent.putExtra("note", customerDetailsResponse.description.value)
+        }
+
+        startActivity(intent)
+
+    }
+
 
 
 }

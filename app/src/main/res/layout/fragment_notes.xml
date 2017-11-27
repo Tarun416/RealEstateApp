@@ -62,9 +62,6 @@
 
     </LinearLayout>
 
-
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,10 +70,19 @@
         android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_24"
         android:textSize="16sp"
-
         android:textStyle="bold"
         android:text="Previous Notes :"
         android:id="@+id/previousNoteText"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        tools:text="Hi "
+        android:id="@+id/note"
+        android:layout_below="@+id/previousNoteText"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>

@@ -39,7 +39,7 @@ abstract class CallbackWrapper<T : BaseResponse>(view: BaseView) : DisposableSub
                 }
                 is SocketTimeoutException -> view.onTimeout()
                 is IOException -> view.onNetworkError()
-                else -> if(e!=null && e.message!=null) view.onUnknownError(e.message!!,"")
+                else -> if(e?.message != null) view.onUnknownError(e.message!!,"")
             }
         }
     }

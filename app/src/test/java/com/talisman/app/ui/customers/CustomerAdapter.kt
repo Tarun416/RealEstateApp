@@ -20,7 +20,7 @@ class CustomerAdapter(private var context: Context, private var customerClickLis
         holder!!.name.text = customerList[position].name_value_list.first_name.value
 
         holder.customerContainer.setOnClickListener {
-            customerClickListener.onCustomerClick()
+            customerClickListener.onCustomerClick(position)
         }
     }
 
@@ -33,7 +33,7 @@ class CustomerAdapter(private var context: Context, private var customerClickLis
     }
 
     interface OnCustomerClick {
-        fun onCustomerClick()
+        fun onCustomerClick(position: Int)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.toolbar_home.*
 class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
 
     private lateinit var pagerAdapter: PagerAdapter
-    val preference = TalismanPiPreferences()
+    private val preference = TalismanPiPreferences()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

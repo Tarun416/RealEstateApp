@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.fragment_notes.*
 class NotesFragment : Fragment() , View.OnClickListener
 {
 
+    private var note1 : String=""
     private var isSendContainerVisible = false
-
 
     companion object {
         /**
@@ -41,6 +41,7 @@ class NotesFragment : Fragment() , View.OnClickListener
 
     private fun initUi() {
         edit.setOnClickListener(this)
+        note.text = note1
     }
 
     override fun onClick(p0: View?) {
@@ -57,6 +58,10 @@ class NotesFragment : Fragment() , View.OnClickListener
                }
            }
        }
+    }
+
+    fun setDetails(note: String) {
+        this.note1=note
     }
 
 

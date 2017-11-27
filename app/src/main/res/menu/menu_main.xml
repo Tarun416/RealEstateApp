@@ -9,10 +9,5 @@
         android:title="Notification"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/dontDistrub"
-        android:icon="@drawable/available"
-        android:orderInCategory="100"
-        android:title="Do not disturb"
-        app:showAsAction="ifRoom" />
+
 </menu>

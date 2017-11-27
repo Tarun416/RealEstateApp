@@ -13,6 +13,7 @@ import com.talisman.app.TalismanPiApplication
 import com.talisman.app.ui.customerdetails.CustomerDetailActivity
 import com.talisman.app.ui.customers.model.Entry
 import com.talisman.app.ui.recentcalldetails.RecentCallActivity
+import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import kotlinx.android.synthetic.main.fragment_customers.*
 import javax.inject.Inject
 
@@ -70,8 +71,8 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
         customerRecyclerView.adapter = customerAdapter
     }
 
-    override fun onCustomerClick() {
-        startActivity(Intent(activity, RecentCallActivity::class.java))
+    override fun onCustomerClick(position : Int) {
+        customerPresenter.getCustomerDetails(customerList[position].name_value_list.phone_work.value)
     }
 
     override fun onClick(p0: View?) {
@@ -141,6 +142,24 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
       emptyText.visibility=View.VISIBLE
 
     }
+
+    override fun passCustomerDetails(customerDetailsResponse: CustomerDetailsResponse?) {
+        val intent = Intent(activity,RecentCallActivity::class.java)
+        if(customerDetailsResponse!!.assigned_user_name!=null) {
+            intent.putExtra("name", customerDetailsResponse!!.assigned_user_name.value)
+            intent.putExtra("note", customerDetailsResponse.description.value)
+        }
+
+        startActivity(intent)
+
+    }
+
+    override fun showEmptyView() {
+        searchContainer.visibility=View.GONE
+        customerRecyclerView.visibility=View.GONE
+        emptyText.visibility=View.VISIBLE
+    }
+
 
 
 

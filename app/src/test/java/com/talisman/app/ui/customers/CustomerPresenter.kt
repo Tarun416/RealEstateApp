@@ -8,6 +8,7 @@ import com.talisman.app.TalismanPiApplication
 import com.talisman.app.TalismanPiPreferences
 import com.talisman.app.model.CRMLoginResponse
 import com.talisman.app.ui.customers.model.CustomerResponse
+import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -16,6 +17,7 @@ import javax.inject.Inject
 import org.json.JSONException
 
 import org.json.JSONObject
+import retrofit2.Retrofit
 import timber.log.Timber
 
 
@@ -24,7 +26,7 @@ import timber.log.Timber
  */
 class CustomerPresenter
 @Inject
-constructor(val view: CustomerContract.View) : CustomerContract.Presenter {
+constructor(val retrofit : Retrofit, val view: CustomerContract.View) : CustomerContract.Presenter {
 
     private val preferences: TalismanPiPreferences = TalismanPiPreferences()
     private lateinit var apiInterface: ApiInterface
@@ -82,7 +84,7 @@ constructor(val view: CustomerContract.View) : CustomerContract.Presenter {
         try {
             customerJsonObject.put("session", id)
             customerJsonObject.put("module_name", "Leads")
-            customerJsonObject.put("query", "leads.account_id" + " = '" + preferences.businessid + "'")
+            customerJsonObject.put("query", "leads.account_id" + " = '" + preferences.crmbusinessid + "'")
             customerJsonObject.put("order_by", "leads.last_name")
             customerJsonObject.put("offset", 0)
             customerJsonObject.put("select_fields", "")
@@ -118,7 +120,40 @@ constructor(val view: CustomerContract.View) : CustomerContract.Presenter {
 
                     override fun onNext(t: CustomerResponse?) {
                         view.hideProgress()
+                        if(t!!.result_count>0)
                         view.showCustomers(t!!.entry_list)
+                        else
+                            view.showEmptyView()
+                    }
+
+                })
+
+
+        compositeDisposable.add(disposable1)
+    }
+
+    override fun getCustomerDetails(mobileNo: String) {
+        view.showProgress()
+        val hashMap: HashMap<String, String> = HashMap()
+        hashMap.put("prospectnumber", mobileNo)
+
+        val disposable1 =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  retrofit.create(ApiInterface::class.java).getCustomerDetails(hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSubscriber<CustomerDetailsResponse>() {
+
+                    override fun onError(t: Throwable?) {
+                        view.hideProgress()
+                        view.passCustomerDetails(null)
+                    }
+
+                    override fun onComplete() {
+
+                    }
+
+                    override fun onNext(t: CustomerDetailsResponse?) {
+                        view.hideProgress()
+                        view.passCustomerDetails(t!!)
                     }
 
                 })

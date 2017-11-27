@@ -20,6 +20,7 @@ import javax.inject.Inject
  */
 class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickListener, TicketContract.View {
 
+
     private lateinit var ticketAdapter: TicketAdapter
     private lateinit var ticketList : ArrayList<Entry>
 
@@ -133,6 +134,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickLis
         search.visibility=View.VISIBLE
         ticketRecyclerView.visibility=View.VISIBLE
         emptyText.visibility=View.GONE
+        filter.visibility=View.VISIBLE
         ticketList.addAll(entry_list)
         ticketAdapter.notifyDataSetChanged()
     }
@@ -142,7 +144,15 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickLis
         searchContainer.visibility=View.GONE
         ticketRecyclerView.visibility=View.GONE
         emptyText.visibility=View.VISIBLE
+        filter.visibility=View.GONE
 
+    }
+
+    override fun showEmptyView() {
+        searchContainer.visibility=View.GONE
+        ticketRecyclerView.visibility=View.GONE
+        emptyText.visibility=View.VISIBLE
+        filter.visibility=View.GONE
     }
 
 

@@ -10,8 +10,7 @@ import com.example.tarun.talismanpi.R
 import kotlinx.android.synthetic.main.activity_recent_calls.*
 import android.graphics.PorterDuff
 import android.support.v4.content.ContextCompat
-
-
+import com.talisman.app.ui.recentcalldetails.customerdetails.CustomerDetailsFragment
 
 
 /**
@@ -24,6 +23,9 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
     private lateinit var tabThree: TextView
     private lateinit var tabFour: TextView
 
+    private var note  : String =""
+    private var name : String =""
+
     private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,20 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recent_calls)
         setSupportActionBar(toolbar)
+
+        initUi()
+
+
+    }
+
+    private fun initUi() {
+
+        if(intent!=null && intent.extras!=null)
+        {
+            name = intent.extras.getString("name")
+            note = intent.extras.getString("note")
+        }
+
         toolbarText.text = "Customer"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
@@ -46,7 +62,24 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
 
     private fun setUpTabIcons() {
 
-        pagerAdapter = PagerAdapter(supportFragmentManager, 4)
+        pagerAdapter = PagerAdapter(supportFragmentManager)
+
+        val customerDetailsFragment  = CustomerDetailsFragment()
+        if(name!="")
+        customerDetailsFragment.setDetails(name)
+        pagerAdapter.addFrag(customerDetailsFragment)
+
+        val notesFragment =NotesFragment()
+        if(note!="")
+        notesFragment.setDetails(note)
+        pagerAdapter.addFrag(notesFragment)
+
+        val ticketFragment = TicketFragment()
+        pagerAdapter.addFrag(ticketFragment)
+
+        val callHistoryFragment = CallHistoryFragment()
+        pagerAdapter.addFrag(callHistoryFragment)
+
         pager.adapter = pagerAdapter
 
         tabs.setupWithViewPager(pager)

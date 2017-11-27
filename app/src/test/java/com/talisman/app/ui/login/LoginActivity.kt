@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
     lateinit var loginPresenter: LoginPresenter
 
     @Inject
-    lateinit var preferences : TalismanPiPreferences
+    lateinit var preferences: TalismanPiPreferences
 
     private var compositeSubscription: CompositeSubscription = CompositeSubscription()
 
@@ -97,7 +97,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
     }
 
     override fun onUnknownError(message: String, error: String) {
-          Toast.makeText(this@LoginActivity,message,Toast.LENGTH_LONG).show()
+        Toast.makeText(this@LoginActivity, message, Toast.LENGTH_LONG).show()
     }
 
     override fun onTimeout() {
@@ -117,7 +117,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
     }
 
     override fun login() {
-        preferences.loginDone=true
+        preferences.loginDone = true
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
         startActivity(intent)
         finish()
@@ -127,6 +127,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
         super.onDestroy()
         compositeSubscription.unsubscribe()
         loginPresenter.onStop()
+    }
+
+    override fun invalidCredentialError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
 

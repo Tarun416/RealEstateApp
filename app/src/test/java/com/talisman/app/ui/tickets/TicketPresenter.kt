@@ -80,7 +80,7 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
         try {
             ticketJsonObject.put("session", id)
             ticketJsonObject.put("module_name", "Cases")
-            ticketJsonObject.put("query", "cases.account_id" + " = '" + preferences.businessid + "'")
+            ticketJsonObject.put("query", "cases.account_id" + " = '" + preferences.crmbusinessid + "'")
             ticketJsonObject.put("order_by", "cases.date_entered")
             ticketJsonObject.put("offset", 0)
             ticketJsonObject.put("select_fields","")
@@ -115,7 +115,10 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
 
                     override fun onNext(t: TicketResponse?) {
                         view.hideProgress()
+                        if(t!!.result_count>0)
                         view.showTickets(t!!.entry_list)
+                        else
+                            view.showEmptyView()
                     }
 
                 })

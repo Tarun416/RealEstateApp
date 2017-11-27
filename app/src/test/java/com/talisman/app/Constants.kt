@@ -18,6 +18,9 @@ class Constants
         val ACTUAL_NUMBER = "x-actual-number"
         val REFERENCE_NO ="x-business-id"
         val AGENT_NO = "agentNo"
+        val CRM_BUSINESS_ID = "crmbusinessId"
+        val STATUS = "status"
+        val USER_ID = "userId"
         val BUSINESS_ID = "businessId"
     }
 

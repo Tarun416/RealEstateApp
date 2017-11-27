@@ -26,7 +26,7 @@ class RecentCallAdapter(private var context: Context, private var callClickListe
         holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_call_missed))
 
         holder.recentCallContainer.setOnClickListener {
-            callClickListener.onCallClick()
+            callClickListener.onCallClick(position)
         }
     }
 
@@ -36,7 +36,7 @@ class RecentCallAdapter(private var context: Context, private var callClickListe
 
     interface ItemClickListener
     {
-        fun onCallClick()
+        fun onCallClick(position : Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder{

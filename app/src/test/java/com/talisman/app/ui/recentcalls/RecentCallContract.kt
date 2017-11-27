@@ -1,7 +1,7 @@
 package com.talisman.app.ui.recentcalls
 
-import com.talisman.app.BaseResponse
 import com.talisman.app.BaseView
+import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import com.talisman.app.ui.recentcalls.model.CDRJSON
 
 /**
@@ -14,10 +14,12 @@ interface RecentCallContract
     {
        fun showRecentCalls(list : ArrayList<CDRJSON>)
         fun resultError()
+        fun passCustomerDetails(customerDetailsResponse: CustomerDetailsResponse?)
     }
 
     interface Presenter
     {
         fun getRecentCalls()
+        fun getCustomerDetails(mobileNo : String)
     }
 }

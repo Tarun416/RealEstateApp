@@ -10,6 +10,7 @@ interface LoginContract
     interface View : BaseView
     {
         fun login()
+        fun invalidCredentialError(message : String)
     }
 
     interface Presenter

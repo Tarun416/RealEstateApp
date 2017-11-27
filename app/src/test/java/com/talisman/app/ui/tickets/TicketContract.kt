@@ -13,6 +13,7 @@ interface TicketContract
         fun crmLoginDone()
        fun showTickets(entry_list: List<Entry>)
         fun onError(message: String?)
+        fun showEmptyView()
     }
 
     interface Presenter

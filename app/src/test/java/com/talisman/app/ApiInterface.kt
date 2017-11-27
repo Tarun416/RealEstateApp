@@ -4,7 +4,9 @@ import com.talisman.app.model.CRMLoginResponse
 import com.talisman.app.ui.customers.model.CustomerResponse
 import com.talisman.app.ui.forgotpassword.model.ForgotPasswordResponse
 import com.talisman.app.ui.login.model.LogInResponse
+import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import com.talisman.app.ui.recentcalls.model.RecentCallResponse
+import com.talisman.app.ui.settings.model.SettingsResponse
 import com.talisman.app.ui.tickets.model.TicketResponse
 import io.reactivex.Flowable
 import retrofit2.http.*
@@ -24,10 +26,10 @@ interface ApiInterface {
     fun updateFCMDetails(@Body fcmDetailsHashMap: HashMap<String, String>): Flowable<ForgotPasswordResponse>
 
     @POST("update_login_status")
-    fun updateLoginStatus(@Body hashMap: HashMap<String, String>): Flowable<ForgotPasswordResponse>
+    fun updateLoginStatus(@Body hashMap: HashMap<String, String>): Flowable<SettingsResponse>
 
     @POST("getcrmlead_details")
-    fun getCustomerDetails(@Body hashMap: HashMap<String, String>): Flowable<Any>
+    fun getCustomerDetails(@Body hashMap: HashMap<String, String>): Flowable<CustomerDetailsResponse>
 
     @GET("report/cdr")
     fun getRecentCalls(@Header("Content-Type") contentType: String,
@@ -58,5 +60,9 @@ interface ApiInterface {
                      @Query("input_type") inputType : String,
                      @Query("response_type") responseType : String,
                      @Query("rest_data") restData: String) : Flowable<TicketResponse>
+
+
+
+
 
 }

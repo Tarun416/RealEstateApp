@@ -37,11 +37,20 @@ constructor(private var retrofit: Retrofit,
                     override fun onSuccess(t: LogInResponse) {
                         view.hideProgress()
                         if(t.data!=null ) {
-                            preferences.actualNumber = t.data.User.mobile
                             preferences.agentNo = t.data.User.mobile
                             preferences.referenceNo = t.data.Business.reference_number
-                            preferences.businessid = t.data.Business.crm_business_id
+                            preferences.crmbusinessid = t.data.Business.crm_business_id
+                            preferences.status = t.data.User.login_status
+                            preferences.userId=t.data.User.id
+                            preferences.businessId=t.data.Business.id
                             view.login()
+                        }
+                        else
+                        {
+                            if(t.error!=null)
+                            {
+                                view.invalidCredentialError(t.error)
+                            }
                         }
                     }
 

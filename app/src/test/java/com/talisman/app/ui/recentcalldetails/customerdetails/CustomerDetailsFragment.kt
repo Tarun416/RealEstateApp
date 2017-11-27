@@ -19,6 +19,8 @@ import java.util.*
  */
 class CustomerDetailsFragment : Fragment(), View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
+    private lateinit var name : String
+
     companion object {
         /**
          * new instance pattern for fragment
@@ -94,6 +96,10 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, DatePickerDial
 
     override fun onTimeSet(view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int) {
         time.text = hourOfDay.toString() + ":" + minute.toString() + ":" + second.toString()
+    }
+
+    fun setDetails(name: String) {
+         this.name=name
     }
 
 
