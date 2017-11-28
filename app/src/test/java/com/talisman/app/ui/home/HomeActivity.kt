@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
     }
 
     private fun setUpDrawer() {
-        drawerView.addView(DrawerHeader("", "Test", preference.agentNo!!))
+        drawerView.addView(DrawerHeader("", preference.agentName!!, preference.agentNo!!))
                 .addView(DrawerMenuItem(this.applicationContext, DrawerMenuItem.DRAWER_MENU_ITEM_HOME, this))
                 .addView(DrawerMenuItem(this.applicationContext, DrawerMenuItem.DRAWER_MENU_ITEM_PROFILE, this))
                 .addView(DrawerMenuItem(this.applicationContext, DrawerMenuItem.DRAWER_MENU_ITEM_SETTINGS, this))

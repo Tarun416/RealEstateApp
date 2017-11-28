@@ -21,8 +21,7 @@
         android:layout_marginTop="@dimen/margin_16"
         android:layout_below="@+id/toolbar"
         android:text="Change Password"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="18sp" />
 
 
     <ImageView
@@ -70,7 +69,6 @@
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"
         android:layout_below="@+id/sendContainer"
-        android:textStyle="bold"
         android:text="Do not disturb"/>
 
 

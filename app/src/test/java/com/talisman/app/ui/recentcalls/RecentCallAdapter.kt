@@ -15,15 +15,26 @@ import java.text.SimpleDateFormat
 /**
  * Created by tarun on 11/9/17.
  */
-class RecentCallAdapter(private var context: Context, private var callClickListener : ItemClickListener , private var recentCallList : ArrayList<CDRJSON>) : RecyclerView.Adapter<RecentCallAdapter.ViewHolder>()
-{
+class RecentCallAdapter(private var context: Context, private var callClickListener: ItemClickListener, private var recentCallList: ArrayList<CDRJSON>) : RecyclerView.Adapter<RecentCallAdapter.ViewHolder>() {
     private val simpledateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     var df1 = SimpleDateFormat("d/MMM/yyyy HH:mm:ss")
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder!!.name.text=recentCallList[position].cli
-        holder!!.date.text=df1.format(simpledateFormat.parse(recentCallList[position].startTime))
-        holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_call_missed))
+
+        val cdrJson = recentCallList[position]
+
+        holder!!.name.text = cdrJson.cli
+        holder!!.date.text = df1.format(simpledateFormat.parse(cdrJson.startTime))
+
+        if (cdrJson.callType == "I" && cdrJson.patched == "0")
+            holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_call_missed))
+        else if (cdrJson.callType == "I" && cdrJson.patched == "1")
+            holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_call_received))
+        else if (cdrJson.callType == "0" && cdrJson.patched == "0")
+            holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_call_outgoing_missed))
+        else
+            holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_call_outgoing_received))
+
 
         holder.recentCallContainer.setOnClickListener {
             callClickListener.onCallClick(position)
@@ -31,20 +42,18 @@ class RecentCallAdapter(private var context: Context, private var callClickListe
     }
 
     override fun getItemCount(): Int {
-         return recentCallList.size
+        return recentCallList.size
     }
 
-    interface ItemClickListener
-    {
-        fun onCallClick(position : Int)
+    interface ItemClickListener {
+        fun onCallClick(position: Int)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder{
-       return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recent_call_items,parent,false))
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recent_call_items, parent, false))
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-    {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.nameOrNumber
         val date = itemView.date
         val icon = itemView.callStatusIcon

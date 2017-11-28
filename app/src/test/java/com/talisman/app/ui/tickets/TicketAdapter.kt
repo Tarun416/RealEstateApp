@@ -1,6 +1,7 @@
 package com.talisman.app.ui.tickets
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +16,21 @@ import kotlinx.android.synthetic.main.ticket_items.view.*
  */
 class TicketAdapter(private var context: Context,private var ticketClickListener: OnTicketClick, private var ticketList : ArrayList<Entry>) : RecyclerView.Adapter<TicketAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        holder!!.ticketNo.text = "Ticket No : "+ticketList[position].name_value_list.case_number.value
-        holder.problem.text = ticketList[position].name_value_list.description.value
+
+        val entry = ticketList[position]
+
+        holder!!.ticketNo.text = "Ticket No : "+entry.name_value_list.case_number.value
+        holder.problem.text = entry.name_value_list.description.value
         holder.ticketContainer.setOnClickListener{
             ticketClickListener.onTicketClick()
+        }
+
+        when {
+            entry.name_value_list.state.value.equals("New",true) -> holder.leftView.setBackgroundColor(ContextCompat.getColor(context,R.color.line_blue_color))
+            entry.name_value_list.state.value.equals("Open",true) -> holder.leftView.setBackgroundColor(ContextCompat.getColor(context,R.color.line_red_color))
+            entry.name_value_list.state.value.equals("Closed",true) -> holder.leftView.setBackgroundColor(ContextCompat.getColor(context,R.color.line_green_color))
+            entry.name_value_list.state.value.equals("Clear",true) -> holder.leftView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimary))
+
         }
     }
 
@@ -39,6 +51,7 @@ class TicketAdapter(private var context: Context,private var ticketClickListener
         val ticketNo = itemView.ticketNo!!
         val problem = itemView.problem!!
         val ticketContainer = itemView.ticketContainer!!
+        val leftView = itemView.leftView!!
     }
 
 }

@@ -40,6 +40,7 @@
         android:layout_width="5dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:id="@+id/leftView"
         android:layout_above="@+id/view"
         android:background="@color/holo_blue_color"/>
 

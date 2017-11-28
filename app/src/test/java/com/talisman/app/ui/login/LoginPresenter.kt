@@ -40,10 +40,12 @@ constructor(private var retrofit: Retrofit,
                         view.hideProgress()
                         if(t.data!=null ) {
                             preferences.agentNo = t.data.User.mobile
+                            preferences.agentName=t.data.User.name
                             preferences.referenceNo = t.data.Business.reference_number
                             preferences.crmbusinessid = t.data.Business.crm_business_id
                             preferences.status = t.data.User.login_status
                             preferences.userId=t.data.User.id
+                            preferences.userName=t.data.User.username
                             preferences.businessId=t.data.Business.id
                             view.login()
                         }
