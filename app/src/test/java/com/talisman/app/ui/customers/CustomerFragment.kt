@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,6 +64,34 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
         customerList= ArrayList()
         setRecyclerView()
         clear_search.setOnClickListener(this)
+
+        search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+                //after the change calling the method and passing the search input
+                filter(editable.toString())
+            }
+        })
+    }
+
+    private fun filter(toString: String) {
+        val filteredItems = ArrayList<Entry>()
+
+        if (customerList != null && customerList.size > 0) {
+            customerList.filterTo(filteredItems) { it.name_value_list.first_name.value.contains(toString,true) }
+
+            if(customerAdapter!=null)
+                customerAdapter.filterList(filteredItems)
+
+        } else
+            return
     }
 
     private fun setRecyclerView() {

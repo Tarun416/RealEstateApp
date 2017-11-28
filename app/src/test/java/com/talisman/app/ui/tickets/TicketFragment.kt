@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,8 +64,35 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickLis
         filter.setOnClickListener(this)
         clear_search.setOnClickListener(this)
 
+        search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
 
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+                //after the change calling the method and passing the search input
+                filter(editable.toString())
+            }
+        })
     }
+
+    private fun filter(toString: String) {
+        val filteredItems = ArrayList<Entry>()
+
+        if (ticketList!= null && ticketList.size > 0) {
+           ticketList.filterTo(filteredItems) { it.name_value_list.description.value.contains(toString,true) }
+
+            if(ticketAdapter!=null)
+                ticketAdapter.filterList(filteredItems)
+
+        } else
+            return
+    }
+
 
     private fun setRecyclerView() {
         ticketRecyclerView.layoutManager = LinearLayoutManager(activity)

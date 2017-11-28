@@ -56,4 +56,9 @@ class CustomerAdapter(private var context: Context, private var customerClickLis
         val customerContainer = itemView.customerContainer!!
     }
 
+    fun filterList(filteredItems: ArrayList<Entry>) {
+        this.customerList=filteredItems
+        notifyDataSetChanged()
+    }
+
 }

@@ -54,4 +54,9 @@ class TicketAdapter(private var context: Context,private var ticketClickListener
         val leftView = itemView.leftView!!
     }
 
+    fun filterList(filteredItems: ArrayList<Entry>) {
+        this.ticketList=filteredItems
+        notifyDataSetChanged()
+    }
+
 }

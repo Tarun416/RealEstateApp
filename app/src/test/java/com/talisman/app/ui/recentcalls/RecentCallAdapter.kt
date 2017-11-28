@@ -61,4 +61,9 @@ class RecentCallAdapter(private var context: Context, private var callClickListe
 
     }
 
+    fun filterList(filteredItems: ArrayList<CDRJSON>) {
+        this.recentCallList=filteredItems
+        notifyDataSetChanged()
+    }
+
 }

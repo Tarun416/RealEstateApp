@@ -86,7 +86,16 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     }
 
     private fun filter(toString: String) {
+        val filteredItems = ArrayList<CDRJSON>()
 
+        if (recentCallList != null && recentCallList.size > 0) {
+            recentCallList.filterTo(filteredItems) { it.cli.contains("+91"+toString,true) }
+
+            if(recentCallApapter!=null)
+                recentCallApapter.filterList(filteredItems)
+
+        } else
+            return
     }
 
     private fun setRecyclerView() {
@@ -96,9 +105,9 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
         recentCallRecyclerView.adapter = recentCallApapter
     }
 
-    override fun onCallClick(position : Int) {
+    override fun onCallClick(position: Int) {
         recentCallPresenter.getCustomerDetails("8951577970")
-       // startActivity(Intent(activity, RecentCallActivity::class.java))
+        // startActivity(Intent(activity, RecentCallActivity::class.java))
     }
 
     override fun onClick(p0: View?) {
@@ -150,7 +159,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     override fun showRecentCalls(list: ArrayList<CDRJSON>) {
         searchContainer.visibility = View.VISIBLE
         recentCallRecyclerView.visibility = View.VISIBLE
-        emptyView.visibility=View.GONE
+        emptyView.visibility = View.GONE
         recentCallList.clear()
         recentCallList.addAll(list)
         recentCallApapter.notifyDataSetChanged()
@@ -159,12 +168,12 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     override fun resultError() {
         searchContainer.visibility = View.GONE
         recentCallRecyclerView.visibility = View.GONE
-        emptyView.visibility=View.VISIBLE
+        emptyView.visibility = View.VISIBLE
     }
 
     override fun passCustomerDetails(customerDetailsResponse: CustomerDetailsResponse?) {
-        val intent = Intent(activity,RecentCallActivity::class.java)
-        if(customerDetailsResponse!!.assigned_user_name!=null) {
+        val intent = Intent(activity, RecentCallActivity::class.java)
+        if (customerDetailsResponse!!.assigned_user_name != null) {
             intent.putExtra("name", customerDetailsResponse!!.assigned_user_name.value)
             intent.putExtra("note", customerDetailsResponse.description.value)
         }
@@ -172,7 +181,6 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
         startActivity(intent)
 
     }
-
 
 
 }
