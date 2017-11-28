@@ -22,6 +22,7 @@ class Constants
         val STATUS = "status"
         val USER_ID = "userId"
         val BUSINESS_ID = "businessId"
+        val REGISTRATION_TOKEN = "registration_token"
     }
 
 }

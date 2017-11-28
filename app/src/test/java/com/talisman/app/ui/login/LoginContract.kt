@@ -11,10 +11,12 @@ interface LoginContract
     {
         fun login()
         fun invalidCredentialError(message : String)
+        fun onDeviceRegistered()
     }
 
     interface Presenter
     {
         fun login(email : String, password : String)
+        fun sendRegistrationToken()
     }
 }

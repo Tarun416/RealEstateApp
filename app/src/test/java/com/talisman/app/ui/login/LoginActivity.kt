@@ -8,6 +8,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.example.tarun.kotlin.isEmailValid
 import com.example.tarun.talismanpi.R
+import com.google.firebase.iid.FirebaseInstanceId
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.TalismanPiPreferences
@@ -22,6 +23,7 @@ import javax.inject.Inject
  * Created by tarun on 11/8/17.
  */
 class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.View {
+
 
     @Inject
     lateinit var loginPresenter: LoginPresenter
@@ -118,6 +120,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
 
     override fun login() {
         preferences.loginDone = true
+
+        if(FirebaseInstanceId.getInstance().token!=null) {
+            preferences.registrationToken = FirebaseInstanceId.getInstance().token
+            loginPresenter.sendRegistrationToken()
+        }
+
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
         startActivity(intent)
         finish()
@@ -131,6 +139,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
 
     override fun invalidCredentialError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDeviceRegistered() {
+      Toast.makeText(this@LoginActivity,"Device registered on server",Toast.LENGTH_LONG).show()
     }
 
 

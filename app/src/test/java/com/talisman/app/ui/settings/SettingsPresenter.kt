@@ -50,6 +50,8 @@ constructor(var retrofit: Retrofit, val view: SettingsContract.View) : SettingsC
 
                 })
 
+        compositeDisposable.add(disposable)
+
 
     }
 

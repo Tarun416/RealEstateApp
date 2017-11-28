@@ -8,6 +8,7 @@ import com.talisman.app.ui.login.model.LogInResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subscribers.DisposableSubscriber
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -18,6 +19,7 @@ class LoginPresenter
 @Inject
 constructor(private var retrofit: Retrofit,
             var view: LoginContract.View) : LoginContract.Presenter {
+
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val preferences : TalismanPiPreferences = TalismanPiPreferences()
@@ -59,6 +61,33 @@ constructor(private var retrofit: Retrofit,
 
         compositeDisposable.add(disposable)
 
+    }
+
+    override fun sendRegistrationToken() {
+        val hashMap: HashMap<String, String> = HashMap()
+        hashMap.put("user_id", preferences!!.userId!!)
+        hashMap.put("fcm_id", preferences.registrationToken!!)
+
+
+        retrofit.create(ApiInterface::class.java).updateFCMDetails(hashMap)
+                // computation
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+
+                .subscribeWith(object  : DisposableSubscriber<Any>(){
+                    override fun onComplete() {
+
+                    }
+
+                    override fun onError(t: Throwable?) {
+
+                    }
+
+                    override fun onNext(t: Any?) {
+                        view.onDeviceRegistered()
+
+                    }
+                })
     }
 
     fun onStop() {

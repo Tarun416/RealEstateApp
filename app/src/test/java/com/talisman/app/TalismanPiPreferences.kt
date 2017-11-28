@@ -14,4 +14,5 @@ class TalismanPiPreferences : Preferences()
     var status by stringPref(Constants.STATUS)
     var businessId by stringPref(Constants.BUSINESS_ID)
     var userId by stringPref(Constants.USER_ID)
+    var registrationToken by stringPref(Constants.REGISTRATION_TOKEN)
 }
