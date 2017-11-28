@@ -1,6 +1,9 @@
 package com.talisman.app.ui.tickets
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +12,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
@@ -20,14 +26,18 @@ import javax.inject.Inject
 /**
  * Created by tarun on 11/9/17.
  */
-class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickListener, TicketContract.View {
+class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickListener, TicketContract.View {
 
 
     private lateinit var ticketAdapter: TicketAdapter
-    private lateinit var ticketList : ArrayList<Entry>
+    private lateinit var ticketList: ArrayList<Entry>
+
+    private lateinit var filteredItems : ArrayList<Entry>
+
+    private lateinit var tempItem : ArrayList<Entry>
 
     @Inject
-    lateinit var ticketPresenter : TicketPresenter
+    lateinit var ticketPresenter: TicketPresenter
 
     companion object {
         /**
@@ -56,10 +66,11 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickLis
                 .build().inject(this@TicketFragment)
         initUi()
         ticketPresenter.crmLogin()
+        tempItem=ArrayList()
     }
 
     private fun initUi() {
-        ticketList= ArrayList()
+        ticketList = ArrayList()
         setRecyclerView()
         filter.setOnClickListener(this)
         clear_search.setOnClickListener(this)
@@ -81,12 +92,21 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickLis
     }
 
     private fun filter(toString: String) {
-        val filteredItems = ArrayList<Entry>()
 
-        if (ticketList!= null && ticketList.size > 0) {
-           ticketList.filterTo(filteredItems) { it.name_value_list.description.value.contains(toString,true) }
+        filteredItems = ArrayList()
 
-            if(ticketAdapter!=null)
+        if(tempItem!=null && tempItem.size>0)
+        {
+            tempItem.filterTo(filteredItems) { it.name_value_list.description.value.contains(toString, true) }
+
+            if (ticketAdapter != null)
+                ticketAdapter.filterList(filteredItems)
+        }
+
+        else if (ticketList != null && ticketList.size > 0) {
+            ticketList.filterTo(filteredItems) { it.name_value_list.description.value.contains(toString, true) }
+
+            if (ticketAdapter != null)
                 ticketAdapter.filterList(filteredItems)
 
         } else
@@ -97,7 +117,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickLis
     private fun setRecyclerView() {
         ticketRecyclerView.layoutManager = LinearLayoutManager(activity)
         ticketRecyclerView.setHasFixedSize(true)
-        ticketAdapter = TicketAdapter(activity, this@TicketFragment,ticketList)
+        ticketAdapter = TicketAdapter(activity, this@TicketFragment, ticketList)
         ticketRecyclerView.adapter = ticketAdapter
     }
 
@@ -106,11 +126,97 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickLis
     }
 
     override fun onClick(p0: View?) {
-      when(p0!!.id)
-      {
-          R.id.filter -> {}
-          R.id.clear_search -> search.text.clear()
-      }
+        when (p0!!.id) {
+            R.id.filter -> {
+                showDialog()
+            }
+            R.id.clear_search -> search.text.clear()
+        }
+    }
+
+    private fun showDialog() {
+         filteredItems = ArrayList()
+
+        val dialog = Dialog(activity)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.custom_dialog)
+        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val newRadioButton = dialog.findViewById<RadioButton>(R.id.newText)
+        val allRadioButton = dialog.findViewById<RadioButton>(R.id.all)
+        val closeRadioButton = dialog.findViewById<RadioButton>(R.id.close)
+        val clearRadioButton = dialog.findViewById<RadioButton>(R.id.clear)
+        val openRadioButton = dialog.findViewById<RadioButton>(R.id.open)
+
+
+        newRadioButton.setOnClickListener {
+            newRadioButton.isChecked = true
+            ticketList.filterTo(filteredItems) { it.name_value_list.state.value.contains("new", true) }
+
+            if (ticketAdapter != null) {
+                ticketAdapter.filterList(filteredItems)
+                tempItem.clear()
+                tempItem.addAll(filteredItems)
+            }
+
+            dialog.dismiss()
+        }
+
+        closeRadioButton.setOnClickListener {
+            newRadioButton.isChecked = true
+            ticketList.filterTo(filteredItems) { it.name_value_list.state.value.contains("closed", true) }
+
+            if (ticketAdapter != null) {
+                ticketAdapter.filterList(filteredItems)
+                tempItem.clear()
+                tempItem.addAll(filteredItems)
+            }
+
+            dialog.dismiss()
+        }
+
+        clearRadioButton.setOnClickListener {
+            newRadioButton.isChecked = true
+            ticketList.filterTo(filteredItems) { it.name_value_list.state.value.contains("clear", true) }
+
+            if (ticketAdapter != null) {
+                ticketAdapter.filterList(filteredItems)
+                tempItem.clear()
+                tempItem.addAll(filteredItems)
+            }
+
+            dialog.dismiss()
+        }
+
+        openRadioButton.setOnClickListener {
+            newRadioButton.isChecked = true
+            ticketList.filterTo(filteredItems) { it.name_value_list.state.value.contains("open", true) }
+
+            if (ticketAdapter != null) {
+                ticketAdapter.filterList(filteredItems)
+                tempItem.clear()
+                tempItem.addAll(filteredItems)
+            }
+
+            dialog.dismiss()
+        }
+
+
+        allRadioButton.setOnClickListener{
+            allRadioButton.isChecked = true
+            ticketList.filterTo(filteredItems) { it.name_value_list.state.value.contains("", true) }
+
+            if (ticketAdapter != null) {
+                ticketAdapter.filterList(filteredItems)
+                tempItem.clear()
+
+            }
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     override val isNetworkConnected: Boolean
@@ -160,28 +266,28 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick , View.OnClickLis
 
     override fun showTickets(entry_list: List<Entry>) {
         ticketList.clear()
-        search.visibility=View.VISIBLE
-        ticketRecyclerView.visibility=View.VISIBLE
-        emptyText.visibility=View.GONE
-        filter.visibility=View.VISIBLE
+        search.visibility = View.VISIBLE
+        ticketRecyclerView.visibility = View.VISIBLE
+        emptyText.visibility = View.GONE
+        filter.visibility = View.VISIBLE
         ticketList.addAll(entry_list)
         ticketAdapter.notifyDataSetChanged()
     }
 
     override fun onError(message: String?) {
-        Toast.makeText(activity,message,Toast.LENGTH_LONG).show()
-        searchContainer.visibility=View.GONE
-        ticketRecyclerView.visibility=View.GONE
-        emptyText.visibility=View.VISIBLE
-        filter.visibility=View.GONE
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+        searchContainer.visibility = View.GONE
+        ticketRecyclerView.visibility = View.GONE
+        emptyText.visibility = View.VISIBLE
+        filter.visibility = View.GONE
 
     }
 
     override fun showEmptyView() {
-        searchContainer.visibility=View.GONE
-        ticketRecyclerView.visibility=View.GONE
-        emptyText.visibility=View.VISIBLE
-        filter.visibility=View.GONE
+        searchContainer.visibility = View.GONE
+        ticketRecyclerView.visibility = View.GONE
+        emptyText.visibility = View.VISIBLE
+        filter.visibility = View.GONE
     }
 
 

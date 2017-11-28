@@ -17,12 +17,7 @@ class NotificationActivity : AppCompatActivity()
         setSupportActionBar(toolbar)
         toolbarText.text="Notifications"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-        toolbar.setNavigationOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                onBackPressed()
-            }
-        })
+        toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onBackPressed() {
