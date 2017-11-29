@@ -17,7 +17,7 @@ import java.util.*
 /**
  * Created by tarun on 11/10/17.
  */
-class CustomerDetailsFragment : Fragment(), View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+class  CustomerDetailsFragment : Fragment(), View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private lateinit var name : String
 

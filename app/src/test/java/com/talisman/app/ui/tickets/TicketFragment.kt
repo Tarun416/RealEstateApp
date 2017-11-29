@@ -68,6 +68,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
 
         backPressApiCall=false
         initUi()
+        filteredItems= ArrayList()
         ticketPresenter.crmLogin()
         tempItem = ArrayList()
     }
@@ -123,13 +124,26 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
 
     override fun onTicketClick(position : Int) {
         val intent = Intent(activity, TicketDetailsActivity::class.java)
-        intent.putExtra("ticketNumber",ticketList[position].name_value_list.case_number.value)
-        intent.putExtra("status",ticketList[position].name_value_list.state.value)
-        intent.putExtra("priority",ticketList[position].name_value_list.priority.value)
-        intent.putExtra("description",ticketList[position].name_value_list.description.value)
-        intent.putExtra("resolution",ticketList[position].name_value_list.resolution.value)
-        intent.putExtra("workLog",ticketList[position].name_value_list.work_log.value)
-        intent.putExtra("ticketId",ticketList[position].id)
+
+        if(filteredItems!=null && filteredItems.size>0)
+        {
+            intent.putExtra("ticketNumber",filteredItems[position].name_value_list.case_number.value)
+            intent.putExtra("status", filteredItems[position].name_value_list.state.value)
+            intent.putExtra("priority", filteredItems[position].name_value_list.priority.value)
+            intent.putExtra("description", filteredItems[position].name_value_list.description.value)
+            intent.putExtra("resolution", filteredItems[position].name_value_list.resolution.value)
+            intent.putExtra("workLog", filteredItems[position].name_value_list.work_log.value)
+            intent.putExtra("ticketId", filteredItems[position].id)
+        }
+        else {
+            intent.putExtra("ticketNumber", ticketList[position].name_value_list.case_number.value)
+            intent.putExtra("status", ticketList[position].name_value_list.state.value)
+            intent.putExtra("priority", ticketList[position].name_value_list.priority.value)
+            intent.putExtra("description", ticketList[position].name_value_list.description.value)
+            intent.putExtra("resolution", ticketList[position].name_value_list.resolution.value)
+            intent.putExtra("workLog", ticketList[position].name_value_list.work_log.value)
+            intent.putExtra("ticketId", ticketList[position].id)
+        }
 
         backPressApiCall=true
         startActivity(intent)
@@ -280,6 +294,12 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
         ticketRecyclerView.visibility = View.VISIBLE
         emptyText.visibility = View.GONE
         filter.visibility = View.VISIBLE
+        if(filteredItems!=null && filteredItems.size>0) {
+            filteredItems.clear()
+            filteredItems.addAll(entry_list)
+            ticketList.addAll(entry_list)
+        }
+        else
         ticketList.addAll(entry_list)
         ticketAdapter.notifyDataSetChanged()
     }
