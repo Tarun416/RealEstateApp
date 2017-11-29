@@ -22,7 +22,7 @@ class TicketAdapter(private var context: Context,private var ticketClickListener
         holder!!.ticketNo.text = "Ticket No : "+entry.name_value_list.case_number.value
         holder.problem.text = entry.name_value_list.description.value
         holder.ticketContainer.setOnClickListener{
-            ticketClickListener.onTicketClick()
+            ticketClickListener.onTicketClick(position)
         }
 
         when {
@@ -44,7 +44,7 @@ class TicketAdapter(private var context: Context,private var ticketClickListener
 
     interface OnTicketClick
     {
-        fun onTicketClick()
+        fun onTicketClick(position: Int)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

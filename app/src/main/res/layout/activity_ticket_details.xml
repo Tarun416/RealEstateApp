@@ -7,6 +7,16 @@
 
     <include layout="@layout/toolbar_customer_details" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:elevation="2dp"
+        android:id="@+id/progressBar"/>
+
+
     <RelativeLayout
         android:id="@+id/firstContainer"
         android:layout_width="match_parent"
@@ -34,8 +44,9 @@
 
             <TextView
                 android:id="@+id/ticketNumber"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_16"
                 android:layout_below="@+id/ticketNumberText"
                 android:layout_marginLeft="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_8"
@@ -55,13 +66,14 @@
                 android:textSize="16sp" />
 
 
-            <TextView
+            <Spinner
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/statusText"
                 android:layout_marginBottom="@dimen/margin_16"
-                android:layout_marginLeft="@dimen/margin_16"
+                android:entries="@array/statusItems"
+                android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_8"
                 android:textSize="16sp"
                 tools:text="New" />
@@ -90,7 +102,7 @@
             android:textSize="16sp" />
 
 
-        <TextView
+        <Spinner
             android:id="@+id/priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,6 +110,7 @@
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_toRightOf="@+id/view"
+            android:entries="@array/priorityItems"
             android:textSize="16sp"
             tools:text="High" />
 
@@ -125,10 +138,11 @@
             android:layout_marginTop="@dimen/margin_8"
             android:layout_toRightOf="@+id/view"
             android:textSize="16sp"
-            tools:text="Agent Id: Athmika" />
+            android:textColor="@color/line_red_color"
+            android:text="To be discussed later" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/view1"
             android:layout_width="6dp"
             android:layout_height="wrap_content"
            android:layout_alignBottom="@+id/assignedTo"
@@ -162,13 +176,15 @@
                 android:textSize="16sp" />
 
 
-            <TextView
+            <EditText
                 android:id="@+id/description"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/descriptionText"
                 android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginRight="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_8"
+                android:enabled="false"
                 android:textSize="16sp"
                 tools:text="Some problem" />
 
@@ -185,14 +201,16 @@
                 android:textSize="16sp" />
 
 
-            <TextView
+            <EditText
                 android:id="@+id/resolution"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/resolutionText"
                 android:layout_marginBottom="@dimen/margin_16"
                 android:layout_marginLeft="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginRight="@dimen/margin_16"
+                android:enabled="false"
                 android:textSize="16sp"
                 tools:text="..." />
 

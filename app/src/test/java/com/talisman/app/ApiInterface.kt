@@ -7,6 +7,7 @@ import com.talisman.app.ui.login.model.LogInResponse
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import com.talisman.app.ui.recentcalls.model.RecentCallResponse
 import com.talisman.app.ui.settings.model.SettingsResponse
+import com.talisman.app.ui.ticketdetails.TicketUpdateResponse
 import com.talisman.app.ui.tickets.model.TicketResponse
 import io.reactivex.Flowable
 import retrofit2.http.*
@@ -60,6 +61,12 @@ interface ApiInterface {
                      @Query("input_type") inputType : String,
                      @Query("response_type") responseType : String,
                      @Query("rest_data") restData: String) : Flowable<TicketResponse>
+
+    @POST("rest.php")
+    fun updateTicket(@Query("method") method : String,
+                   @Query("input_type") inputType : String,
+                   @Query("response_type") responseType : String,
+                   @Query("rest_data") restData: String) : Flowable<TicketUpdateResponse>
 
 
 

@@ -28,13 +28,14 @@ import javax.inject.Inject
  */
 class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickListener, TicketContract.View {
 
-
     private lateinit var ticketAdapter: TicketAdapter
     private lateinit var ticketList: ArrayList<Entry>
 
-    private lateinit var filteredItems : ArrayList<Entry>
+    private lateinit var filteredItems: ArrayList<Entry>
 
-    private lateinit var tempItem : ArrayList<Entry>
+    private lateinit var tempItem: ArrayList<Entry>
+
+    private var backPressApiCall : Boolean = false
 
     @Inject
     lateinit var ticketPresenter: TicketPresenter
@@ -64,9 +65,11 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
                 .netComponent(TalismanPiApplication.mNetComponent)
                 .ticketModule(TicketModule(this@TicketFragment))
                 .build().inject(this@TicketFragment)
+
+        backPressApiCall=false
         initUi()
         ticketPresenter.crmLogin()
-        tempItem=ArrayList()
+        tempItem = ArrayList()
     }
 
     private fun initUi() {
@@ -95,15 +98,12 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
 
         filteredItems = ArrayList()
 
-        if(tempItem!=null && tempItem.size>0)
-        {
+        if (tempItem != null && tempItem.size > 0) {
             tempItem.filterTo(filteredItems) { it.name_value_list.description.value.contains(toString, true) }
 
             if (ticketAdapter != null)
                 ticketAdapter.filterList(filteredItems)
-        }
-
-        else if (ticketList != null && ticketList.size > 0) {
+        } else if (ticketList != null && ticketList.size > 0) {
             ticketList.filterTo(filteredItems) { it.name_value_list.description.value.contains(toString, true) }
 
             if (ticketAdapter != null)
@@ -121,8 +121,18 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
         ticketRecyclerView.adapter = ticketAdapter
     }
 
-    override fun onTicketClick() {
-        startActivity(Intent(activity, TicketDetailsActivity::class.java))
+    override fun onTicketClick(position : Int) {
+        val intent = Intent(activity, TicketDetailsActivity::class.java)
+        intent.putExtra("ticketNumber",ticketList[position].name_value_list.case_number.value)
+        intent.putExtra("status",ticketList[position].name_value_list.state.value)
+        intent.putExtra("priority",ticketList[position].name_value_list.priority.value)
+        intent.putExtra("description",ticketList[position].name_value_list.description.value)
+        intent.putExtra("resolution",ticketList[position].name_value_list.resolution.value)
+        intent.putExtra("workLog",ticketList[position].name_value_list.work_log.value)
+        intent.putExtra("ticketId",ticketList[position].id)
+
+        backPressApiCall=true
+        startActivity(intent)
     }
 
     override fun onClick(p0: View?) {
@@ -135,7 +145,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
     }
 
     private fun showDialog() {
-         filteredItems = ArrayList()
+        filteredItems = ArrayList()
 
         val dialog = Dialog(activity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -203,7 +213,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
         }
 
 
-        allRadioButton.setOnClickListener{
+        allRadioButton.setOnClickListener {
             allRadioButton.isChecked = true
             ticketList.filterTo(filteredItems) { it.name_value_list.state.value.contains("", true) }
 
@@ -289,6 +299,13 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
         emptyText.visibility = View.VISIBLE
         filter.visibility = View.GONE
     }
+
+    override fun onResume() {
+        super.onResume()
+        if(backPressApiCall)
+        ticketPresenter.crmLogin()
+    }
+
 
 
 }
