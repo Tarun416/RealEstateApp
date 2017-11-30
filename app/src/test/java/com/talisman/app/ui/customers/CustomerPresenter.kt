@@ -151,7 +151,7 @@ constructor(val retrofit : Retrofit, val view: CustomerContract.View) : Customer
 
                     }
 
-                    override fun onNext(t: CustomerDetailsResponse?) {
+                   override fun onNext(t: CustomerDetailsResponse?) {
                         view.hideProgress()
                         view.passCustomerDetails(t!!)
                     }

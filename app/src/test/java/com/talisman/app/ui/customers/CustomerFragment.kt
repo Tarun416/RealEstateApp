@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
-import com.talisman.app.ui.customerdetails.CustomerDetailActivity
 import com.talisman.app.ui.customers.model.Entry
 import com.talisman.app.ui.recentcalldetails.RecentCallActivity
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse

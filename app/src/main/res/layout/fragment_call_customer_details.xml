@@ -1,154 +1,207 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/customerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginRight="@dimen/margin_16"
-        android:layout_marginTop="@dimen/margin_16"
-        android:text="Name"
-        android:textColor="@color/black_color"
-        android:textSize="16sp" />
-
-
-    <EditText
-        android:id="@+id/customerName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:layout_below="@+id/customerText"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginRight="@dimen/margin_16"
-        android:layout_marginTop="@dimen/margin_8"
-        android:textSize="14sp"
-        android:text="Rohil Saluja" />
-
-
-    <TextView
-        android:id="@+id/customerNumberText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/customerName"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginRight="@dimen/margin_16"
-        android:layout_marginTop="@dimen/margin_24"
-        android:text="Number"
-        android:textColor="@color/black_color"
-        android:textSize="16sp" />
-
-
-    <EditText
-        android:id="@+id/customerNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/customerNumberText"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginRight="@dimen/margin_16"
-        android:enabled="false"
-        android:layout_marginTop="@dimen/margin_8"
-        android:textSize="14sp"
-        tools:text="+919292882828" />
-
-    <TextView
-        android:id="@+id/addressText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/customerNumber"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginRight="@dimen/margin_16"
-        android:layout_marginTop="@dimen/margin_24"
-        android:text="Address"
-        android:textColor="@color/black_color"
-        android:textSize="16sp" />
-
-
-    <EditText
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:layout_below="@+id/addressText"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginRight="@dimen/margin_16"
-        android:layout_marginTop="@dimen/margin_8"
-        android:textSize="14sp"
-        tools:text="332/555 njdjndjdcd  jjdjdm" />
-
-
-    <TextView
-        android:id="@+id/timeToCallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/address"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginRight="@dimen/margin_16"
-        android:visibility="visible"
-        android:layout_marginTop="@dimen/margin_24"
-        android:text="Schedule a Call"
-        android:textColor="@color/black_color"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/scheduleCallText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/timeToCallText"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginTop="@dimen/margin_4"
-        android:textSize="12sp"
-        android:visibility="gone"
-        tools:text="Call has been set to 13feb 17"
-        android:textColor="@android:color/holo_red_dark"/>
-
-    <LinearLayout
-        android:id="@+id/dateTimeContainer"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:visibility="visible"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scheduleCallText"
-        android:layout_marginTop="@dimen/margin_12"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/date"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="@color/green_color"
-            android:text="Set Date"
-            android:textColor="@color/white_color" />
 
-        <Button
-            android:id="@+id/time"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
-            android:text="Set Time"
-            android:textColor="@color/white_color" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/firstNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="First Name"
+            android:textSize="16sp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_centerHorizontal="true"
-        android:paddingRight="@dimen/margin_64"
-        android:visibility="gone"
-        android:text="Submit"
-        android:paddingLeft="@dimen/margin_64"
-        android:id="@+id/submit"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_64"
-        android:textColor="@android:color/white"
-        android:background="@drawable/green_curved_rectangle"
-        />
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/firstNameText"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginRight="@dimen/margin_16"
+            android:enabled="false"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textColor="@color/black_color"
+            android:textSize="14sp"
+            tools:text="Akdk" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/lastNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/firstName"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="Last Name"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lastNameText"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginRight="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            android:enabled="false"
+            android:textColor="@color/black_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/phoneNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lastName"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="Phone Number"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phoneNumberText"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginRight="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            android:enabled="false"
+            android:textColor="@color/black_color"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/streetText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phoneNumber"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="Street"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/street"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/streetText"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginRight="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            android:enabled="false"
+            android:textColor="@color/black_color"
+            android:textSize="14sp" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_alignBottom="@+id/streetText"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/progressBar"/>
+
+
+        <TextView
+            android:id="@+id/cityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/street"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="City"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cityText"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginRight="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            android:enabled="false"
+            android:textColor="@color/black_color"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/stateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/city"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="State"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stateText"
+            android:enabled="false"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginRight="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textColor="@color/black_color"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/countryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/state"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="Country"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/countryValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/countryText"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:enabled="false"
+            android:layout_marginRight="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textColor="@color/black_color"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/pinCodeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/countryValue"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="PinCode"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/pincode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pinCodeText"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:enabled="false"
+            android:layout_marginRight="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textColor="@color/black_color"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+</ScrollView>

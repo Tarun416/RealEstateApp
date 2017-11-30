@@ -106,8 +106,12 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     }
 
     override fun onCallClick(position: Int) {
-        recentCallPresenter.getCustomerDetails("8951577970")
+       // recentCallPresenter.getCustomerDetails("8951577970")
         // startActivity(Intent(activity, RecentCallActivity::class.java))
+
+        val intent = Intent(activity, RecentCallActivity::class.java)
+        intent.putExtra("phoneNumber",recentCallList[position].cli)
+        startActivity(intent)
     }
 
     override fun onClick(p0: View?) {
@@ -174,7 +178,9 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     override fun passCustomerDetails(customerDetailsResponse: CustomerDetailsResponse?) {
         val intent = Intent(activity, RecentCallActivity::class.java)
         if (customerDetailsResponse!!.assigned_user_name != null) {
-            intent.putExtra("name", customerDetailsResponse!!.assigned_user_name.value)
+            intent.putExtra("firstName", customerDetailsResponse!!.first_name.value)
+            intent.putExtra("lastName",customerDetailsResponse!!.last_name.value)
+           // intent.putExtra("phoneNumber",cus)
             intent.putExtra("note", customerDetailsResponse.description.value)
         }
 

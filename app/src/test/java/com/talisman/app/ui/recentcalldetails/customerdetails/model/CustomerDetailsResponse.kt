@@ -396,3 +396,14 @@ data class EAcceptStatusFields(
 		val name: String, //e_accept_status_fields
 		val value: String
 )
+
+
+
+data class d(
+		val error: Error
+)
+
+data class Error(
+		val message: String, //dd
+		val code: Int //404
+)

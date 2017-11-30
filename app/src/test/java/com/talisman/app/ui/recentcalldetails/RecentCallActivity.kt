@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import com.example.tarun.talismanpi.R
 import kotlinx.android.synthetic.main.activity_recent_calls.*
-import android.graphics.PorterDuff
-import android.support.v4.content.ContextCompat
 import com.talisman.app.ui.recentcalldetails.customerdetails.CustomerDetailsFragment
 
 
@@ -36,16 +34,15 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
 
         initUi()
 
-
     }
 
     private fun initUi() {
 
-        if(intent!=null && intent.extras!=null)
+       /* if(intent!=null && intent.extras!=null)
         {
             name = intent.extras.getString("name")
             note = intent.extras.getString("note")
-        }
+        }*/
 
         toolbarText.text = "Customer"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -65,8 +62,7 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         pagerAdapter = PagerAdapter(supportFragmentManager)
 
         val customerDetailsFragment  = CustomerDetailsFragment()
-        if(name!="")
-        customerDetailsFragment.setDetails(name)
+        customerDetailsFragment.setPhone(intent.extras.getString("phoneNumber"))
         pagerAdapter.addFrag(customerDetailsFragment)
 
         val notesFragment =NotesFragment()

@@ -62,6 +62,7 @@ class RecentCallPresenter
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSubscriber<CustomerDetailsResponse>() {
 
+
                     override fun onError(t: Throwable?) {
                         view.hideProgress()
                         view.passCustomerDetails(null)
