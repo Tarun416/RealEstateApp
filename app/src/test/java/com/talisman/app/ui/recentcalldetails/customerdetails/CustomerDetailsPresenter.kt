@@ -24,7 +24,7 @@ class CustomerDetailsPresenter
 
         view.showProgress()
         val hashMap: HashMap<String, String> = HashMap()
-        hashMap.put("prospectnumber", "8951577970")
+        hashMap.put("prospectnumber", "91"+mobileNo)
 
         val disposable1 =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  retrofit.create(ApiInterface::class.java).getCustomerDetails(hashMap)
                 .subscribeOn(Schedulers.io())

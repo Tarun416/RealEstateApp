@@ -6,10 +6,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusableInTouchMode="true"
         android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
-
 
 
         <TextView
@@ -29,8 +28,8 @@
             android:layout_below="@+id/firstNameText"
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_marginRight="@dimen/margin_16"
-            android:enabled="false"
             android:layout_marginTop="@dimen/margin_8"
+            android:enabled="false"
             android:textColor="@color/black_color"
             android:textSize="14sp"
             tools:text="Akdk" />
@@ -103,13 +102,13 @@
             android:textSize="14sp" />
 
         <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_alignBottom="@+id/streetText"
+            android:layout_alignBottom="@+id/streetText"
             android:layout_centerHorizontal="true"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:id="@+id/progressBar"/>
+            tools:visibility="visible" />
 
 
         <TextView
@@ -150,10 +149,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/stateText"
-            android:enabled="false"
             android:layout_marginLeft="@dimen/margin_16"
             android:layout_marginRight="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
+            android:enabled="false"
             android:textColor="@color/black_color"
             android:textSize="14sp" />
 
@@ -174,9 +173,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/countryText"
             android:layout_marginLeft="@dimen/margin_16"
-            android:enabled="false"
             android:layout_marginRight="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
+            android:enabled="false"
             android:textColor="@color/black_color"
             android:textSize="14sp" />
 
@@ -197,9 +196,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/pinCodeText"
             android:layout_marginLeft="@dimen/margin_16"
-            android:enabled="false"
             android:layout_marginRight="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
+            android:enabled="false"
             android:textColor="@color/black_color"
             android:textSize="14sp" />
 
