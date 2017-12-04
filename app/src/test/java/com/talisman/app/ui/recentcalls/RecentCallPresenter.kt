@@ -9,6 +9,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
 import retrofit2.Retrofit
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -17,6 +19,7 @@ import javax.inject.Inject
 class RecentCallPresenter
 @Inject constructor(var retrofit: Retrofit, var view: RecentCallContract.View) : RecentCallContract.Presenter {
 
+    private val simpleDateFormat = SimpleDateFormat("yyyyMMddhhmmss")
     private val preferences: TalismanPiPreferences = TalismanPiPreferences()
     private lateinit var apiInterface: ApiInterface
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -26,7 +29,7 @@ class RecentCallPresenter
         view.showProgress()
         apiInterface = ApiUtils.getApiService(BuildConfig.CDR_SERVER_URL, TalismanPiApplication.instance)
         val disposable =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.getRecentCalls(Constants.CONTENT_TYPE, Constants.DEVELOPER_ID, "20170806110000",
-                "20170831180000", preferences.agentNo!!, Constants.APP_TYPE)
+                simpleDateFormat.format(Date()), preferences.agentNo!!, Constants.APP_TYPE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSubscriber<RecentCallResponse>() {

@@ -121,10 +121,12 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
     }
 
     override fun showProgress() {
+        if(progressBar!=null)
         progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
+        if(progressBar!=null)
         progressBar.visibility = View.GONE
     }
 
@@ -150,14 +152,17 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
 
 
     override fun passCustomerDetails(t: CustomerDetailsResponse) {
-        firstName.setText(t.first_name.value)
-        lastName.setText(t.last_name.value)
-        phoneNumber.text=t.phone_mobile.value
-        street.setText(t.primary_address_street.value)
-        city.setText(t.primary_address_city.value)
-        state.setText(t.primary_address_state.value)
-        countryValue.setText(t.primary_address_country.value)
-        pincode.setText(t.primary_address_postalcode.value)
+
+       if(isResumed) {
+           firstName.setText(t.first_name.value)
+           lastName.setText(t.last_name.value)
+           phoneNumber.text = t.phone_mobile.value
+           street.setText(t.primary_address_street.value)
+           city.setText(t.primary_address_city.value)
+           state.setText(t.primary_address_state.value)
+           countryValue.setText(t.primary_address_country.value)
+           pincode.setText(t.primary_address_postalcode.value)
+       }
 
     }
     override fun showErrorMesssage(message: String) {

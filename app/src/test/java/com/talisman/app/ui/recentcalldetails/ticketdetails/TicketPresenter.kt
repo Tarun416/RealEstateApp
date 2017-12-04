@@ -1,4 +1,4 @@
-package com.talisman.app.ui.tickets
+package com.talisman.app.ui.recentcalldetails.ticketdetails
 
 import android.util.Log
 import com.example.tarun.talismanpi.BuildConfig
@@ -18,7 +18,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * Created by Tarun on 11/24/17.
+ * Created by Tarun on 12/4/17.
  */
 class TicketPresenter
 @Inject
@@ -30,8 +30,10 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
     private val parent = JSONObject()
     private val jsonObject = JSONObject()
     private val ticketJsonObject = JSONObject()
+    private lateinit var phone : String
 
-    override fun crmLogin() {
+    override fun crmLogin(phone : String) {
+        this.phone = phone
 
         try {
             jsonObject.put("user_name", BuildConfig.USERNAME)
@@ -64,7 +66,7 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
                     }
 
                     override fun onNext(t: CRMLoginResponse?) {
-                        getTickets(t!!.id)
+                        getTicketsForParticularCustomer(t!!.id)
                         //view.hideProgress()
                         //view.showRecentCalls(t!!.CDRJSON)
                     }
@@ -75,25 +77,31 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
         compositeDisposable.add(disposable)
     }
 
-    override fun getTickets(id: String) {
 
+    /*"{"session":"hogvtpljnotu22o7rjonhib3n3","module_name":"Cases","query":"cases.account_id = '71f5f2e7-a526-7f4b-a1be-5a0be099ae9f'
+    AND cases.work_log = 8951577970","order_by":"cases.date_entered","offset":"",
+    "select_fields":["name","case_number","state","priority","assigned_user_id"],
+    "link_name_to_fields_array":[[]],"max_results":1000,"deleted":0}"*/
+
+
+    private fun getTicketsForParticularCustomer(id: String) {
         try {
             ticketJsonObject.put("session", id)
             ticketJsonObject.put("module_name", "Cases")
-            ticketJsonObject.put("query", "cases.account_id" + " = '" + preferences.crmbusinessid + "'")
+            ticketJsonObject.put("query", "cases.account_id" + " = '" + preferences.crmbusinessid + "' AND "+"cases.work_log" + " = " + phone.substring(1,phone.length))
+           // ticketJsonObject.put("case.work_log",phone.substring(1,phone.length))
             ticketJsonObject.put("order_by", "cases.date_entered")
-            ticketJsonObject.put("offset", 0)
+            ticketJsonObject.put("offset", "")
             ticketJsonObject.put("select_fields","")
             ticketJsonObject.put("max_results", 1000)
-            ticketJsonObject.put("deleted", "false")
-
+            ticketJsonObject.put("deleted", 0)
             Log.d("output", ticketJsonObject.toString())
-
             hitTicketsApi()
 
         } catch (e: JSONException) {
             e.printStackTrace()
         }
+
     }
 
     private fun hitTicketsApi() {
@@ -116,7 +124,7 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
                     override fun onNext(t: TicketResponse?) {
                         view.hideProgress()
                         if(t!!.result_count>0)
-                        view.showTickets(t!!.entry_list)
+                            view.showTickets(t!!.entry_list)
                         else
                             view.showEmptyView()
                     }
@@ -130,6 +138,9 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
     fun onStop() {
         compositeDisposable.clear()
     }
-
-
 }
+
+
+
+
+
