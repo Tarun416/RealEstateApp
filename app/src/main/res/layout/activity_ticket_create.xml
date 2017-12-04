@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_customer_details" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:elevation="2dp"
+        android:id="@+id/progressBar"/>
+
+    <TextView
+        android:id="@+id/ticketNameText"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:text="Ticket Name"
+        android:textColor="@color/black_color"
+        android:textSize="16sp" />
+
+
+    <EditText
+        android:id="@+id/ticketName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_below="@+id/ticketNameText"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_8"
+        android:textSize="16sp"
+        tools:text="Aljeera" />
+
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ticketName"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_10"
+        android:text="Status"
+        android:textColor="@color/black_color"
+        android:textSize="16sp" />
+
+
+    <Spinner
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statusText"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:entries="@array/statusItems"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_8"
+        android:textSize="16sp"
+        tools:text="New" />
+
+    <TextView
+        android:id="@+id/priorityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_below="@+id/status"
+        android:layout_toRightOf="@+id/view"
+        android:text="Priority"
+        android:textColor="@color/black_color"
+        android:textSize="16sp" />
+
+
+    <Spinner
+        android:id="@+id/priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/priorityText"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_toRightOf="@+id/view"
+        android:entries="@array/priorityItems"
+        android:textSize="16sp"
+        tools:text="High" />
+
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:text="Description"
+        android:layout_below="@+id/priority"
+        android:textColor="@color/black_color"
+        android:textSize="16sp" />
+
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionText"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_8"
+        android:textSize="16sp"
+        tools:text="Some problem" />
+
+
+    <TextView
+        android:id="@+id/resolutionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_10"
+        android:text="Resolution"
+        android:textColor="@color/black_color"
+        android:textSize="16sp" />
+
+
+    <EditText
+        android:id="@+id/resolution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resolutionText"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginRight="@dimen/margin_16"
+        android:textSize="16sp"
+        tools:text="..." />
+
+
+</RelativeLayout>

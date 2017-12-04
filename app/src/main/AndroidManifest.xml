@@ -83,6 +83,12 @@
             >
         </activity>
 
+        <activity
+            android:name="com.talisman.app.ui.recentcalldetails.ticketdetails.TicketCreateActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
         //  fOR getting fcm token
         <service android:name="com.talisman.app.FCMIDService"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">

@@ -1,4 +1,4 @@
-package com.talisman.app.ui.ticketdetails
+package com.talisman.app.ui.recentcalldetails.ticketdetails
 
 import android.util.Log
 import com.example.tarun.talismanpi.BuildConfig
@@ -7,6 +7,8 @@ import com.talisman.app.ApiUtils
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.TalismanPiPreferences
 import com.talisman.app.model.CRMLoginResponse
+import com.talisman.app.ui.ticketdetails.TicketDetailsContract
+import com.talisman.app.ui.ticketdetails.TicketUpdateResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,13 +21,12 @@ import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * Created by Tarun on 11/29/17.
+ * Created by Tarun on 12/4/17.
  */
-class TicketDetailsPresenter
+class TicketCreatePresenter
 @Inject
 constructor(val retrofit: Retrofit, val view: TicketDetailsContract.View) : TicketDetailsContract.Presenter {
-
-    override fun crmCreateLogin(toString: String, toString1: String, toString2: String, toString3: String, toString4: String, string5: String) {
+    override fun crmLogin(toString: String, toString1: String, toString2: String, toString3: String, toString4: String) {
 
     }
 
@@ -49,15 +50,17 @@ constructor(val retrofit: Retrofit, val view: TicketDetailsContract.View) : Tick
     private lateinit var priority : String
     private lateinit var description: String
     private lateinit var resolution : String
-    private lateinit var ticketId : String
+    private lateinit var ticketname: String
+    private lateinit var phone : String
 
-    override fun crmLogin(state: String, priority: String, description: String, resolution: String,ticketId: String) {
+    override fun crmCreateLogin(state: String, priority: String, description: String, resolution: String,name: String,phone : String) {
 
         this.state = state
         this.priority = priority
         this.description = description
         this.resolution = resolution
-        this.ticketId = ticketId
+        this.ticketname = name
+        this.phone =phone
 
         try {
             jsonObject.put("user_name", BuildConfig.USERNAME)
@@ -104,7 +107,7 @@ constructor(val retrofit: Retrofit, val view: TicketDetailsContract.View) : Tick
         try {
 
             nameJsonObject.put("name","name")
-            nameJsonObject.put("value","testing")
+            nameJsonObject.put("value",ticketname)
 
             stateJsonObject.put("name","state")
             stateJsonObject.put("value",state)
@@ -115,14 +118,15 @@ constructor(val retrofit: Retrofit, val view: TicketDetailsContract.View) : Tick
             resolutionJsonObject.put("name","resolution")
             resolutionJsonObject.put("value",resolution)
 
-            descriptionJsonObject.put("name","description")
-            descriptionJsonObject.put("value",description)
 
             accountIdJsonObject.put("name","account_id")
             accountIdJsonObject.put("value",preferences.crmbusinessid)
 
-            idJsonObject.put("name","id")
-            idJsonObject.put("value",ticketId)
+            idJsonObject.put("name","work_log")
+            idJsonObject.put("value", phone.substring(1,phone.length))
+
+            descriptionJsonObject.put("name","description")
+            descriptionJsonObject.put("value",description)
 
             nameValueListJsonArray.put(nameJsonObject)
             nameValueListJsonArray.put(stateJsonObject)

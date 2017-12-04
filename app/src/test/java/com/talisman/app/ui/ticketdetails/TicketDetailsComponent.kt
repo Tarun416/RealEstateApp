@@ -1,6 +1,7 @@
 package com.talisman.app.ui.ticketdetails
 
 import com.talisman.app.NetComponent
+import com.talisman.app.ui.recentcalldetails.ticketdetails.TicketCreateActivity
 import com.talisman.app.utils.CustomScope
 import dagger.Component
 import dagger.Module
@@ -12,5 +13,7 @@ import dagger.Module
 @Component(dependencies = arrayOf(NetComponent::class), modules = arrayOf(TicketDetailsModule::class))
 interface TicketDetailsComponent {
     fun inject(activity: TicketDetailsActivity)
+    fun inject(activity: TicketCreateActivity)
+
 
 }

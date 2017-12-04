@@ -26,8 +26,7 @@ import javax.inject.Inject
 /**
  * Created by tarun on 11/10/17.
  */
-class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener , TicketAdapter.OnTicketClick
-{
+class TicketFragment : Fragment(), TicketContract.View, View.OnClickListener, TicketAdapter.OnTicketClick {
 
     private lateinit var ticketAdapter: TicketAdapter
     private lateinit var ticketList: ArrayList<Entry>
@@ -36,12 +35,12 @@ class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener ,
 
     private lateinit var tempItem: ArrayList<Entry>
 
-    private var backPressApiCall : Boolean = false
+    private var backPressApiCall: Boolean = false
 
     @Inject
     lateinit var ticketPresenter: TicketPresenter
 
-    private  var phone: String =""
+    private var phone: String = ""
 
     companion object {
         /**
@@ -57,7 +56,7 @@ class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener ,
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_recentcall_tickets,container,false)
+        return inflater?.inflate(R.layout.fragment_recentcall_tickets, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -69,9 +68,9 @@ class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener ,
                 .build().inject(this@TicketFragment)
 
 
-        backPressApiCall=false
+        backPressApiCall = false
         initUi()
-        filteredItems= ArrayList()
+        filteredItems = ArrayList()
         ticketPresenter.crmLogin(phone)
         tempItem = ArrayList()
     }
@@ -80,6 +79,7 @@ class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener ,
         ticketList = ArrayList()
         setRecyclerView()
         filter.setOnClickListener(this)
+        fab.setOnClickListener(this)
         clear_search.setOnClickListener(this)
 
         search.addTextChangedListener(object : TextWatcher {
@@ -125,20 +125,18 @@ class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener ,
         ticketRecyclerView.adapter = ticketAdapter
     }
 
-    override fun onTicketClick(position : Int) {
+    override fun onTicketClick(position: Int) {
         val intent = Intent(activity, TicketDetailsActivity::class.java)
 
-        if(filteredItems!=null && filteredItems.size>0)
-        {
-            intent.putExtra("ticketNumber",filteredItems[position].name_value_list.case_number.value)
+        if (filteredItems != null && filteredItems.size > 0) {
+            intent.putExtra("ticketNumber", filteredItems[position].name_value_list.case_number.value)
             intent.putExtra("status", filteredItems[position].name_value_list.state.value)
             intent.putExtra("priority", filteredItems[position].name_value_list.priority.value)
             intent.putExtra("description", filteredItems[position].name_value_list.description.value)
             intent.putExtra("resolution", filteredItems[position].name_value_list.resolution.value)
             intent.putExtra("workLog", filteredItems[position].name_value_list.work_log.value)
             intent.putExtra("ticketId", filteredItems[position].id)
-        }
-        else {
+        } else {
             intent.putExtra("ticketNumber", ticketList[position].name_value_list.case_number.value)
             intent.putExtra("status", ticketList[position].name_value_list.state.value)
             intent.putExtra("priority", ticketList[position].name_value_list.priority.value)
@@ -148,7 +146,7 @@ class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener ,
             intent.putExtra("ticketId", ticketList[position].id)
         }
 
-        backPressApiCall=true
+        backPressApiCall = true
         startActivity(intent)
     }
 
@@ -158,6 +156,13 @@ class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener ,
                 showDialog()
             }
             R.id.clear_search -> search.text.clear()
+
+            R.id.fab -> {
+                val intent = Intent(activity, TicketCreateActivity::class.java)
+                intent.putExtra("phoneNumber",phone)
+                backPressApiCall=true
+                startActivity(intent)
+            }
         }
     }
 
@@ -299,12 +304,11 @@ class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener ,
         ticketRecyclerView.visibility = View.VISIBLE
         emptyText.visibility = View.GONE
         filter.visibility = View.VISIBLE
-        if(filteredItems!=null && filteredItems.size>0) {
+        if (filteredItems != null && filteredItems.size > 0) {
             filteredItems.clear()
             filteredItems.addAll(entry_list)
             ticketList.addAll(entry_list)
-        }
-        else
+        } else
             ticketList.addAll(entry_list)
         ticketAdapter.notifyDataSetChanged()
     }
@@ -327,7 +331,7 @@ class TicketFragment : Fragment() , TicketContract.View , View.OnClickListener ,
 
     override fun onResume() {
         super.onResume()
-        if(backPressApiCall)
+        if (backPressApiCall)
             ticketPresenter.crmLogin(phone)
     }
 

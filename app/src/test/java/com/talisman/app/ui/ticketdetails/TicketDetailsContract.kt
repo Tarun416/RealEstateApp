@@ -11,12 +11,12 @@ interface TicketDetailsContract
     interface View : BaseView
     {
         fun updateSuccess()
-
     }
 
     interface Presenter
     {
         fun crmLogin(toString: String, toString1: String, toString2: String, toString3: String, toString4: String)
         fun updateTicket(id : String)
+        fun crmCreateLogin(toString: String, toString1: String, toString2: String, toString3: String, toString4: String, toString5: String)
     }
 }

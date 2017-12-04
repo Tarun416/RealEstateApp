@@ -88,7 +88,7 @@ constructor(val retrofit : Retrofit, val view: CustomerContract.View) : Customer
             customerJsonObject.put("order_by", "leads.last_name")
             customerJsonObject.put("offset", 0)
             customerJsonObject.put("select_fields", "")
-            customerJsonObject.put("max_results", 50)
+            customerJsonObject.put("max_results", 1000)
             customerJsonObject.put("deleted", "false")
             //customerJsonObject.put("link_name_to_fields_array","")
 
