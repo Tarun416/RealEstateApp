@@ -30,6 +30,75 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
     private val parent = JSONObject()
     private val jsonObject = JSONObject()
     private val ticketJsonObject = JSONObject()
+    private lateinit var phone : String
+
+
+    override fun crmLogin(phone : String) {
+        this.phone = phone
+
+        try {
+            jsonObject.put("user_name", BuildConfig.USERNAME)
+            jsonObject.put("password", BuildConfig.PASSWORD)
+            parent.put("user_auth", jsonObject)
+            Timber.d("output", parent.toString())
+
+            hitLoginApiForParticularCustomer()
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun hitLoginApiForParticularCustomer() {
+        view.showProgress()
+        apiInterface = ApiUtils.getApiService(BuildConfig.CRM_SERVER_URL, TalismanPiApplication.instance)
+        val disposable =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.crmLogin("login", "JSON", "JSON", parent.toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSubscriber<CRMLoginResponse>() {
+
+                    override fun onError(t: Throwable?) {
+                        view.hideProgress()
+                        // view.resultError()
+                    }
+
+                    override fun onComplete() {
+
+                    }
+
+                    override fun onNext(t: CRMLoginResponse?) {
+                        getTicketsForParticularCustomer(t!!.id)
+                        //view.hideProgress()
+                        //view.showRecentCalls(t!!.CDRJSON)
+                    }
+
+                })
+
+
+        compositeDisposable.add(disposable)
+    }
+
+
+    private fun getTicketsForParticularCustomer(id: String) {
+        try {
+            ticketJsonObject.put("session", id)
+            ticketJsonObject.put("module_name", "Cases")
+            ticketJsonObject.put("query", "cases.account_id" + " = '" + preferences.crmbusinessid + "' AND "+"cases.work_log" + " = " + phone.substring(1,phone.length))
+            // ticketJsonObject.put("case.work_log",phone.substring(1,phone.length))
+            ticketJsonObject.put("order_by", "cases.date_entered")
+            ticketJsonObject.put("offset", "")
+            ticketJsonObject.put("select_fields","")
+            ticketJsonObject.put("max_results", 1000)
+            ticketJsonObject.put("deleted", 0)
+            Log.d("output", ticketJsonObject.toString())
+            hitTicketsApi()
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+    }
+
 
     override fun crmLogin() {
 

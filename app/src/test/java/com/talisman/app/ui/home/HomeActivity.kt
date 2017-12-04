@@ -11,13 +11,16 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiPreferences
+import com.talisman.app.ui.customers.CustomerFragment
 
 import com.talisman.app.ui.drawer.DrawerHeader
 import com.talisman.app.ui.drawer.DrawerMenuItem
 import com.talisman.app.ui.login.LoginActivity
 import com.talisman.app.ui.notifications.NotificationActivity
 import com.talisman.app.ui.profile.ProfileActivity
+import com.talisman.app.ui.recentcalls.RecentCallFragment
 import com.talisman.app.ui.settings.SettingsActivity
+import com.talisman.app.ui.tickets.TicketFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 
@@ -87,7 +90,18 @@ class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
         tab_layout.addTab(tab_layout.newTab().setText(getString(R.string.tickets)))
         tab_layout.tabGravity = TabLayout.GRAVITY_FILL
 
-        pagerAdapter = PagerAdapter(supportFragmentManager, tab_layout.tabCount)
+        pagerAdapter = PagerAdapter(supportFragmentManager)
+
+        val recentCallFragment = RecentCallFragment()
+        pagerAdapter.addFrag(recentCallFragment)
+
+        val customerFragment = CustomerFragment()
+        pagerAdapter.addFrag(customerFragment)
+
+        val ticketFragment = TicketFragment()
+        ticketFragment.setFabVisibilty(false)
+        pagerAdapter.addFrag(ticketFragment)
+
         pager.adapter = pagerAdapter
 
         pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))

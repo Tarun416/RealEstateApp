@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.example.tarun.talismanpi.R
 import kotlinx.android.synthetic.main.activity_recent_calls.*
 import com.talisman.app.ui.recentcalldetails.customerdetails.CustomerDetailsFragment
-import com.talisman.app.ui.recentcalldetails.ticketdetails.TicketFragment
 
 
 /**
@@ -71,8 +70,9 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         notesFragment.setDetails(note)
         pagerAdapter.addFrag(notesFragment)
 
-        val ticketFragment = TicketFragment()
+        val ticketFragment = com.talisman.app.ui.tickets.TicketFragment()
         ticketFragment.setPhone(intent.extras.getString("phoneNumber"))
+        ticketFragment.setFabVisibilty(true)
         pagerAdapter.addFrag(ticketFragment)
 
         val callHistoryFragment = CallHistoryFragment()

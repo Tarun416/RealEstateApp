@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
+import com.talisman.app.ui.recentcalldetails.ticketdetails.TicketCreateActivity
 import com.talisman.app.ui.ticketdetails.TicketDetailsActivity
 import com.talisman.app.ui.tickets.model.Entry
 import kotlinx.android.synthetic.main.fragment_tickets.*
@@ -28,6 +29,7 @@ import javax.inject.Inject
  */
 class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickListener, TicketContract.View {
 
+
     private lateinit var ticketAdapter: TicketAdapter
     private lateinit var ticketList: ArrayList<Entry>
 
@@ -35,10 +37,14 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
 
     private lateinit var tempItem: ArrayList<Entry>
 
-    private var backPressApiCall : Boolean = false
+    private var backPressApiCall: Boolean = false
 
     @Inject
     lateinit var ticketPresenter: TicketPresenter
+
+    private var phone: String = ""
+
+    private var fabVisibility: Boolean = false
 
     companion object {
         /**
@@ -66,18 +72,28 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
                 .ticketModule(TicketModule(this@TicketFragment))
                 .build().inject(this@TicketFragment)
 
-        backPressApiCall=false
+        backPressApiCall = false
         initUi()
-        filteredItems= ArrayList()
-        ticketPresenter.crmLogin()
+        filteredItems = ArrayList()
+        if (fabVisibility)
+            ticketPresenter.crmLogin(phone)
+        else
+            ticketPresenter.crmLogin()
         tempItem = ArrayList()
     }
 
     private fun initUi() {
+
+        if (fabVisibility)
+            fab.visibility = View.VISIBLE
+        else
+            fab.visibility = View.GONE
+
         ticketList = ArrayList()
         setRecyclerView()
         filter.setOnClickListener(this)
         clear_search.setOnClickListener(this)
+        fab.setOnClickListener(this)
 
         search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
@@ -122,20 +138,18 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
         ticketRecyclerView.adapter = ticketAdapter
     }
 
-    override fun onTicketClick(position : Int) {
+    override fun onTicketClick(position: Int) {
         val intent = Intent(activity, TicketDetailsActivity::class.java)
 
-        if(filteredItems!=null && filteredItems.size>0)
-        {
-            intent.putExtra("ticketNumber",filteredItems[position].name_value_list.case_number.value)
+        if (filteredItems != null && filteredItems.size > 0) {
+            intent.putExtra("ticketNumber", filteredItems[position].name_value_list.case_number.value)
             intent.putExtra("status", filteredItems[position].name_value_list.state.value)
             intent.putExtra("priority", filteredItems[position].name_value_list.priority.value)
             intent.putExtra("description", filteredItems[position].name_value_list.description.value)
             intent.putExtra("resolution", filteredItems[position].name_value_list.resolution.value)
             intent.putExtra("workLog", filteredItems[position].name_value_list.work_log.value)
             intent.putExtra("ticketId", filteredItems[position].id)
-        }
-        else {
+        } else {
             intent.putExtra("ticketNumber", ticketList[position].name_value_list.case_number.value)
             intent.putExtra("status", ticketList[position].name_value_list.state.value)
             intent.putExtra("priority", ticketList[position].name_value_list.priority.value)
@@ -145,7 +159,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
             intent.putExtra("ticketId", ticketList[position].id)
         }
 
-        backPressApiCall=true
+        backPressApiCall = true
         startActivity(intent)
     }
 
@@ -155,7 +169,18 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
                 showDialog()
             }
             R.id.clear_search -> search.text.clear()
+
+            R.id.fab -> {
+                val intent = Intent(activity, TicketCreateActivity::class.java)
+                intent.putExtra("phoneNumber", phone)
+                backPressApiCall = true
+                startActivity(intent)
+            }
         }
+    }
+
+    fun setPhone(phone: String?) {
+        this.phone = phone!!
     }
 
     private fun showDialog() {
@@ -294,13 +319,12 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
         ticketRecyclerView.visibility = View.VISIBLE
         emptyText.visibility = View.GONE
         filter.visibility = View.VISIBLE
-        if(filteredItems!=null && filteredItems.size>0) {
+        if (filteredItems != null && filteredItems.size > 0) {
             filteredItems.clear()
             filteredItems.addAll(entry_list)
             ticketList.addAll(entry_list)
-        }
-        else
-        ticketList.addAll(entry_list)
+        } else
+            ticketList.addAll(entry_list)
         ticketAdapter.notifyDataSetChanged()
     }
 
@@ -322,10 +346,22 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
 
     override fun onResume() {
         super.onResume()
-        if(backPressApiCall)
-        ticketPresenter.crmLogin()
+        if (backPressApiCall) {
+            if (fabVisibility)
+                ticketPresenter.crmLogin(phone)
+            else
+                ticketPresenter.crmLogin()
+        }
     }
 
+    fun setFabVisibilty(b: Boolean) {
+        fabVisibility = b
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        ticketPresenter.onStop()
+    }
 
 
 }

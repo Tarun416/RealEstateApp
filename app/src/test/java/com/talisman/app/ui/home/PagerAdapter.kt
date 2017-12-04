@@ -3,33 +3,25 @@ package com.talisman.app.ui.home
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import com.talisman.app.ui.customers.CustomerFragment
-import com.talisman.app.ui.recentcalls.RecentCallFragment
-import com.talisman.app.ui.tickets.TicketFragment
+import java.util.ArrayList
 
 
 /**
  * Created by tarun on 11/9/17.
  */
-class PagerAdapter(fm: FragmentManager, private var mNumOfTabs: Int) : FragmentStatePagerAdapter(fm) {
+class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+
+    private val mFragmentList = ArrayList<Fragment>()
 
     override fun getItem(position: Int): Fragment? {
-
-        return when (position) {
-            0 -> {
-                RecentCallFragment()
-            }
-            1 -> {
-                CustomerFragment()
-            }
-            2 -> {
-                TicketFragment()
-            }
-            else -> null
-        }
+        return  mFragmentList[position]
     }
 
+    fun addFrag(fragment: Fragment) {
+        mFragmentList.add(fragment) }
+
+
     override fun getCount(): Int {
-        return mNumOfTabs
+        return mFragmentList.size
     }
 }

@@ -19,6 +19,7 @@ interface TicketContract
     interface Presenter
     {
         fun crmLogin()
+        fun crmLogin(phone : String)
         fun getTickets(id: String)
     }
 }
