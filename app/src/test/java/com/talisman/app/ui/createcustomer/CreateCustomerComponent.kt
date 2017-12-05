@@ -1,6 +1,7 @@
 package com.talisman.app.ui.createcustomer
 
 import com.talisman.app.NetComponent
+import com.talisman.app.ui.recentcalldetails.NotesFragment
 import com.talisman.app.utils.CustomScope
 import dagger.Component
 
@@ -11,4 +12,5 @@ import dagger.Component
 @Component(dependencies = arrayOf(NetComponent::class), modules = arrayOf(CreateCustomerModule::class))
 interface CreateCustomerComponent {
     fun inject(activity: CreateCustomerActivity)
+    fun inject ( fragment: NotesFragment)
 }

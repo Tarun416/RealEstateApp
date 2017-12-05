@@ -332,7 +332,7 @@ data class Deleted(
 
 data class Description(
 		val name: String, //description
-		val value: String //tarun
+		var value: String //tarun
 ) : Parcelable {
 	constructor(source: Parcel) : this(
 			source.readString(),

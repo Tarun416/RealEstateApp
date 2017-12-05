@@ -27,6 +27,7 @@ class CreateCustomerPresenter
 constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : CreateCustomerContract.Presenter {
 
     private var customerId: String = ""
+    private var description: String = ""
     private lateinit var firstName: String
     private lateinit var lastName: String
     private lateinit var phone: String
@@ -63,7 +64,7 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
 
     override fun crmLogin(firstName: String, lastName: String, phone: String,
                           street: String, city: String, state: String,
-                          country: String, pincode: String, id : String) {
+                          country: String, pincode: String, id : String,description : String) {
 
         this.firstName = firstName
         this.lastName = lastName
@@ -74,6 +75,7 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
         this.country = country
         this.pincode = pincode
         this.customerId=id
+        this.description=description
 
         try {
             jsonObject.put("user_name", BuildConfig.USERNAME)
@@ -120,73 +122,89 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
     private fun createCustomer(id: String) {
         try {
 
-            createJsonObject1.put("name", "first_name")
-            createJsonObject1.put("value", firstName)
+           if(description.isEmpty()) {
 
-            createJsonObject2.put("name", "title")
-            createJsonObject2.put("value", "")
+               createJsonObject1.put("name", "first_name")
+               createJsonObject1.put("value", firstName)
 
-            createJsonObject3.put("name", "phone_mobile")
-            createJsonObject3.put("value", "91"+phone)
+               createJsonObject2.put("name", "title")
+               createJsonObject2.put("value", "")
 
-            createJsonObject4.put("name", "phone_work")
-            createJsonObject4.put("value", "91"+phone)
+               createJsonObject3.put("name", "phone_mobile")
+               createJsonObject3.put("value", "91" + phone)
 
-            createJsonObject5.put("name", "last_name")
-            createJsonObject5.put("value", lastName)
+               createJsonObject4.put("name", "phone_work")
+               createJsonObject4.put("value", "91" + phone)
 
-            createJsonObject6.put("name", "status")
-            createJsonObject6.put("value", "New")
+               createJsonObject5.put("name", "last_name")
+               createJsonObject5.put("value", lastName)
+
+               createJsonObject6.put("name", "status")
+               createJsonObject6.put("value", "New")
 
 //            createJsonObject7.put("name", "description")
-  //          createJsonObject7.put("value", "")
+               //          createJsonObject7.put("value", "")
 
-            createJsonObject8.put("name", "primary_address_street")
-            createJsonObject8.put("value", street)
+               createJsonObject8.put("name", "primary_address_street")
+               createJsonObject8.put("value", street)
 
-            createJsonObject9.put("name", "primary_address_city")
-            createJsonObject9.put("value", city)
+               createJsonObject9.put("name", "primary_address_city")
+               createJsonObject9.put("value", city)
 
-            createJsonObject10.put("name", "primary_address_state")
-            createJsonObject10.put("value", state)
+               createJsonObject10.put("name", "primary_address_state")
+               createJsonObject10.put("value", state)
 
-            createJsonObject11.put("name", "primary_address_postalcode")
-            createJsonObject11.put("value", pincode)
+               createJsonObject11.put("name", "primary_address_postalcode")
+               createJsonObject11.put("value", pincode)
 
-            createJsonObject12.put("name", "primary_address_country")
-            createJsonObject12.put("value", country)
+               createJsonObject12.put("name", "primary_address_country")
+               createJsonObject12.put("value", country)
 
-            createJsonObject13.put("name", "account_id")
-            createJsonObject13.put("value", preferences.crmbusinessid)
+               createJsonObject13.put("name", "account_id")
+               createJsonObject13.put("value", preferences.crmbusinessid)
 
-            nameValueListJsonArray.put(createJsonObject1)
+               nameValueListJsonArray.put(createJsonObject1)
 
-            if(!customerId.isEmpty())
-            {
-                idJsonObjectForUpdate.put("name","id")
-                idJsonObjectForUpdate.put("value",customerId)
-                nameValueListJsonArray.put(idJsonObjectForUpdate)
-            }
+               if (!customerId.isEmpty()) {
+                   idJsonObjectForUpdate.put("name", "id")
+                   idJsonObjectForUpdate.put("value", customerId)
+                   nameValueListJsonArray.put(idJsonObjectForUpdate)
+               }
 
-            nameValueListJsonArray.put(createJsonObject2)
-            nameValueListJsonArray.put(createJsonObject3)
-            nameValueListJsonArray.put(createJsonObject4)
-            nameValueListJsonArray.put(createJsonObject5)
-            nameValueListJsonArray.put(createJsonObject6)
+               nameValueListJsonArray.put(createJsonObject2)
+               nameValueListJsonArray.put(createJsonObject3)
+               nameValueListJsonArray.put(createJsonObject4)
+               nameValueListJsonArray.put(createJsonObject5)
+               nameValueListJsonArray.put(createJsonObject6)
 
-            if(customerId.isEmpty())
-            {
-                createJsonObject7.put("name","description")
-                createJsonObject7.put("value","")
-                nameValueListJsonArray.put(createJsonObject7)
-            }
+               if (customerId.isEmpty()) {
+                   createJsonObject7.put("name", "description")
+                   createJsonObject7.put("value", "")
+                   nameValueListJsonArray.put(createJsonObject7)
+               }
 
-            nameValueListJsonArray.put(createJsonObject8)
-            nameValueListJsonArray.put(createJsonObject9)
-            nameValueListJsonArray.put(createJsonObject10)
-            nameValueListJsonArray.put(createJsonObject11)
-            nameValueListJsonArray.put(createJsonObject12)
-            nameValueListJsonArray.put(createJsonObject13)
+               nameValueListJsonArray.put(createJsonObject8)
+               nameValueListJsonArray.put(createJsonObject9)
+               nameValueListJsonArray.put(createJsonObject10)
+               nameValueListJsonArray.put(createJsonObject11)
+               nameValueListJsonArray.put(createJsonObject12)
+               nameValueListJsonArray.put(createJsonObject13)
+           }
+            else
+           {
+               createJsonObject1.put("name","description")
+               createJsonObject1.put("value",description)
+
+               idJsonObjectForUpdate.put("name", "id")
+               idJsonObjectForUpdate.put("value", customerId)
+
+               createJsonObject13.put("name", "account_id")
+               createJsonObject13.put("value", preferences.crmbusinessid)
+
+               nameValueListJsonArray.put(createJsonObject1)
+               nameValueListJsonArray.put(idJsonObjectForUpdate)
+               nameValueListJsonArray.put(createJsonObject13)
+           }
 
             customerCreateJsonObject.put("session", id)
             customerCreateJsonObject.put("module_name", "Leads")

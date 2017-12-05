@@ -23,11 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:textColor="@color/black_color"
         android:layout_marginLeft="@dimen/margin_16"
         android:layout_toLeftOf="@+id/call"
         android:layout_toRightOf="@+id/customerInitialText"
         android:textSize="16sp"
-        android:textStyle="bold"
         tools:text="Ananya sinhaa sharma in the rain  " />
 
     <ImageView

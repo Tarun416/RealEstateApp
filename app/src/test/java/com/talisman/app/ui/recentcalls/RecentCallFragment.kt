@@ -64,6 +64,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     }
 
     private fun initUi() {
+        filteredItems = ArrayList()
         recentCallList = ArrayList()
         setRecyclerView()
         clear_search.setOnClickListener(this)
@@ -91,7 +92,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
 
     private fun filter(toString: String) {
 
-        filteredItems = ArrayList<CDRJSON>()
+        filteredItems = ArrayList()
 
         if (recentCallList != null && recentCallList.size > 0) {
             recentCallList.filterTo(filteredItems) { it.cli.contains("+91"+toString,true) }

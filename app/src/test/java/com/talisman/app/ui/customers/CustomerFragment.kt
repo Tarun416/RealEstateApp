@@ -63,6 +63,7 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
 
     private fun initUi() {
         customerList= ArrayList()
+        filteredItems = ArrayList()
         setRecyclerView()
         clear_search.setOnClickListener(this)
 
