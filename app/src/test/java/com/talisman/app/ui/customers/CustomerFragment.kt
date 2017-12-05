@@ -189,7 +189,9 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
         emptyText.visibility=View.VISIBLE
     }
 
-
-
+    override fun onResume() {
+        super.onResume()
+        customerPresenter.crmLogin()
+    }
 
 }

@@ -67,8 +67,7 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         pagerAdapter.addFrag(customerDetailsFragment)
 
         val notesFragment =NotesFragment()
-        if(note!="")
-        notesFragment.setDetails(note)
+        notesFragment.setDetails(customerDetailResposne)
         pagerAdapter.addFrag(notesFragment)
 
         val ticketFragment = com.talisman.app.ui.tickets.TicketFragment()

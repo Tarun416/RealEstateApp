@@ -59,20 +59,22 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
         // time.setOnClickListener(this)
         fab.setOnClickListener(this)
 
-        firstName.text = customerDetailResponse.first_name!!.value
-        lastName.text = customerDetailResponse.last_name!!.value
         phoneNumber.text = customerDetailResponse.phone_mobile!!.value
 
         toggleViews(customerDetailResponse)
 
     }
 
-    private fun toggleViews(customerDetailResponse: CustomerDetailsResponse) {
+    private fun toggleViews(customerDetailResponse1: CustomerDetailsResponse) {
+
+        firstName.text = customerDetailResponse1.first_name!!.value
+        lastName.text = customerDetailResponse1.last_name!!.value
+
         when {
-            !customerDetailResponse.primary_address_street!!.value.isEmpty() -> {
+            !customerDetailResponse1.primary_address_street!!.value.isEmpty() -> {
                 street.visibility = View.VISIBLE
                 streetText.visibility = View.VISIBLE
-                street.text = customerDetailResponse.primary_address_street!!.value
+                street.text = customerDetailResponse1.primary_address_street!!.value
             }
             else -> {
                 street.visibility = View.GONE
@@ -82,10 +84,10 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
         }
 
         when {
-            !customerDetailResponse.primary_address_city!!.value.isEmpty() -> {
+            !customerDetailResponse1.primary_address_city!!.value.isEmpty() -> {
                 city.visibility = View.VISIBLE
                 cityText.visibility = View.VISIBLE
-                city.text = customerDetailResponse.primary_address_city!!.value
+                city.text = customerDetailResponse1.primary_address_city!!.value
             }
             else -> {
                 city.visibility = View.GONE
@@ -94,10 +96,10 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
         }
 
         when {
-            !customerDetailResponse.primary_address_state!!.value.isEmpty() -> {
+            !customerDetailResponse1.primary_address_state!!.value.isEmpty() -> {
                 state.visibility = View.VISIBLE
                 stateText.visibility = View.VISIBLE
-                state.text = customerDetailResponse.primary_address_state!!.value
+                state.text = customerDetailResponse1.primary_address_state!!.value
             }
             else -> {
                 state.visibility = View.GONE
@@ -106,10 +108,10 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
         }
 
         when {
-            !customerDetailResponse.primary_address_country!!.value.isEmpty() -> {
+            !customerDetailResponse1.primary_address_country!!.value.isEmpty() -> {
                 countryValue.visibility = View.VISIBLE
                 countryText.visibility = View.VISIBLE
-                countryValue.text = customerDetailResponse.primary_address_country!!.value
+                countryValue.text = customerDetailResponse1.primary_address_country!!.value
             }
             else -> {
                 countryValue.visibility = View.GONE
@@ -118,10 +120,10 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
         }
 
         when {
-            !customerDetailResponse.primary_address_postalcode!!.value.isEmpty() -> {
+            !customerDetailResponse1.primary_address_postalcode!!.value.isEmpty() -> {
                 pincode.visibility = View.VISIBLE
                 pinCodeText.visibility = View.VISIBLE
-                pincode.text = customerDetailResponse.primary_address_postalcode!!.value
+                pincode.text = customerDetailResponse1.primary_address_postalcode!!.value
             }
             else -> {
                 pincode.visibility = View.GONE

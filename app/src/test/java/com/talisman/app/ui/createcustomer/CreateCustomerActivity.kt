@@ -129,7 +129,7 @@ class CreateCustomerActivity : AppCompatActivity(), View.OnClickListener, Create
     }
 
     override fun onSuccess() {
-        if (!intent.extras.getString("firstName").isEmpty())
+        if (intent.extras.containsKey("firstName"))
             Toast.makeText(this, "Customer Updated", Toast.LENGTH_LONG).show()
         else
             Toast.makeText(this, "Customer Created", Toast.LENGTH_LONG).show()

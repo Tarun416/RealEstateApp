@@ -138,8 +138,8 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
             createJsonObject6.put("name", "status")
             createJsonObject6.put("value", "New")
 
-            createJsonObject7.put("name", "description")
-            createJsonObject7.put("value", "")
+//            createJsonObject7.put("name", "description")
+  //          createJsonObject7.put("value", "")
 
             createJsonObject8.put("name", "primary_address_street")
             createJsonObject8.put("value", street)
@@ -161,7 +161,7 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
 
             nameValueListJsonArray.put(createJsonObject1)
 
-            if(!id.isEmpty())
+            if(!customerId.isEmpty())
             {
                 idJsonObjectForUpdate.put("name","id")
                 idJsonObjectForUpdate.put("value",customerId)
@@ -173,7 +173,14 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
             nameValueListJsonArray.put(createJsonObject4)
             nameValueListJsonArray.put(createJsonObject5)
             nameValueListJsonArray.put(createJsonObject6)
-            nameValueListJsonArray.put(createJsonObject7)
+
+            if(customerId.isEmpty())
+            {
+                createJsonObject7.put("name","description")
+                createJsonObject7.put("value","")
+                nameValueListJsonArray.put(createJsonObject7)
+            }
+
             nameValueListJsonArray.put(createJsonObject8)
             nameValueListJsonArray.put(createJsonObject9)
             nameValueListJsonArray.put(createJsonObject10)

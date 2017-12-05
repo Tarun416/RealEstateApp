@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.tarun.talismanpi.R
+import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import kotlinx.android.synthetic.main.fragment_notes.*
 
 /**
@@ -16,6 +18,7 @@ class NotesFragment : Fragment() , View.OnClickListener
 
     private var note1 : String=""
     private var isSendContainerVisible = false
+    private lateinit var customerDetailResponse : CustomerDetailsResponse
 
     companion object {
         /**
@@ -41,7 +44,18 @@ class NotesFragment : Fragment() , View.OnClickListener
 
     private fun initUi() {
         edit.setOnClickListener(this)
-        note.text = note1
+        send.setOnClickListener(this)
+
+        if(!customerDetailResponse.description!!.value.isEmpty()) {
+            previousNoteText.visibility=View.VISIBLE
+            note.visibility=View.VISIBLE
+            note.text = customerDetailResponse.description!!.value
+        }
+        else
+        {
+            previousNoteText.visibility=View.GONE
+            note.visibility=View.GONE
+        }
     }
 
     override fun onClick(p0: View?) {
@@ -57,11 +71,22 @@ class NotesFragment : Fragment() , View.OnClickListener
                    isSendContainerVisible = true
                }
            }
+
+           R.id.send -> {
+               if(notesboxtext.text.isEmpty())
+               {
+                   Toast.makeText(activity,"Please write some note",Toast.LENGTH_LONG).show()
+                   return
+               }
+
+
+           }
        }
     }
 
-    fun setDetails(note: String) {
-        this.note1=note
+
+    fun setDetails(customerDetailResponse: CustomerDetailsResponse) {
+        this.customerDetailResponse = customerDetailResponse
     }
 
 

@@ -40,7 +40,7 @@
 
 
     <EditText
-        android:id="@+id/notes"
+        android:id="@+id/notesboxtext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
@@ -51,7 +51,7 @@
         android:layout_toLeftOf="@+id/send"
         android:hint="Add Note" />
 
-    <ImageView
+    <ImageButton
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/send"
