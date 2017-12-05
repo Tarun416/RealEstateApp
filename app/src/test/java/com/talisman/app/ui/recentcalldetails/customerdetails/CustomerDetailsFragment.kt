@@ -1,5 +1,6 @@
 package com.talisman.app.ui.recentcalldetails.customerdetails
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
+import com.talisman.app.ui.createcustomer.CreateCustomerActivity
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import kotlinx.android.synthetic.main.fragment_call_customer_details.*
 import javax.inject.Inject
@@ -18,11 +20,12 @@ import javax.inject.Inject
  */
 class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetailsContract.View/*, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener*/ {
 
-
     @Inject
     lateinit var presenter : CustomerDetailsPresenter
 
     private  var phone: String =""
+    private lateinit var id :String
+    private var callApiOnResume : Boolean = false
 
     companion object {
         /**
@@ -49,15 +52,35 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
                 .customerDetailsModule(CustomerDetailsModule(this@CustomerDetailsFragment))
                 .build().inject(this@CustomerDetailsFragment)
 
+        callApiOnResume=false
         presenter.getCustomerDetails(this.phone.substring(3,this.phone.length))
 
         // date.setOnClickListener(this)
         // time.setOnClickListener(this)
+        fab.setOnClickListener(this)
     }
 
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
+
+            R.id.fab ->
+            {
+              val intent = Intent(activity,CreateCustomerActivity::class.java)
+                intent.putExtra("firstName",firstName.text.toString())
+                intent.putExtra("lastName",lastName.text.toString())
+                intent.putExtra("phone",phoneNumber.text.toString().substring(2,phoneNumber.text.toString().length))
+                intent.putExtra("city",city.text.toString())
+                intent.putExtra("state",state.text.toString())
+                intent.putExtra("country",countryValue.text.toString())
+                intent.putExtra("pincode",pincode.text.toString())
+                intent.putExtra("street",street.text.toString())
+                intent.putExtra("id",id)
+
+                callApiOnResume=true
+                startActivity(intent)
+            }
+
             R.id.date -> {
                 /*   val now = Calendar.getInstance()
                    val dpd = DatePickerDialog.newInstance(
@@ -167,6 +190,16 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
     }
     override fun showErrorMesssage(message: String) {
        Toast.makeText(activity,message,Toast.LENGTH_LONG).show()
+    }
+
+    fun setId(id: String?) {
+        this.id= id!!
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(callApiOnResume)
+        presenter.getCustomerDetails(this.phone.substring(3,this.phone.length))
     }
 
 

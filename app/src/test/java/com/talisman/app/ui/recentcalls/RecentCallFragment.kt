@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.example.tarun.kotlin.isOnline
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
+import com.talisman.app.ui.createcustomer.CreateCustomerActivity
 import com.talisman.app.ui.recentcalldetails.RecentCallActivity
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import com.talisman.app.ui.recentcalls.model.CDRJSON
@@ -29,6 +30,8 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
 
     @Inject
     lateinit var recentCallPresenter: RecentCallPresenter
+
+    private lateinit var customerCreatePhone : String
 
     companion object {
         /**
@@ -106,12 +109,11 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     }
 
     override fun onCallClick(position: Int) {
-       // recentCallPresenter.getCustomerDetails("8951577970")
+        customerCreatePhone=recentCallList[position].cli.substring(3,recentCallList[position].cli.length)
+        recentCallPresenter.getCustomerDetails(recentCallList[position].cli.substring(1,recentCallList[position].cli.length))
         // startActivity(Intent(activity, RecentCallActivity::class.java))
 
-        val intent = Intent(activity, RecentCallActivity::class.java)
-        intent.putExtra("phoneNumber",recentCallList[position].cli)
-        startActivity(intent)
+       /* */
     }
 
     override fun onClick(p0: View?) {
@@ -176,15 +178,19 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     }
 
     override fun passCustomerDetails(customerDetailsResponse: CustomerDetailsResponse?) {
-        val intent = Intent(activity, RecentCallActivity::class.java)
-        if (customerDetailsResponse!!.assigned_user_name != null) {
-            intent.putExtra("firstName", customerDetailsResponse!!.first_name.value)
-            intent.putExtra("lastName",customerDetailsResponse!!.last_name.value)
-           // intent.putExtra("phoneNumber",cus)
-            intent.putExtra("note", customerDetailsResponse.description.value)
+
+        if (customerDetailsResponse!!.phone_mobile != null) {
+            val intent = Intent(activity, RecentCallActivity::class.java)
+            intent.putExtra("phoneNumber","+"+customerDetailsResponse.phone_mobile.value)
+            intent.putExtra("id",customerDetailsResponse.id.value)
+            startActivity(intent)
         }
 
-        startActivity(intent)
+       else {
+            val intent = Intent(activity, CreateCustomerActivity::class.java)
+            intent.putExtra("phone",customerCreatePhone)
+            startActivity(intent)
+        }
 
     }
 

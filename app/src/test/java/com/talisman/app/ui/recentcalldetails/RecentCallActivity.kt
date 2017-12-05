@@ -38,12 +38,6 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
 
     private fun initUi() {
 
-       /* if(intent!=null && intent.extras!=null)
-        {
-            name = intent.extras.getString("name")
-            note = intent.extras.getString("note")
-        }*/
-
         toolbarText.text = "Customer"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
@@ -63,6 +57,7 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
 
         val customerDetailsFragment  = CustomerDetailsFragment()
         customerDetailsFragment.setPhone(intent.extras.getString("phoneNumber"))
+        customerDetailsFragment.setId(intent.extras.getString("id"))
         pagerAdapter.addFrag(customerDetailsFragment)
 
         val notesFragment =NotesFragment()
