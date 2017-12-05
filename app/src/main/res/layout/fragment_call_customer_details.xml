@@ -196,6 +196,7 @@
                 android:layout_marginLeft="@dimen/margin_16"
                 android:layout_marginRight="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_16"
                 android:textColor="@color/black_color"
                 android:textSize="14sp" />
 

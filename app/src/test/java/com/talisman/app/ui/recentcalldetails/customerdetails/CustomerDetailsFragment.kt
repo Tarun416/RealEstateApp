@@ -246,7 +246,7 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
 
 
     override fun passCustomerDetails(t: CustomerDetailsResponse) {
-
+        customerDetailResponse=t
         if (isResumed) {
            toggleViews(t)
         }
