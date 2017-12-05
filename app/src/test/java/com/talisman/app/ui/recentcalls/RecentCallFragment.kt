@@ -181,8 +181,11 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
 
         if (customerDetailsResponse!!.phone_mobile != null) {
             val intent = Intent(activity, RecentCallActivity::class.java)
-            intent.putExtra("phoneNumber","+"+customerDetailsResponse.phone_mobile.value)
-            intent.putExtra("id",customerDetailsResponse.id.value)
+            val bundle = Bundle()
+            bundle.putParcelable("customerDetailResponse",customerDetailsResponse)
+            intent.putExtras(bundle)
+           // intent.putExtra("phoneNumber","+"+ customerDetailsResponse.phone_mobile!!.value)
+           // intent.putExtra("id", customerDetailsResponse.id!!.value)
             startActivity(intent)
         }
 

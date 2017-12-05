@@ -42,7 +42,7 @@ class CreateCustomerActivity : AppCompatActivity(), View.OnClickListener, Create
         done.text = "Save"
         cancel.visibility = View.GONE
         view.visibility = View.GONE
-        if (!intent.extras.getString("firstName").isEmpty()) {
+        if (intent.extras.containsKey("firstName")) {
             toolbarText.text = "Update Customer"
             id = intent.extras.getString("id")
             firstName.setText(intent.extras.getString("firstName"))

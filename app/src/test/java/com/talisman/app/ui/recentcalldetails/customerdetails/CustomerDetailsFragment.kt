@@ -21,11 +21,12 @@ import javax.inject.Inject
 class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetailsContract.View/*, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener*/ {
 
     @Inject
-    lateinit var presenter : CustomerDetailsPresenter
+    lateinit var presenter: CustomerDetailsPresenter
 
-    private  var phone: String =""
-    private lateinit var id :String
-    private var callApiOnResume : Boolean = false
+    private var phone: String = ""
+    private lateinit var id: String
+    private var callApiOnResume: Boolean = false
+    private lateinit var customerDetailResponse: CustomerDetailsResponse
 
     companion object {
         /**
@@ -52,32 +53,100 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
                 .customerDetailsModule(CustomerDetailsModule(this@CustomerDetailsFragment))
                 .build().inject(this@CustomerDetailsFragment)
 
-        callApiOnResume=false
-        presenter.getCustomerDetails(this.phone.substring(3,this.phone.length))
-
+        callApiOnResume = false
+        //  presenter.getCustomerDetails(this.phone.substring(3,this.phone.length))
         // date.setOnClickListener(this)
         // time.setOnClickListener(this)
         fab.setOnClickListener(this)
+
+        firstName.text = customerDetailResponse.first_name!!.value
+        lastName.text = customerDetailResponse.last_name!!.value
+        phoneNumber.text = customerDetailResponse.phone_mobile!!.value
+
+        toggleViews(customerDetailResponse)
+
+    }
+
+    private fun toggleViews(customerDetailResponse: CustomerDetailsResponse) {
+        when {
+            !customerDetailResponse.primary_address_street!!.value.isEmpty() -> {
+                street.visibility = View.VISIBLE
+                streetText.visibility = View.VISIBLE
+                street.text = customerDetailResponse.primary_address_street!!.value
+            }
+            else -> {
+                street.visibility = View.GONE
+                streetText.visibility = View.GONE
+            }
+
+        }
+
+        when {
+            !customerDetailResponse.primary_address_city!!.value.isEmpty() -> {
+                city.visibility = View.VISIBLE
+                cityText.visibility = View.VISIBLE
+                city.text = customerDetailResponse.primary_address_city!!.value
+            }
+            else -> {
+                city.visibility = View.GONE
+                cityText.visibility = View.GONE
+            }
+        }
+
+        when {
+            !customerDetailResponse.primary_address_state!!.value.isEmpty() -> {
+                state.visibility = View.VISIBLE
+                stateText.visibility = View.VISIBLE
+                state.text = customerDetailResponse.primary_address_state!!.value
+            }
+            else -> {
+                state.visibility = View.GONE
+                stateText.visibility = View.GONE
+            }
+        }
+
+        when {
+            !customerDetailResponse.primary_address_country!!.value.isEmpty() -> {
+                countryValue.visibility = View.VISIBLE
+                countryText.visibility = View.VISIBLE
+                countryValue.text = customerDetailResponse.primary_address_country!!.value
+            }
+            else -> {
+                countryValue.visibility = View.GONE
+                countryText.visibility = View.GONE
+            }
+        }
+
+        when {
+            !customerDetailResponse.primary_address_postalcode!!.value.isEmpty() -> {
+                pincode.visibility = View.VISIBLE
+                pinCodeText.visibility = View.VISIBLE
+                pincode.text = customerDetailResponse.primary_address_postalcode!!.value
+            }
+            else -> {
+                pincode.visibility = View.GONE
+                pinCodeText.visibility = View.GONE
+            }
+        }
     }
 
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
 
-            R.id.fab ->
-            {
-              val intent = Intent(activity,CreateCustomerActivity::class.java)
-                intent.putExtra("firstName",firstName.text.toString())
-                intent.putExtra("lastName",lastName.text.toString())
-                intent.putExtra("phone",phoneNumber.text.toString().substring(2,phoneNumber.text.toString().length))
-                intent.putExtra("city",city.text.toString())
-                intent.putExtra("state",state.text.toString())
-                intent.putExtra("country",countryValue.text.toString())
-                intent.putExtra("pincode",pincode.text.toString())
-                intent.putExtra("street",street.text.toString())
-                intent.putExtra("id",id)
+            R.id.fab -> {
+                val intent = Intent(activity, CreateCustomerActivity::class.java)
+                intent.putExtra("firstName", firstName.text.toString())
+                intent.putExtra("lastName", lastName.text.toString())
+                intent.putExtra("phone", phoneNumber.text.toString().substring(2, phoneNumber.text.toString().length))
+                intent.putExtra("city", city.text.toString())
+                intent.putExtra("state", state.text.toString())
+                intent.putExtra("country", countryValue.text.toString())
+                intent.putExtra("pincode", pincode.text.toString())
+                intent.putExtra("street", street.text.toString())
+                intent.putExtra("id", id)
 
-                callApiOnResume=true
+                callApiOnResume = true
                 startActivity(intent)
             }
 
@@ -144,13 +213,13 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
     }
 
     override fun showProgress() {
-        if(progressBar!=null)
-        progressBar.visibility = View.VISIBLE
+        if (progressBar != null)
+            progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        if(progressBar!=null)
-        progressBar.visibility = View.GONE
+        if (progressBar != null)
+            progressBar.visibility = View.GONE
     }
 
     override fun onUnknownError(message: String, error: String) {
@@ -176,30 +245,28 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
 
     override fun passCustomerDetails(t: CustomerDetailsResponse) {
 
-       if(isResumed) {
-           firstName.setText(t.first_name.value)
-           lastName.setText(t.last_name.value)
-           phoneNumber.text = t.phone_mobile.value
-           street.setText(t.primary_address_street.value)
-           city.setText(t.primary_address_city.value)
-           state.setText(t.primary_address_state.value)
-           countryValue.setText(t.primary_address_country.value)
-           pincode.setText(t.primary_address_postalcode.value)
-       }
+        if (isResumed) {
+           toggleViews(t)
+        }
 
     }
+
     override fun showErrorMesssage(message: String) {
-       Toast.makeText(activity,message,Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
     }
 
     fun setId(id: String?) {
-        this.id= id!!
+        this.id = id!!
     }
 
     override fun onResume() {
         super.onResume()
-        if(callApiOnResume)
-        presenter.getCustomerDetails(this.phone.substring(3,this.phone.length))
+        if (callApiOnResume)
+            presenter.getCustomerDetails(this.phone.substring(3, this.phone.length))
+    }
+
+    fun setCustomerResponse(customerDetailResposne: CustomerDetailsResponse) {
+        this.customerDetailResponse = customerDetailResposne
     }
 
 

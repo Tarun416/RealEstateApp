@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.example.tarun.talismanpi.R
 import kotlinx.android.synthetic.main.activity_recent_calls.*
 import com.talisman.app.ui.recentcalldetails.customerdetails.CustomerDetailsFragment
+import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 
 
 /**
@@ -26,6 +27,8 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
 
     private lateinit var pagerAdapter: PagerAdapter
 
+    private lateinit var customerDetailResposne : CustomerDetailsResponse
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -37,6 +40,8 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
     }
 
     private fun initUi() {
+
+        customerDetailResposne=  intent.extras.getParcelable("customerDetailResponse")
 
         toolbarText.text = "Customer"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -56,8 +61,9 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         pagerAdapter = PagerAdapter(supportFragmentManager)
 
         val customerDetailsFragment  = CustomerDetailsFragment()
-        customerDetailsFragment.setPhone(intent.extras.getString("phoneNumber"))
-        customerDetailsFragment.setId(intent.extras.getString("id"))
+        customerDetailsFragment.setPhone("+"+customerDetailResposne.phone_mobile!!.value)
+        customerDetailsFragment.setId(customerDetailResposne.id!!.value)
+        customerDetailsFragment.setCustomerResponse(customerDetailResposne)
         pagerAdapter.addFrag(customerDetailsFragment)
 
         val notesFragment =NotesFragment()
@@ -66,7 +72,7 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         pagerAdapter.addFrag(notesFragment)
 
         val ticketFragment = com.talisman.app.ui.tickets.TicketFragment()
-        ticketFragment.setPhone(intent.extras.getString("phoneNumber"))
+        ticketFragment.setPhone("+"+customerDetailResposne.phone_mobile!!.value)
         ticketFragment.setFabVisibilty(true)
         pagerAdapter.addFrag(ticketFragment)
 

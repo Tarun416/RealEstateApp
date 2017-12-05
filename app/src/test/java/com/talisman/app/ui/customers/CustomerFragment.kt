@@ -175,8 +175,8 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     override fun passCustomerDetails(customerDetailsResponse: CustomerDetailsResponse?) {
         val intent = Intent(activity,RecentCallActivity::class.java)
         if(customerDetailsResponse!!.assigned_user_name!=null) {
-            intent.putExtra("name", customerDetailsResponse!!.assigned_user_name.value)
-            intent.putExtra("note", customerDetailsResponse.description.value)
+            intent.putExtra("name", customerDetailsResponse!!.assigned_user_name!!.value)
+            intent.putExtra("note", customerDetailsResponse.description!!.value)
         }
 
         startActivity(intent)

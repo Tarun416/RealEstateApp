@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/margin_16"
         android:text="Create New Note :"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
 
     <ImageView
@@ -70,17 +70,19 @@
         android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_24"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="Previous Notes :"
+        android:textStyle="normal"
+        android:text="Previous Note : "
         android:id="@+id/previousNoteText"/>
 
 
     <TextView
         android:layout_width="wrap_content"
         tools:text="Hi "
+        android:textColor="@color/black_color"
         android:id="@+id/note"
         android:layout_below="@+id/previousNoteText"
         android:layout_marginLeft="@dimen/margin_16"
+        android:textSize="16sp"
         android:layout_marginTop="@dimen/margin_16"
         android:layout_height="wrap_content" />
 
