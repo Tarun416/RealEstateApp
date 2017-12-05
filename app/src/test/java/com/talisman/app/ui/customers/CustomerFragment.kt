@@ -29,6 +29,8 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     @Inject
     lateinit var customerPresenter: CustomerPresenter
 
+    private lateinit var filteredItems: ArrayList<Entry>
+
     companion object {
         /**
          * new instance pattern for fragment
@@ -81,7 +83,8 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     }
 
     private fun filter(toString: String) {
-        val filteredItems = ArrayList<Entry>()
+
+        filteredItems = ArrayList()
 
         if (customerList != null && customerList.size > 0) {
             customerList.filterTo(filteredItems) { it.name_value_list.first_name.value.contains(toString,true) }
@@ -101,6 +104,9 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     }
 
     override fun onCustomerClick(position : Int) {
+        if(filteredItems!=null && filteredItems.size>0)
+            customerPresenter.getCustomerDetails(filteredItems[position].name_value_list.phone_work.value)
+        else
         customerPresenter.getCustomerDetails(customerList[position].name_value_list.phone_work.value)
     }
 

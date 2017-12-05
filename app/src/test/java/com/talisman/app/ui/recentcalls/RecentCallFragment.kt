@@ -32,6 +32,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     lateinit var recentCallPresenter: RecentCallPresenter
 
     private lateinit var customerCreatePhone : String
+    private lateinit var filteredItems: ArrayList<CDRJSON>
 
     companion object {
         /**
@@ -89,7 +90,8 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     }
 
     private fun filter(toString: String) {
-        val filteredItems = ArrayList<CDRJSON>()
+
+        filteredItems = ArrayList<CDRJSON>()
 
         if (recentCallList != null && recentCallList.size > 0) {
             recentCallList.filterTo(filteredItems) { it.cli.contains("+91"+toString,true) }
@@ -109,8 +111,15 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     }
 
     override fun onCallClick(position: Int) {
-        customerCreatePhone=recentCallList[position].cli.substring(3,recentCallList[position].cli.length)
-        recentCallPresenter.getCustomerDetails(recentCallList[position].cli.substring(1,recentCallList[position].cli.length))
+        if(filteredItems!=null && filteredItems.size>0)
+        {
+            customerCreatePhone = filteredItems[position].cli.substring(3, filteredItems[position].cli.length)
+            recentCallPresenter.getCustomerDetails(filteredItems[position].cli.substring(1, filteredItems[position].cli.length))
+        }
+        else {
+            customerCreatePhone = recentCallList[position].cli.substring(3, recentCallList[position].cli.length)
+            recentCallPresenter.getCustomerDetails(recentCallList[position].cli.substring(1, recentCallList[position].cli.length))
+        }
         // startActivity(Intent(activity, RecentCallActivity::class.java))
 
        /* */
@@ -184,8 +193,6 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
             val bundle = Bundle()
             bundle.putParcelable("customerDetailResponse",customerDetailsResponse)
             intent.putExtras(bundle)
-           // intent.putExtra("phoneNumber","+"+ customerDetailsResponse.phone_mobile!!.value)
-           // intent.putExtra("id", customerDetailsResponse.id!!.value)
             startActivity(intent)
         }
 
