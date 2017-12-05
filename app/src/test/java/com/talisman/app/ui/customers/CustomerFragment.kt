@@ -180,13 +180,18 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     }
 
     override fun passCustomerDetails(customerDetailsResponse: CustomerDetailsResponse?) {
-        val intent = Intent(activity,RecentCallActivity::class.java)
-        if(customerDetailsResponse!!.assigned_user_name!=null) {
-            intent.putExtra("name", customerDetailsResponse!!.assigned_user_name!!.value)
-            intent.putExtra("note", customerDetailsResponse.description!!.value)
+        if (customerDetailsResponse!!.phone_mobile != null) {
+            val intent = Intent(activity, RecentCallActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("customerDetailResponse",customerDetailsResponse)
+            intent.putExtras(bundle)
+            startActivity(intent)
+        }
+        else
+        {
+            Toast.makeText(activity,"Number not found",Toast.LENGTH_LONG).show()
         }
 
-        startActivity(intent)
 
     }
 
