@@ -8,7 +8,7 @@ import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.TalismanPiPreferences
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.toolbar_home.*
+import kotlinx.android.synthetic.main.toolbar_customer_details.*
 import vn.luongvo.widget.iosswitchview.SwitchView
 import javax.inject.Inject
 
@@ -36,13 +36,16 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
                 .build().inject(this@SettingsActivity)
 
         initUi()
-
     }
 
     private fun initUi() {
+        cancel.visibility=View.GONE
+        view.visibility=View.GONE
+        done.text="Save"
         toolbarText.text="Settings"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         edit.setOnClickListener(this)
+        done.setOnClickListener(this)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -61,12 +64,18 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
             R.id.edit -> when {
                 isSendContainerVisible -> {
                     sendContainer.visibility = View.GONE
+                    done.visibility=View.GONE
                     isSendContainerVisible=false
                 }
                 else -> {
                     sendContainer.visibility = View.VISIBLE
                     isSendContainerVisible = true
+                    done.visibility=View.VISIBLE
                 }
+            }
+
+            R.id.done -> {
+
             }
         }
     }
@@ -124,7 +133,6 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
 
     override fun showSuccessMessage() {
         Toast.makeText(this,"Login status changed",Toast.LENGTH_LONG).show()
-
     }
 
     override fun failed() {
