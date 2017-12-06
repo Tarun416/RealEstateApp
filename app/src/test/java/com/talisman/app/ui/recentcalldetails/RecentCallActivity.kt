@@ -10,6 +10,9 @@ import com.example.tarun.talismanpi.R
 import kotlinx.android.synthetic.main.activity_recent_calls.*
 import com.talisman.app.ui.recentcalldetails.customerdetails.CustomerDetailsFragment
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
+import android.content.Intent
+
+
 
 
 /**
@@ -53,6 +56,7 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         finish()
     }
 
@@ -114,6 +118,8 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
     }
+
+
 
 
 }

@@ -3,6 +3,7 @@ package com.talisman.app.ui.recentcalldetails.customerdetails
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +12,29 @@ import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.ui.createcustomer.CreateCustomerActivity
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import kotlinx.android.synthetic.main.fragment_call_customer_details.*
+import java.util.*
 import javax.inject.Inject
+import android.app.AlarmManager
+import android.app.Notification
+import android.os.SystemClock
+import android.app.PendingIntent
+import android.content.Context
+import android.media.RingtoneManager
+import android.support.v4.app.NotificationCompat
+import android.util.Log
+import com.talisman.app.AlarmReceiver
+import com.talisman.app.ui.home.HomeActivity
+import com.talisman.app.ui.recentcalldetails.RecentCallActivity
+import java.text.SimpleDateFormat
 
 
 /**
  * Created by tarun on 11/10/17.
  */
-class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetailsContract.View/*, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener*/ {
+class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetailsContract.View, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     @Inject
     lateinit var presenter: CustomerDetailsPresenter
@@ -27,6 +43,8 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
     private lateinit var id: String
     private var callApiOnResume: Boolean = false
     private lateinit var customerDetailResponse: CustomerDetailsResponse
+    private lateinit var date: Date
+    private lateinit var calendar: Calendar
 
     companion object {
         /**
@@ -45,6 +63,8 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
         return inflater?.inflate(R.layout.fragment_call_customer_details, container, false)
     }
 
+    private lateinit var simpleDateFormat: SimpleDateFormat
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,8 +80,9 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
         fab.setOnClickListener(this)
 
         phoneNumber.text = customerDetailResponse.phone_mobile!!.value
-
+        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         toggleViews(customerDetailResponse)
+        scheduleButton.setOnClickListener(this)
 
     }
 
@@ -152,57 +173,98 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
                 startActivity(intent)
             }
 
-            R.id.date -> {
-                /*   val now = Calendar.getInstance()
-                   val dpd = DatePickerDialog.newInstance(
-                           this,
-                           now.get(Calendar.YEAR),
-                           now.get(Calendar.MONTH),
-                           now.get(Calendar.DAY_OF_MONTH)
-                   )
-                   dpd.minDate = now
-                   dpd.accentColor = ContextCompat.getColor(activity, R.color.green_color)
-                   dpd.show(activity.fragmentManager, "Datepickerdialog")*/
-            }
-
-
-            R.id.time -> {
-                when {
-                /* date.text.toString().equals("set date",true) -> {
-                     Toast.makeText(activity,"Please select date first",Toast.LENGTH_LONG).show()
-                     return
-                 }
-                 else -> {
-                     val now = Calendar.getInstance()
-                     val tpd = TimePickerDialog.newInstance(
-                             this,
-                             now.get(Calendar.HOUR),
-                             now.get(Calendar.MINUTE),
-                             false)
-                     tpd.setMinTime(now.get(Calendar.HOUR), now.get(Calendar.MINUTE), now.get(Calendar.SECOND))
-                     tpd.accentColor = ContextCompat.getColor(activity, R.color.green_color)
-                     tpd.show(activity.fragmentManager, "Timepickerdialog")
-
-                 }*/
-                }
-
+            R.id.scheduleButton -> {
+                val now = Calendar.getInstance()
+                val dpd = DatePickerDialog.newInstance(
+                        this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                )
+                dpd.minDate = now
+                dpd.accentColor = ContextCompat.getColor(activity, R.color.green_color)
+                dpd.show(activity.fragmentManager, "Datepickerdialog")
             }
 
         }
 
     }
 
-    /* override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-         date.text = dayOfMonth.toString() + "/" + monthOfYear.toString() + "/" + year.toString()
-         when {
-             time.text.toString().equals("set time",true) -> time.callOnClick()
-         }
-     }
 
-     override fun onTimeSet(view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int) {
-         time.text = hourOfDay.toString() + ":" + minute.toString() + ":" + second.toString()
-     }
- */
+    private fun invokeTimePickerDialog() {
+        val now = Calendar.getInstance()
+        val tpd = TimePickerDialog.newInstance(
+                this,
+                now.get(Calendar.HOUR_OF_DAY),
+                now.get(Calendar.MINUTE),
+                false)
+        tpd.setMinTime(now.get(Calendar.HOUR), now.get(Calendar.MINUTE), now.get(Calendar.SECOND))
+        tpd.accentColor = ContextCompat.getColor(activity, R.color.green_color)
+        tpd.show(activity.fragmentManager, "Timepickerdialog")
+    }
+
+
+    override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+
+        calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, monthOfYear)
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+        invokeTimePickerDialog()
+    }
+
+    override fun onTimeSet(view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int) {
+        calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        calendar.set(Calendar.SECOND, second)
+        date = calendar.time
+
+        if(date.time < Date().time)
+        {
+            Toast.makeText(activity,"Invalid time",Toast.LENGTH_LONG).show()
+            return
+        }
+
+
+        scheduleNotification(getNotification())
+    }
+
+    private fun scheduleNotification(notification: Notification) {
+        val notificationIntent = Intent(activity, AlarmReceiver::class.java)
+        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION_ID, 1)
+        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION, notification)
+        // notificationIntent.putExtra("customer_id", customerId)
+        // notificationIntent.putExtra(, PhoneReceiver.customerName);
+        val pendingIntent = PendingIntent.getBroadcast(activity, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val futureInMillis = SystemClock.elapsedRealtime() + (calendar.time.time - Date().time)
+      //  Log.d("compare time", (calendar.timeInMillis - System.currentTimeMillis()).toString() + " " + SystemClock.elapsedRealtime())
+        val alarmManager = activity.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent)
+        Toast.makeText(activity,"Your call has been scheduled at "+simpleDateFormat.format(calendar.time),Toast.LENGTH_LONG).show()
+    }
+
+    private fun getNotification(): Notification {
+        val action1Intent = Intent(activity, RecentCallActivity::class.java)
+        val bundle = Bundle()
+        bundle.putParcelable("customerDetailResponse",customerDetailResponse)
+        action1Intent.putExtras(bundle)
+        action1Intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        //  action1Intent.putExtra("customer_id", customerId)
+        val action1PendingIntent = PendingIntent.getActivity(activity, 0,
+                action1Intent, PendingIntent.FLAG_ONE_SHOT)
+        val builder = android.support.v4.app.NotificationCompat.Builder(activity, "1")
+        builder.setContentTitle("Scheduled call with " + customerDetailResponse.first_name!!.value)
+        builder.setContentText("You have scheduled a call with " + customerDetailResponse.first_name!!.value)
+        builder.setContentIntent(action1PendingIntent)
+        builder.setStyle(NotificationCompat.BigTextStyle().bigText("You have scheduled a call with " + customerDetailResponse.first_name!!.value))
+        val uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        builder.setSound(uri)
+        builder.setSmallIcon(R.drawable.app_icon)
+        return builder.build()
+    }
+
+
     fun setPhone(phone: String) {
         this.phone = phone
     }
@@ -246,9 +308,9 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
 
 
     override fun passCustomerDetails(t: CustomerDetailsResponse) {
-        customerDetailResponse=t
+        customerDetailResponse = t
         if (isResumed) {
-           toggleViews(t)
+            toggleViews(t)
         }
 
     }

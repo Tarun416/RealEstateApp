@@ -31,6 +31,9 @@ class CustomerAdapter(private var context: Context, private var customerClickLis
             customerClickListener.onCustomerClick(position)
         }
 
+        holder.call.setOnClickListener({
+            customerClickListener.call(position)
+        })
 
 
         val randomColor = randomColorArray[position % 5]
@@ -48,12 +51,14 @@ class CustomerAdapter(private var context: Context, private var customerClickLis
 
     interface OnCustomerClick {
         fun onCustomerClick(position: Int)
+        fun call (position : Int)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val initialText = itemView.customerInitialText!!
         val name = itemView.name!!
         val customerContainer = itemView.customerContainer!!
+        val call = itemView.call
     }
 
     fun filterList(filteredItems: ArrayList<Entry>) {

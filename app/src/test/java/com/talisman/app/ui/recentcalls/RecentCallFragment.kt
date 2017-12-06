@@ -1,6 +1,7 @@
 package com.talisman.app.ui.recentcalls
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ import javax.inject.Inject
  * Created by tarun on 11/9/17.
  */
 class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View.OnClickListener, RecentCallContract.View {
+
 
     private lateinit var recentCallApapter: RecentCallAdapter
     private lateinit var recentCallList: ArrayList<CDRJSON>
@@ -121,9 +123,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
             customerCreatePhone = recentCallList[position].cli.substring(3, recentCallList[position].cli.length)
             recentCallPresenter.getCustomerDetails(recentCallList[position].cli.substring(1, recentCallList[position].cli.length))
         }
-        // startActivity(Intent(activity, RecentCallActivity::class.java))
 
-       /* */
     }
 
     override fun onClick(p0: View?) {
@@ -203,6 +203,21 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
             startActivity(intent)
         }
 
+    }
+
+    override fun call(position: Int) {
+        if(filteredItems!=null && filteredItems.size>0)
+        {
+            val callIntent = Intent(Intent.ACTION_CALL)
+            callIntent.data = Uri.parse("tel:" + filteredItems[position].cli)//change the number
+            startActivity(callIntent)
+        }
+        else
+        {
+            val callIntent = Intent(Intent.ACTION_CALL)
+            callIntent.data = Uri.parse("tel:" + recentCallList[position].cli)//change the number
+            startActivity(callIntent)
+        }
     }
 
 

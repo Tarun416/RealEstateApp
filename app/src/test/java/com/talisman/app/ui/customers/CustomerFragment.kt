@@ -1,6 +1,7 @@
 package com.talisman.app.ui.customers
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -205,5 +206,21 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
         super.onResume()
         customerPresenter.crmLogin()
     }
+
+    override fun call(position: Int) {
+        if(filteredItems!=null && filteredItems.size>0)
+        {
+            val callIntent = Intent(Intent.ACTION_CALL)
+            callIntent.data = Uri.parse("tel:" + filteredItems[position].name_value_list.phone_work.value)//change the number
+            startActivity(callIntent)
+        }
+        else
+        {
+            val callIntent = Intent(Intent.ACTION_CALL)
+            callIntent.data = Uri.parse("tel:" + customerList[position].name_value_list.phone_work.value)//change the number
+            startActivity(callIntent)
+        }
+    }
+
 
 }

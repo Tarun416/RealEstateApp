@@ -39,6 +39,11 @@ class RecentCallAdapter(private var context: Context, private var callClickListe
         holder.recentCallContainer.setOnClickListener {
             callClickListener.onCallClick(position)
         }
+
+        holder.call.setOnClickListener({
+            callClickListener.call(position)
+        })
+
     }
 
     override fun getItemCount(): Int {
@@ -47,6 +52,7 @@ class RecentCallAdapter(private var context: Context, private var callClickListe
 
     interface ItemClickListener {
         fun onCallClick(position: Int)
+        fun call(position : Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -58,6 +64,7 @@ class RecentCallAdapter(private var context: Context, private var callClickListe
         val date = itemView.date
         val icon = itemView.callStatusIcon
         val recentCallContainer = itemView.recentCallContainer
+        val call = itemView.call
 
     }
 
