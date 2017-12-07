@@ -3,6 +3,7 @@ package com.talisman.app.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -17,13 +18,17 @@ import com.talisman.app.ui.home.HomeActivity
 import com.talisman.app.utils.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_login.*
 import rx.subscriptions.CompositeSubscription
+import timber.log.Timber
+import java.math.BigInteger
+import java.nio.charset.Charset
+import java.security.MessageDigest
 import javax.inject.Inject
+
 
 /**
  * Created by tarun on 11/8/17.
  */
 class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.View {
-
 
     @Inject
     lateinit var loginPresenter: LoginPresenter
@@ -72,14 +77,24 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
                     return
                 }
 
-                loginPresenter.login(email.text.toString(), password.text.toString())
+                val md5pwd = generatemd5( password.text.toString())
 
+                //Todo  use next line  when you want to send encrypted pwd
+
+              //  loginPresenter.login(email.text.toString(), generatemd5(password.text.toString()))
+                loginPresenter.login(email.text.toString(), password.text.toString())
             }
 
             R.id.forgotPassword -> startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
 
         }
 
+    }
+
+    private fun generatemd5(s: String): String {
+        val md5 = MessageDigest.getInstance("MD5")
+        Log.d("md5",BigInteger(1, md5.digest(s.toByteArray(Charset.defaultCharset()))).toString(16))
+        return BigInteger(1, md5.digest(s.toByteArray(Charset.defaultCharset()))).toString(16)
     }
 
     override val isNetworkConnected: Boolean
