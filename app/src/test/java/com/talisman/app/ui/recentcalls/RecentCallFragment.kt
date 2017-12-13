@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -86,11 +87,28 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
             }
         })
 
+        swipeRefresh.setOnRefreshListener { callRecentCallApi() }
+
+        callRecentCallApi()
+
+        swipeRefresh.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light)
+
+    }
+
+
+    fun callRecentCallApi()
+    {
         if (isOnline(activity))
             recentCallPresenter.getRecentCalls()
-        else
+        else {
+            swipeRefresh.isRefreshing=false
             Toast.makeText(activity, "No internet connection", Toast.LENGTH_LONG).show()
+        }
     }
+
 
     private fun filter(toString: String) {
 
@@ -149,6 +167,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     }
 
     override fun hideProgress() {
+        swipeRefresh.isRefreshing=false
         progressBar.visibility = View.GONE
     }
 

@@ -17,4 +17,5 @@ class TalismanPiPreferences : Preferences()
     var registrationToken by stringPref(Constants.REGISTRATION_TOKEN)
     var agentName by stringPref(Constants.AGENT_NAME)
     var userName by stringPref(Constants.USER_NAME)
+    var virtualNo by stringPref(Constants.VIRTUAL_NUMBER)
 }

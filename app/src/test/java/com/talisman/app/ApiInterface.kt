@@ -39,7 +39,8 @@ interface ApiInterface {
                        @Header("x-toDateTime") toDateTime : String,
                      //  @Header("x-business-id") referenceNo : String,
                        @Header("x-actual-number") actualNumber: String,
-                       @Header("x-appType") appType : String): Flowable<RecentCallResponse>
+                       @Header("x-appType") appType : String,
+                       @Header("x-dni") vn : String): Flowable<RecentCallResponse>
 
 
     @POST("rest.php")

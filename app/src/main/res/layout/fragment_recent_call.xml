@@ -8,6 +8,8 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
+
+
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,12 +61,19 @@
 
     </RelativeLayout>
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipeRefresh"
+        android:layout_below="@+id/searchContainer">
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recentCallRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/searchContainer"
         android:background="@color/white_color"></android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

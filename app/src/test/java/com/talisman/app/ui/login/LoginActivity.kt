@@ -18,7 +18,6 @@ import com.talisman.app.ui.home.HomeActivity
 import com.talisman.app.utils.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_login.*
 import rx.subscriptions.CompositeSubscription
-import timber.log.Timber
 import java.math.BigInteger
 import java.nio.charset.Charset
 import java.security.MessageDigest
@@ -76,8 +75,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
                     Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_SHORT).show()
                     return
                 }
-
-                val md5pwd = generatemd5( password.text.toString())
 
                 //Todo  use next line  when you want to send encrypted pwd
 

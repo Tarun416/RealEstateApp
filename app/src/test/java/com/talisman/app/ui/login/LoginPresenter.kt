@@ -47,6 +47,7 @@ constructor(private var retrofit: Retrofit,
                             preferences.userId=t.data.User.id
                             preferences.userName=t.data.User.username
                             preferences.businessId=t.data.Business.id
+                            preferences.virtualNo=t.data.vns[0].BusinessVnMapping.vn
                             view.login()
                         }
                         else

@@ -41,6 +41,7 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
     private fun initUi() {
         cancel.visibility=View.GONE
         view.visibility=View.GONE
+        done.visibility=View.GONE
         done.text="Save"
         toolbarText.text="Settings"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

@@ -30,7 +30,7 @@ class RecentCallAdapter(private var context: Context, private var callClickListe
             holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_call_missed))
         else if (cdrJson.callType == "I" && cdrJson.patched == "1")
             holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_call_received))
-        else if (cdrJson.callType == "0" && cdrJson.patched == "0")
+        else if (cdrJson.callType == "O" && cdrJson.patched == "0")
             holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_call_outgoing_missed))
         else
             holder!!.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_call_outgoing_received))

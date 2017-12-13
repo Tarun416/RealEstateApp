@@ -16,6 +16,7 @@ import android.view.Window
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tarun.kotlin.isOnline
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.ui.recentcalldetails.ticketdetails.TicketCreateActivity
@@ -75,11 +76,22 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
         backPressApiCall = false
         initUi()
         filteredItems = ArrayList()
-        if (fabVisibility)
-            ticketPresenter.crmLogin(phone)
-        else
-            ticketPresenter.crmLogin()
         tempItem = ArrayList()
+        callTicketApi()
+    }
+
+    private fun callTicketApi() {
+        if(isOnline(activity)) {
+            if (fabVisibility)
+                ticketPresenter.crmLogin(phone)
+            else
+                ticketPresenter.crmLogin()
+        }
+        else
+        {
+            swipeRefresh.isRefreshing=false
+            Toast.makeText(activity, "No internet connection", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun initUi() {
@@ -109,6 +121,14 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
                 filter(editable.toString())
             }
         })
+
+        swipeRefresh.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light)
+
+       swipeRefresh.setOnRefreshListener { callTicketApi() }
+
     }
 
     private fun filter(toString: String) {
@@ -282,6 +302,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
 
     override fun hideProgress() {
         progressBar.visibility = View.GONE
+        swipeRefresh.isRefreshing=false
     }
 
     override fun onUnknownError(message: String, error: String) {

@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.tarun.kotlin.isOnline
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.ui.customers.model.Entry
@@ -57,9 +58,20 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
                 .customerModule(CustomerModule(this@CustomerFragment))
                 .build().inject(this@CustomerFragment)
         initUi()
+        callgetCustomerApi()
+    }
 
-        customerPresenter.crmLogin()
-
+    fun callgetCustomerApi()
+    {
+        if(isOnline(activity))
+        {
+            customerPresenter.crmLogin()
+        }
+        else
+        {
+            swipeRefresh.isRefreshing=false
+            Toast.makeText(activity, "No internet connection", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun initUi() {
@@ -82,6 +94,14 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
                 filter(editable.toString())
             }
         })
+
+        swipeRefresh.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light)
+
+        swipeRefresh.setOnRefreshListener { callgetCustomerApi() }
+
     }
 
     private fun filter(toString: String) {
@@ -131,6 +151,7 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     }
 
     override fun hideProgress() {
+        swipeRefresh.isRefreshing=false
         progressBar.visibility = View.GONE
     }
 

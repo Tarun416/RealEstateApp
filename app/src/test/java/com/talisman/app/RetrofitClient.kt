@@ -45,7 +45,7 @@ class RetrofitClient {
             val client = OkHttpClient.Builder()
             client.connectTimeout(10, TimeUnit.SECONDS)
                     .writeTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(10, TimeUnit.SECONDS) // //TODO Code review : set this to 30
+                    .readTimeout(30, TimeUnit.SECONDS)
             client.addInterceptor { mChain ->
                 val original = mChain.request()
                 val builder = original.newBuilder().header("Content-Type", "application/json")

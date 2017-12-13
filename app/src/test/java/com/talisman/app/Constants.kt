@@ -25,6 +25,7 @@ class Constants
         val REGISTRATION_TOKEN = "registration_token"
         val AGENT_NAME = "agentName"
         val USER_NAME = "userName"
+        val VIRTUAL_NUMBER = "virtualNumber"
     }
 
 }
