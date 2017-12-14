@@ -47,7 +47,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
 
     private var fabVisibility: Boolean = false
 
-    companion object {
+      companion object {
         /**
          * new instance pattern for fragment
          */

@@ -75,7 +75,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
         search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
 
-            }
+             }
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
 
@@ -134,11 +134,11 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     override fun onCallClick(position: Int) {
         if(filteredItems!=null && filteredItems.size>0)
         {
-            customerCreatePhone = filteredItems[position].cli.substring(3, filteredItems[position].cli.length)
+            customerCreatePhone = filteredItems[position].cli.substring(0, filteredItems[position].cli.length)
             recentCallPresenter.getCustomerDetails(filteredItems[position].cli.substring(1, filteredItems[position].cli.length))
         }
         else {
-            customerCreatePhone = recentCallList[position].cli.substring(3, recentCallList[position].cli.length)
+            customerCreatePhone = recentCallList[position].cli.substring(0, recentCallList[position].cli.length)
             recentCallPresenter.getCustomerDetails(recentCallList[position].cli.substring(1, recentCallList[position].cli.length))
         }
 

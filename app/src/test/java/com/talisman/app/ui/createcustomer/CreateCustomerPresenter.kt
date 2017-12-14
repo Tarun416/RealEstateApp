@@ -131,10 +131,10 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
                createJsonObject2.put("value", "")
 
                createJsonObject3.put("name", "phone_mobile")
-               createJsonObject3.put("value", "91" + phone)
+               createJsonObject3.put("value",  phone.substring(1,phone.length))
 
                createJsonObject4.put("name", "phone_work")
-               createJsonObject4.put("value", "91" + phone)
+               createJsonObject4.put("value",  phone.substring(1,phone.length))
 
                createJsonObject5.put("name", "last_name")
                createJsonObject5.put("value", lastName)

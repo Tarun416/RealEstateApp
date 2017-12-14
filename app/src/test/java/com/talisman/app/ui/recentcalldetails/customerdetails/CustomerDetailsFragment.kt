@@ -161,7 +161,7 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
                 val intent = Intent(activity, CreateCustomerActivity::class.java)
                 intent.putExtra("firstName", firstName.text.toString())
                 intent.putExtra("lastName", lastName.text.toString())
-                intent.putExtra("phone", phoneNumber.text.toString().substring(2, phoneNumber.text.toString().length))
+                intent.putExtra("phone", "+"+phoneNumber.text.toString())
                 intent.putExtra("city", city.text.toString())
                 intent.putExtra("state", state.text.toString())
                 intent.putExtra("country", countryValue.text.toString())
@@ -326,7 +326,7 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
     override fun onResume() {
         super.onResume()
         if (callApiOnResume)
-            presenter.getCustomerDetails(this.phone.substring(3, this.phone.length))
+            presenter.getCustomerDetails(this.phone.substring(1,phone.length))
     }
 
     fun setCustomerResponse(customerDetailResposne: CustomerDetailsResponse) {

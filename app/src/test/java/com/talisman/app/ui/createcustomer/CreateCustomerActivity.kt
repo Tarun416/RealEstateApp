@@ -75,10 +75,10 @@ class CreateCustomerActivity : AppCompatActivity(), View.OnClickListener, Create
                     return
                 }
 
-                if (phoneNumber.text.length != 10) {
+                /*if (phoneNumber.text.length != 10) {
                     Toast.makeText(this, "Phone number should be of 10 digit,Toast.LENGTH_LONG).show()", Toast.LENGTH_LONG).show()
                     return
-                }
+                }*/
 
                 presenter.crmLogin(firstName.text.toString(), lastName.text.toString(), phoneNumber.text.toString(),
                         street.text.toString(), city.text.toString(), state.text.toString(), countryValue.text.toString(),

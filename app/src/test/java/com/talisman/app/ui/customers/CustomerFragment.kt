@@ -101,7 +101,6 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
                 android.R.color.holo_red_light)
 
         swipeRefresh.setOnRefreshListener { callgetCustomerApi() }
-
     }
 
     private fun filter(toString: String) {
