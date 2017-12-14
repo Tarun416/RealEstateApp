@@ -15,13 +15,19 @@ import java.text.SimpleDateFormat
 /**
  * Created by tarun on 11/9/17.
  */
-class RecentCallAdapter(private var context: Context, private var callClickListener: ItemClickListener, private var recentCallList: ArrayList<CDRJSON>) : RecyclerView.Adapter<RecentCallAdapter.ViewHolder>() {
+class RecentCallAdapter(private var context: Context, private var callClickListener: ItemClickListener, private var recentCallList: ArrayList<CDRJSON>, private var isCallIconVisible : Boolean) : RecyclerView.Adapter<RecentCallAdapter.ViewHolder>() {
     private val simpledateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     var df1 = SimpleDateFormat("d/MMM/yyyy HH:mm:ss")
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 
         val cdrJson = recentCallList[position]
+
+        if(isCallIconVisible)
+            holder!!.call.visibility=View.VISIBLE
+        else
+            holder!!.call.visibility=View.GONE
+
 
         holder!!.name.text = cdrJson.cli
         holder!!.date.text = df1.format(simpledateFormat.parse(cdrJson.startTime))

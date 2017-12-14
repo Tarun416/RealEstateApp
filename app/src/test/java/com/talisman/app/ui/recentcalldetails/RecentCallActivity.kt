@@ -11,8 +11,7 @@ import kotlinx.android.synthetic.main.activity_recent_calls.*
 import com.talisman.app.ui.recentcalldetails.customerdetails.CustomerDetailsFragment
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import android.content.Intent
-
-
+import com.talisman.app.ui.recentcalls.model.CDRJSON
 
 
 /**
@@ -45,7 +44,6 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
     private fun initUi() {
 
         customerDetailResposne=  intent.extras.getParcelable("customerDetailResponse")
-
         toolbarText.text = "Customer"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
@@ -80,6 +78,7 @@ class RecentCallActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener 
         pagerAdapter.addFrag(ticketFragment)
 
         val callHistoryFragment = CallHistoryFragment()
+        callHistoryFragment.setPhone("+"+customerDetailResposne.phone_mobile!!.value)
         pagerAdapter.addFrag(callHistoryFragment)
 
         pager.adapter = pagerAdapter

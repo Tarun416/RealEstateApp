@@ -19,7 +19,7 @@ interface RecentCallContract
 
     interface Presenter
     {
-        fun getRecentCalls()
+        fun getRecentCalls(xli : String)
         fun getCustomerDetails(mobileNo : String)
     }
 }

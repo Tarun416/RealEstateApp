@@ -31,6 +31,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     private lateinit var recentCallApapter: RecentCallAdapter
     private lateinit var recentCallList: ArrayList<CDRJSON>
 
+
     @Inject
     lateinit var recentCallPresenter: RecentCallPresenter
 
@@ -102,7 +103,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     fun callRecentCallApi()
     {
         if (isOnline(activity))
-            recentCallPresenter.getRecentCalls()
+            recentCallPresenter.getRecentCalls("")
         else {
             swipeRefresh.isRefreshing=false
             Toast.makeText(activity, "No internet connection", Toast.LENGTH_LONG).show()
@@ -127,7 +128,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     private fun setRecyclerView() {
         recentCallRecyclerView.layoutManager = LinearLayoutManager(activity)
         recentCallRecyclerView.setHasFixedSize(true)
-        recentCallApapter = RecentCallAdapter(activity, this@RecentCallFragment, recentCallList)
+        recentCallApapter = RecentCallAdapter(activity, this@RecentCallFragment, recentCallList,true)
         recentCallRecyclerView.adapter = recentCallApapter
     }
 

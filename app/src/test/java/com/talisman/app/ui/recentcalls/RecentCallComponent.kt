@@ -1,6 +1,7 @@
 package com.talisman.app.ui.recentcalls
 
 import com.talisman.app.NetComponent
+import com.talisman.app.ui.recentcalldetails.CallHistoryFragment
 import com.talisman.app.utils.CustomScope
 import dagger.Component
 
@@ -11,5 +12,6 @@ import dagger.Component
 @Component(dependencies = arrayOf(NetComponent::class), modules = arrayOf(RecentCallModule::class))
 interface RecentCallComponent {
     fun inject(fragment: RecentCallFragment)
+    fun inject(fragment : CallHistoryFragment)
 
 }
