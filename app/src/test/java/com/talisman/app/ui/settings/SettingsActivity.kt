@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.TalismanPiPreferences
+import com.talisman.app.utils.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.toolbar_customer_details.*
 import vn.luongvo.widget.iosswitchview.SwitchView
@@ -17,6 +18,7 @@ import javax.inject.Inject
  */
 class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView.OnCheckedChangeListener , SettingsContract.View
 {
+
 
     @Inject
     lateinit var settingsPresenter: SettingsPresenter
@@ -60,6 +62,8 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
     }
 
     override fun onClick(p0: View?) {
+
+        KeyboardUtils.hideKeyboard(this@SettingsActivity,newPassword)
         when(p0!!.id)
         {
             R.id.edit -> when {
@@ -76,7 +80,14 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
             }
 
             R.id.done -> {
+                   if(currentPassword.text.isEmpty() || newPassword.text.isEmpty())
+                   {
+                       Toast.makeText(this@SettingsActivity,"None of the field can be empty",Toast.LENGTH_LONG).show()
+                       return
+                   }
 
+
+                  settingsPresenter.changePassword(currentPassword.text.toString(),newPassword.text.toString())
             }
         }
     }
@@ -120,8 +131,8 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
 
     }
 
-    override fun onFailure(errorMsg: String) {
-
+    override fun onFailure(message: String) {
+        Toast.makeText(this@SettingsActivity,message,Toast.LENGTH_LONG).show()
     }
 
     override fun onConnectionError() {
@@ -142,6 +153,13 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
         switchview.isChecked = preferences.status.equals("Ready",true)
         switchview.setOnCheckedChangeListener(this)
 
+    }
+
+    override fun showSuccessMessage(message: String) {
+        Toast.makeText(this@SettingsActivity,message,Toast.LENGTH_LONG).show()
+        currentPassword.setText("")
+        newPassword.setText("")
+        sendContainer.visibility=View.GONE
     }
 
 

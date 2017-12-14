@@ -6,6 +6,7 @@ import com.talisman.app.ui.forgotpassword.model.ForgotPasswordResponse
 import com.talisman.app.ui.login.model.LogInResponse
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
 import com.talisman.app.ui.recentcalls.model.RecentCallResponse
+import com.talisman.app.ui.settings.model.ChangePasswordResponse
 import com.talisman.app.ui.settings.model.SettingsResponse
 import com.talisman.app.ui.ticketdetails.TicketUpdateResponse
 import com.talisman.app.ui.tickets.model.TicketResponse
@@ -68,6 +69,9 @@ interface ApiInterface {
                    @Query("input_type") inputType : String,
                    @Query("response_type") responseType : String,
                    @Query("rest_data") restData: String) : Flowable<TicketUpdateResponse>
+
+    @POST("change_password")
+    fun changePassword(@Body hashMap: HashMap<String, String>) : Flowable<ChangePasswordResponse>
 
 
 

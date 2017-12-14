@@ -48,7 +48,7 @@
         android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/oldPassword"
+        android:id="@+id/currentPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Current Password" />

@@ -138,6 +138,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.V
             loginPresenter.sendRegistrationToken()
         }
 
+        preferences.passwordInMd5 =generatemd5(password.text.toString())
+
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
         startActivity(intent)
         finish()

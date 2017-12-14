@@ -11,11 +11,13 @@ interface SettingsContract
     {
         fun showSuccessMessage()
         fun failed()
+        fun showSuccessMessage(message : String)
 
     }
 
     interface Presenter
     {
        fun setStatus ( status : String)
+        fun changePassword( currentPassword : String, newPassword : String)
     }
 }

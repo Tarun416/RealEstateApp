@@ -39,7 +39,7 @@ constructor(val retrofit : Retrofit, val view: CustomerContract.View) : Customer
 
         try {
             jsonObject.put("user_name", BuildConfig.USERNAME)
-            jsonObject.put("password", BuildConfig.PASSWORD)
+            jsonObject.put("password",BuildConfig.PASSWORD)
             parent.put("user_auth", jsonObject)
             Timber.d("output", parent.toString())
 
