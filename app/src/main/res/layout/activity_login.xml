@@ -52,6 +52,7 @@
                 android:layout_height="match_parent"
                 android:drawableLeft="@drawable/login_email_icon"
                 android:drawablePadding="@dimen/margin_12"
+                android:inputType="textEmailAddress"
                 android:hint="@string/email_id"
                 android:singleLine="true"
                 android:textColor="@color/white_light_color"

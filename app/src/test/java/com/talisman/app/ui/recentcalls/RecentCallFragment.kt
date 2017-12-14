@@ -115,7 +115,7 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
         filteredItems = ArrayList()
 
         if (recentCallList != null && recentCallList.size > 0) {
-            recentCallList.filterTo(filteredItems) { it.cli.contains("+91"+toString,true) }
+            recentCallList.filterTo(filteredItems) { it.cli.contains(toString,true) }
 
             if(recentCallApapter!=null)
                 recentCallApapter.filterList(filteredItems)

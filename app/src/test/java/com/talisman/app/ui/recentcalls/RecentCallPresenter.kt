@@ -29,7 +29,7 @@ class RecentCallPresenter
         view.showProgress()
         apiInterface = ApiUtils.getApiService(BuildConfig.CDR_SERVER_URL, TalismanPiApplication.instance)
         val disposable =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.getRecentCalls(Constants.CONTENT_TYPE, Constants.DEVELOPER_ID, "20170806110000",
-                simpleDateFormat.format(Date()), preferences.agentNo!!, Constants.APP_TYPE , preferences.virtualNo!!.substring(1, preferences.virtualNo!!.length)!!)
+                simpleDateFormat.format(Date())/*, preferences.agentNo!!*/, Constants.APP_TYPE , preferences.virtualNo!!.substring(1, preferences.virtualNo!!.length)!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSubscriber<RecentCallResponse>() {

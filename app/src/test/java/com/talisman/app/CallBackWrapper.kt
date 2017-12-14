@@ -30,12 +30,12 @@ abstract class CallbackWrapper<T : BaseResponse>(view: BaseView) : DisposableSub
             view.hideProgress()
             when (e) {
                 is HttpException -> {
-                    if (e.response() != null && e.response().errorBody() != null) {
-                        val responseBody = e.response().errorBody()
+                    if (e.response() != null && e.response().errorBody() != null) //{
+                     /*   val responseBody = e.response().errorBody()
                         view.onUnknownError(getErrorMessage(responseBody!!)!!, error)
-                    } else {
+                    } else {*/
                         view.onUnknownError(e.message!!,"")
-                    }
+                    //}
                 }
                 is SocketTimeoutException -> view.onTimeout()
                 is IOException -> view.onNetworkError()
