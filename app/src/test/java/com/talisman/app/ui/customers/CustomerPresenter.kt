@@ -38,8 +38,8 @@ constructor(val retrofit : Retrofit, val view: CustomerContract.View) : Customer
     override fun crmLogin() {
 
         try {
-            jsonObject.put("user_name", BuildConfig.USERNAME)
-            jsonObject.put("password",BuildConfig.PASSWORD)
+            jsonObject.put("user_name", preferences.userName)
+            jsonObject.put("password",preferences.passwordInMd5)
             parent.put("user_auth", jsonObject)
             Timber.d("output", parent.toString())
 

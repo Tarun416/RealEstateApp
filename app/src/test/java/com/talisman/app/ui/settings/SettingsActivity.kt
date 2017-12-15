@@ -18,8 +18,6 @@ import javax.inject.Inject
  */
 class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView.OnCheckedChangeListener , SettingsContract.View
 {
-
-
     @Inject
     lateinit var settingsPresenter: SettingsPresenter
 

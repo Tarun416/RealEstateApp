@@ -63,8 +63,8 @@ constructor(val retrofit: Retrofit, val view: TicketDetailsContract.View) : Tick
         this.phone =phone
 
         try {
-            jsonObject.put("user_name", BuildConfig.USERNAME)
-            jsonObject.put("password", BuildConfig.PASSWORD)
+            jsonObject.put("user_name", preferences.userName)
+            jsonObject.put("password",preferences.passwordInMd5)
             parent.put("user_auth", jsonObject)
             Timber.d("output", parent.toString())
 
