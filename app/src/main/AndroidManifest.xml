@@ -56,7 +56,7 @@
         </activity>
 
         <activity
-            android:name="com.talisman.app.ui.customerdetails.CustomerDetailActivity"
+            android:name="com.talisman.app.ui.AboutActivity"
             android:screenOrientation="portrait"
             >
         </activity>

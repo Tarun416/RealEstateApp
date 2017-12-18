@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_home"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:textColor="@color/black_color"
+        android:textSize="18sp"
+        android:id="@+id/applicationNameText"
+        android:text="Application Name"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin4"
+        android:text="Talisman Pi"
+        android:id="@+id/applicationName"
+        android:textSize="16sp"
+        android:layout_below="@+id/applicationNameText"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/applicationName"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:textColor="@color/black_color"
+        android:textSize="18sp"
+        android:id="@+id/versionNameText"
+        android:text="Version Name"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin4"
+        tools:text="1.0"
+        android:id="@+id/versionName"
+        android:textSize="16sp"
+        android:layout_below="@+id/versionNameText"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/versionName"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:textColor="@color/black_color"
+        android:textSize="18sp"
+        android:id="@+id/versionCodeText"
+        android:text="Version Code"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin4"
+        tools:text="1.1.4.3"
+        android:id="@+id/versionCode"
+        android:textSize="16sp"
+        android:layout_below="@+id/versionCodeText"/>
+
+
+
+
+
+
+</RelativeLayout>

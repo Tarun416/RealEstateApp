@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiPreferences
+import com.talisman.app.ui.AboutActivity
 import com.talisman.app.ui.customers.CustomerFragment
 
 import com.talisman.app.ui.drawer.DrawerHeader
@@ -74,6 +75,7 @@ class HomeActivity : AppCompatActivity(), DrawerMenuItem.DrawerCallBack {
 
     override fun onAboutMenuSelected() {
         drawerLayout.closeDrawer(Gravity.START)
+        startActivity(Intent(this@HomeActivity, AboutActivity::class.java))
     }
 
     override fun onLogoutMenuSelected() {
