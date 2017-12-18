@@ -23,5 +23,6 @@ interface CustomerContract
         fun crmLogin()
         fun getCustomers(id: String)
         fun getCustomerDetails(mobileNo : String)
+        fun getCustomersFromDb()
     }
 }

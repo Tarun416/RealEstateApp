@@ -75,13 +75,13 @@ class RecentCallPresenter
 
                     results.clear()
                     results.addAll(recentCallResponse.CDRJSON!!)
-                    computeAlertsData(results)
+                    computeRecentCallData(results)
 
                 }, { throwable -> Log.e(RecentCallFragment.TAG, "Unable to fetch recent call response", throwable) }))
 
     }
 
-    private fun computeAlertsData(results: ArrayList<CDRJSON>) {
+    private fun computeRecentCallData(results: ArrayList<CDRJSON>) {
 
         val computeDisposable = Flowable.just<ArrayList<CDRJSON>>(results)
                 .subscribeOn(Schedulers.io())

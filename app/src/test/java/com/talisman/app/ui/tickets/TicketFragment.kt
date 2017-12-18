@@ -58,6 +58,7 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
             fragment.arguments = args
             return fragment
         }
+          val TAG: String = TicketFragment.javaClass.simpleName
     }
 
 
@@ -72,6 +73,8 @@ class TicketFragment : Fragment(), TicketAdapter.OnTicketClick, View.OnClickList
                 .netComponent(TalismanPiApplication.mNetComponent)
                 .ticketModule(TicketModule(this@TicketFragment))
                 .build().inject(this@TicketFragment)
+
+        ticketPresenter.getTicketsFromDb()
 
         backPressApiCall = false
         initUi()

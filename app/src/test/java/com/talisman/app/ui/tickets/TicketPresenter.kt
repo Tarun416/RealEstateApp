@@ -2,12 +2,11 @@ package com.talisman.app.ui.tickets
 
 import android.util.Log
 import com.example.tarun.talismanpi.BuildConfig
-import com.talisman.app.ApiInterface
-import com.talisman.app.ApiUtils
-import com.talisman.app.TalismanPiApplication
-import com.talisman.app.TalismanPiPreferences
+import com.talisman.app.*
 import com.talisman.app.model.CRMLoginResponse
+import com.talisman.app.ui.tickets.model.Entry
 import com.talisman.app.ui.tickets.model.TicketResponse
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -22,7 +21,7 @@ import javax.inject.Inject
  */
 class TicketPresenter
 @Inject
-constructor(val view: TicketContract.View) : TicketContract.Presenter {
+constructor(val view: TicketContract.View, val database : AppDataBase) : TicketContract.Presenter {
 
     private val preferences: TalismanPiPreferences = TalismanPiPreferences()
     private lateinit var apiInterface: ApiInterface
@@ -170,6 +169,11 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
         apiInterface = ApiUtils.getApiService(BuildConfig.CRM_SERVER_URL, TalismanPiApplication.instance)
         val disposable1 =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.getTickets("get_entry_list", "JSON", "JSON", ticketJsonObject.toString())
                 .subscribeOn(Schedulers.io())
+                .map { ticketResponse ->
+                    database.tickets().deleteTickets()
+                    database.tickets().insertTickets(ticketResponse)
+                    ticketResponse
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSubscriber<TicketResponse>() {
 
@@ -194,6 +198,49 @@ constructor(val view: TicketContract.View) : TicketContract.Presenter {
 
 
         compositeDisposable.add(disposable1)
+    }
+
+
+    override fun getTicketsFromDb()
+    {
+        val results = ArrayList<Entry>()
+
+        compositeDisposable.add(database.tickets().getTickets()
+                .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+
+                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                .subscribe({ ticketResponse ->
+
+                    results.clear()
+                    results.addAll(ticketResponse.entry_list)
+                    computeTicketData(results)
+
+                }, { throwable -> Log.e(TicketFragment.TAG, "Unable to fetch customer response", throwable) }))
+    }
+
+    private fun computeTicketData(results: ArrayList<Entry>) {
+        val computeDisposable = Flowable.just<List<Entry>>(results)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSubscriber<List<Entry>>() {
+                    override fun onNext(t: List<Entry>?) {
+                        if(t!!.isNotEmpty())
+                            view.showTickets(t!!)
+                        else
+                            view.showEmptyView()
+                    }
+
+                    override fun onError(t: Throwable?) {
+
+                    }
+
+                    override fun onComplete() {
+
+                    }
+
+                })
+
+        compositeDisposable.add(computeDisposable)
     }
 
     fun onStop() {

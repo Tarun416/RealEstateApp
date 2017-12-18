@@ -44,6 +44,8 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
             fragment.arguments = args
             return fragment
         }
+
+        val TAG:String = CustomerFragment.javaClass.simpleName
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,6 +59,7 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
                 .netComponent(TalismanPiApplication.mNetComponent)
                 .customerModule(CustomerModule(this@CustomerFragment))
                 .build().inject(this@CustomerFragment)
+        customerPresenter.getCustomersFromDb()
         initUi()
         callgetCustomerApi()
     }
@@ -125,10 +128,16 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     }
 
     override fun onCustomerClick(position : Int) {
-        if(filteredItems!=null && filteredItems.size>0)
-            customerPresenter.getCustomerDetails(filteredItems[position].name_value_list.phone_work.value)
+        if(isOnline(activity)) {
+            if (filteredItems != null && filteredItems.size > 0)
+                customerPresenter.getCustomerDetails(filteredItems[position].name_value_list.phone_work.value)
+            else
+                customerPresenter.getCustomerDetails(customerList[position].name_value_list.phone_work.value)
+        }
         else
-        customerPresenter.getCustomerDetails(customerList[position].name_value_list.phone_work.value)
+        {
+            Toast.makeText(activity,"No internet connection",Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onClick(p0: View?) {

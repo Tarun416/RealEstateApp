@@ -21,5 +21,6 @@ interface TicketContract
         fun crmLogin()
         fun crmLogin(phone : String)
         fun getTickets(id: String)
+        fun getTicketsFromDb()
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
+import com.example.tarun.kotlin.isOnline
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
 import kotlinx.android.synthetic.main.activity_ticket_details.*
@@ -14,12 +15,12 @@ import javax.inject.Inject
 /**
  * Created by tarun on 11/10/17.
  */
-class TicketDetailsActivity : AppCompatActivity(), View.OnClickListener , TicketDetailsContract.View{
+class TicketDetailsActivity : AppCompatActivity(), View.OnClickListener, TicketDetailsContract.View {
 
     @Inject
-    lateinit var presenter : TicketDetailsPresenter
+    lateinit var presenter: TicketDetailsPresenter
 
-    private lateinit var ticketId : String
+    private lateinit var ticketId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,15 +84,17 @@ class TicketDetailsActivity : AppCompatActivity(), View.OnClickListener , Ticket
         when (p0?.id) {
             R.id.done -> {
                 if (done.text.toString().equals("edit", true))
-                    toggleViews(true)
+                    if (isOnline(this))
+                        toggleViews(true)
+                    else
+                        Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show()
                 else {
 
                     // do validation
                     if (description.text.isEmpty()) {
                         Toast.makeText(this, "Give some description", Toast.LENGTH_LONG).show()
                         return
-                    }
-                    else{
+                    } else {
                         // call update api
                         presenter.crmLogin(status.selectedItem.toString(),
                                 priority.selectedItem.toString(),
@@ -132,11 +135,11 @@ class TicketDetailsActivity : AppCompatActivity(), View.OnClickListener , Ticket
     }
 
     override fun showProgress() {
-         progressBar.visibility=View.VISIBLE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        progressBar.visibility=View.GONE
+        progressBar.visibility = View.GONE
     }
 
     override fun onUnknownError(message: String, error: String) {
@@ -165,10 +168,9 @@ class TicketDetailsActivity : AppCompatActivity(), View.OnClickListener , Ticket
     }
 
     override fun updateSuccess() {
-       Toast.makeText(this,"Ticket updated",Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Ticket updated", Toast.LENGTH_LONG).show()
         finish()
     }
-
 
 
 }

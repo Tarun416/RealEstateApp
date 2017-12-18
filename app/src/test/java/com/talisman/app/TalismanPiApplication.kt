@@ -20,7 +20,7 @@ class TalismanPiApplication : Application() {
         super.onCreate()
         instance = this
 
-        appDatabase = Room.databaseBuilder(this, AppDataBase::class.java, DB_NAME)/*.addMigrations(AppDataBase.MIGRATION_16_17,AppDatabase.MIGRATION_17_18, AppDatabase.MIGRATION_18_19)*/.build()
+        appDatabase = Room.databaseBuilder(this, AppDataBase::class.java, DB_NAME).fallbackToDestructiveMigration().build()
         Preferences.init(applicationContext)
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.

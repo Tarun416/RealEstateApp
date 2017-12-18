@@ -2,13 +2,12 @@ package com.talisman.app.ui.customers
 
 import android.util.Log
 import com.example.tarun.talismanpi.BuildConfig
-import com.talisman.app.ApiInterface
-import com.talisman.app.ApiUtils
-import com.talisman.app.TalismanPiApplication
-import com.talisman.app.TalismanPiPreferences
+import com.talisman.app.*
 import com.talisman.app.model.CRMLoginResponse
 import com.talisman.app.ui.customers.model.CustomerResponse
+import com.talisman.app.ui.customers.model.Entry
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -26,7 +25,7 @@ import timber.log.Timber
  */
 class CustomerPresenter
 @Inject
-constructor(val retrofit : Retrofit, val view: CustomerContract.View) : CustomerContract.Presenter {
+constructor(val retrofit : Retrofit, val view: CustomerContract.View, val database : AppDataBase) : CustomerContract.Presenter {
 
     private val preferences: TalismanPiPreferences = TalismanPiPreferences()
     private lateinit var apiInterface: ApiInterface
@@ -106,6 +105,11 @@ constructor(val retrofit : Retrofit, val view: CustomerContract.View) : Customer
         apiInterface = ApiUtils.getApiService(BuildConfig.CRM_SERVER_URL, TalismanPiApplication.instance)
         val disposable1 =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.getCustomers("get_entry_list", "JSON", "JSON", customerJsonObject.toString())
                 .subscribeOn(Schedulers.io())
+                .map { customerResponse ->
+                    database.customers().deleteCustomers()
+                    database.customers().insertCustomers(customerResponse)
+                    customerResponse
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSubscriber<CustomerResponse>() {
 
@@ -130,6 +134,51 @@ constructor(val retrofit : Retrofit, val view: CustomerContract.View) : Customer
 
 
         compositeDisposable.add(disposable1)
+    }
+
+
+    override fun getCustomersFromDb()
+    {
+        val results = ArrayList<Entry>()
+
+        compositeDisposable.add(database.customers().getCustomers()
+                .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+
+                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                .subscribe({ customerResponse ->
+
+                    results.clear()
+                    results.addAll(customerResponse.entry_list)
+                    computeCustomerData(results)
+
+                }, { throwable -> Log.e(CustomerFragment.TAG, "Unable to fetch customer response", throwable) }))
+    }
+
+
+    private fun computeCustomerData(results: ArrayList<Entry>) {
+        val computeDisposable = Flowable.just<List<Entry>>(results)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSubscriber<List<Entry>>() {
+                    override fun onNext(t: List<Entry>?) {
+                        if(t!!.isNotEmpty())
+                            view.showCustomers(t!!)
+                        else
+                            view.showEmptyView()
+                    }
+
+                    override fun onError(t: Throwable?) {
+
+                    }
+
+                    override fun onComplete() {
+
+                    }
+
+                })
+
+        compositeDisposable.add(computeDisposable)
+
     }
 
     override fun getCustomerDetails(mobileNo: String) {
