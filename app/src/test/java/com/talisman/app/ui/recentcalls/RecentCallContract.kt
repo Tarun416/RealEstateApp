@@ -21,5 +21,6 @@ interface RecentCallContract
     {
         fun getRecentCalls(xli : String)
         fun getCustomerDetails(mobileNo : String)
+        fun getRecentCallsFromDb()
     }
 }

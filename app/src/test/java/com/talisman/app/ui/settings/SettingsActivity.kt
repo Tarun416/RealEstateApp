@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
+import com.example.tarun.kotlin.isOnline
 import com.example.tarun.talismanpi.R
 import com.talisman.app.TalismanPiApplication
 import com.talisman.app.TalismanPiPreferences
@@ -85,7 +86,11 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
                    }
 
 
+                if(isOnline(this))
                   settingsPresenter.changePassword(currentPassword.text.toString(),newPassword.text.toString())
+                else
+                    Toast.makeText(this,"No internet connection",Toast.LENGTH_LONG).show()
+
             }
         }
     }
@@ -93,11 +98,24 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
     override fun onCheckedChanged(p0: SwitchView?, p1: Boolean) {
        if(p1)
        {
-           settingsPresenter.setStatus("ready")
+           if(isOnline(this)) {
+               settingsPresenter.setStatus("ready")
+           }
+           else {
+               Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show()
+               switchview.isChecked = preferences.status.equals("Ready",true)
+           }
        }
         else
        {
-           settingsPresenter.setStatus("busy")
+           if(isOnline(this)) {
+               settingsPresenter.setStatus("busy")
+           }
+           else
+           {
+               switchview.isChecked = preferences.status.equals("Ready",true)
+               Toast.makeText(this,"No internet connection",Toast.LENGTH_LONG).show()
+           }
 
        }
     }

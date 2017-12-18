@@ -1,9 +1,12 @@
 package com.talisman.app.ui.recentcalls
 
+import android.util.Log
 import com.example.tarun.talismanpi.BuildConfig
 import com.talisman.app.*
 import com.talisman.app.ui.recentcalldetails.customerdetails.model.CustomerDetailsResponse
+import com.talisman.app.ui.recentcalls.model.CDRJSON
 import com.talisman.app.ui.recentcalls.model.RecentCallResponse
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -17,7 +20,7 @@ import javax.inject.Inject
  * Created by Tarun on 11/21/17.
  */
 class RecentCallPresenter
-@Inject constructor(var retrofit: Retrofit, var view: RecentCallContract.View) : RecentCallContract.Presenter {
+@Inject constructor(var retrofit: Retrofit, var view: RecentCallContract.View , val database :AppDataBase) : RecentCallContract.Presenter {
 
     private val simpleDateFormat = SimpleDateFormat("yyyyMMddHHmmss")
     private val preferences: TalismanPiPreferences = TalismanPiPreferences()
@@ -31,6 +34,11 @@ class RecentCallPresenter
         val disposable =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.getRecentCalls(Constants.CONTENT_TYPE, Constants.DEVELOPER_ID, "20170806110000",
                 simpleDateFormat.format(Date()), xcli, Constants.APP_TYPE , preferences.virtualNo!!.substring(1, preferences.virtualNo!!.length)!!)
                 .subscribeOn(Schedulers.io())
+                .map { recentCallResponse ->
+                    database.getRecentCalls().deleteRecentCalls()
+                    database.getRecentCalls().insertRecentCalls(recentCallResponse)
+                    recentCallResponse
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSubscriber<RecentCallResponse>() {
 
@@ -52,6 +60,48 @@ class RecentCallPresenter
 
         compositeDisposable.add(disposable)
 
+    }
+
+
+    override fun getRecentCallsFromDb()
+    {
+        val results = ArrayList<CDRJSON>()
+
+        compositeDisposable.add(database.getRecentCalls().getRecentCalls()
+                .subscribeOn(io.reactivex.schedulers.Schedulers.io())
+
+                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                .subscribe({ recentCallResponse ->
+
+                    results.clear()
+                    results.addAll(recentCallResponse.CDRJSON!!)
+                    computeAlertsData(results)
+
+                }, { throwable -> Log.e(RecentCallFragment.TAG, "Unable to fetch recent call response", throwable) }))
+
+    }
+
+    private fun computeAlertsData(results: ArrayList<CDRJSON>) {
+
+        val computeDisposable = Flowable.just<ArrayList<CDRJSON>>(results)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSubscriber<ArrayList<CDRJSON>>() {
+                    override fun onNext(t: ArrayList<CDRJSON>?) {
+                        view.showRecentCalls(t!!)
+                    }
+
+                    override fun onError(t: Throwable?) {
+
+                    }
+
+                    override fun onComplete() {
+
+                    }
+
+                })
+
+        compositeDisposable.add(computeDisposable)
     }
 
     override fun getCustomerDetails(mobileNo: String) {

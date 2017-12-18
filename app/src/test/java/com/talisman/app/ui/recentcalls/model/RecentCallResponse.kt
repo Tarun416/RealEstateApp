@@ -1,34 +1,39 @@
 package com.talisman.app.ui.recentcalls.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.talisman.app.BaseResponse
 
 /**
  * Created by Tarun on 11/21/17.
  */
 
-data class RecentCallResponse (
-		val CDRJSON: ArrayList<CDRJSON>
+@Entity(tableName="RecentCallResponse")
+data class RecentCallResponse ( @PrimaryKey(autoGenerate = true)
+								  var id : Int? = 0,
+		var CDRJSON: ArrayList<CDRJSON>
 ): BaseResponse()
 
+
 data class CDRJSON(
-		val attempt: Int, //1
-		val endtype: String, //CALL-DISCONNECT
-		val callNo: String, //1577769684710529
-		val patched: String, //1
-		val ca: String, //CA
-		val agentNo: String, //+918904577948
-		val cli: String, //+919591943939
-		val startTime: String, //2017-09-06 11:43:45.0
-		val duration: Int, //30
-		val trunk: String, //0
-		val SNo: Int, //1
-		val causecode: Int, //16
-		val dialType: String, //0
-		val filedownload: String, ///voicerecord/RECORDINGS/c2ac/1504678425_1577769684710529_919591943939.mp3
-		val filename: String, //1504678425_1577769684710529_919591943939.mp3
-		val businessID: String, //9b72e31dac81715466cd580a448cf823
-		val prichannel: Int, //0
-		val paidcontract: Int, //0
-		val dni: String, //+911133190722
-		val callType: String //I
+		var attempt: Int, //1
+		var endtype: String, //CALL-DISCONNECT
+		var callNo: String, //1577769684710529
+		var patched: String, //1
+		var ca: String, //CA
+		var agentNo: String, //+918904577948
+		var cli: String, //+919591943939
+		var startTime: String, //2017-09-06 11:43:45.0
+		var duration: Int, //30
+		var trunk: String, //0
+		var SNo: Int, //1
+		var causecode: Int, //16
+		var dialType: String, //0
+		var filedownload: String, ///voicerecord/RECORDINGS/c2ac/1504678425_1577769684710529_919591943939.mp3
+		var filename: String, //1504678425_1577769684710529_919591943939.mp3
+		var businessID: String, //9b72e31dac81715466cd580a448cf823
+		var prichannel: Int, //0
+		var paidcontract: Int, //0
+		var dni: String, //+911133190722
+		var callType: String //I
 )

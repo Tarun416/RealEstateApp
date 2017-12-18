@@ -49,7 +49,11 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
             fragment.arguments = args
             return fragment
         }
+
+        val TAG: String = RecentCallFragment.javaClass.simpleName
     }
+
+
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -63,6 +67,8 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
                 .netComponent(TalismanPiApplication.mNetComponent)
                 .recentCallModule(RecentCallModule(this))
                 .build().inject(this)
+
+        recentCallPresenter.getRecentCallsFromDb()
         initUi()
 
     }
@@ -133,14 +139,18 @@ class RecentCallFragment : Fragment(), RecentCallAdapter.ItemClickListener, View
     }
 
     override fun onCallClick(position: Int) {
-        if(filteredItems!=null && filteredItems.size>0)
-        {
-            customerCreatePhone = filteredItems[position].cli.substring(0, filteredItems[position].cli.length)
-            recentCallPresenter.getCustomerDetails(filteredItems[position].cli.substring(1, filteredItems[position].cli.length))
+        if(isOnline(activity)) {
+            if (filteredItems != null && filteredItems.size > 0) {
+                customerCreatePhone = filteredItems[position].cli.substring(0, filteredItems[position].cli.length)
+                recentCallPresenter.getCustomerDetails(filteredItems[position].cli.substring(1, filteredItems[position].cli.length))
+            } else {
+                customerCreatePhone = recentCallList[position].cli.substring(0, recentCallList[position].cli.length)
+                recentCallPresenter.getCustomerDetails(recentCallList[position].cli.substring(1, recentCallList[position].cli.length))
+            }
         }
-        else {
-            customerCreatePhone = recentCallList[position].cli.substring(0, recentCallList[position].cli.length)
-            recentCallPresenter.getCustomerDetails(recentCallList[position].cli.substring(1, recentCallList[position].cli.length))
+        else
+        {
+            Toast.makeText(activity,"No internet connection",Toast.LENGTH_LONG).show()
         }
 
     }
