@@ -2,6 +2,7 @@ package com.talisman.app.ui.settings
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.tarun.kotlin.isOnline
@@ -12,6 +13,9 @@ import com.talisman.app.utils.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.toolbar_customer_details.*
 import vn.luongvo.widget.iosswitchview.SwitchView
+import java.math.BigInteger
+import java.nio.charset.Charset
+import java.security.MessageDigest
 import javax.inject.Inject
 
 /**
@@ -173,10 +177,20 @@ class SettingsActivity : AppCompatActivity() , View.OnClickListener , SwitchView
 
     override fun showSuccessMessage(message: String) {
         Toast.makeText(this@SettingsActivity,message,Toast.LENGTH_LONG).show()
+        preferences.passwordInMd5=generatemd5(newPassword.text.toString().trim())
         currentPassword.setText("")
         newPassword.setText("")
         sendContainer.visibility=View.GONE
     }
+
+
+
+    private fun generatemd5(s: String): String {
+        val md5 = MessageDigest.getInstance("MD5")
+        Log.d("md5", BigInteger(1, md5.digest(s.toByteArray(Charset.defaultCharset()))).toString(16))
+        return BigInteger(1, md5.digest(s.toByteArray(Charset.defaultCharset()))).toString(16)
+    }
+
 
 
 }
