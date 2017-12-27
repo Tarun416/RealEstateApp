@@ -1,9 +1,6 @@
 package com.talisman.app.ui.login
 
-import com.talisman.app.ApiInterface
-import com.talisman.app.CallbackWrapper
-import com.talisman.app.Constants
-import com.talisman.app.TalismanPiPreferences
+import com.talisman.app.*
 import com.talisman.app.ui.login.model.LogInResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -48,6 +45,7 @@ constructor(private var retrofit: Retrofit,
                             preferences.userName=t.data.User.username
                             preferences.businessId=t.data.Business.id
                             preferences.virtualNo=t.data.vns[0].BusinessVnMapping.vn
+                            preferences.cdrUrl=t.data.Locations.api_url
                             view.login()
                         }
                         else

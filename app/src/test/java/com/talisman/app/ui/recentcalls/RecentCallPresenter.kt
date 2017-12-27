@@ -30,7 +30,7 @@ class RecentCallPresenter
 
     override fun getRecentCalls(xcli : String) {
         view.showProgress()
-        apiInterface = ApiUtils.getApiService(BuildConfig.CDR_SERVER_URL, TalismanPiApplication.instance)
+        apiInterface = ApiUtils.getApiService(preferences.cdrUrl!!+"/", TalismanPiApplication.instance)
         val disposable =/*Flowable.interval(2000,TimeUnit.MILLISECONDS).flatMap { */  apiInterface.getRecentCalls(Constants.CONTENT_TYPE, Constants.DEVELOPER_ID, "20170806110000",
                 simpleDateFormat.format(Date()), xcli, Constants.APP_TYPE , preferences.virtualNo!!.substring(1, preferences.virtualNo!!.length)!!)
                 .subscribeOn(Schedulers.io())

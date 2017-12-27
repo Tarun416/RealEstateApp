@@ -22,7 +22,8 @@ data class Entry(
 		var id: String, //3a330ca7-37b0-bce3-0edb-5a12ac6ca8ac
 		var module_name: String, //Leads
 		@Embedded
-		var name_value_list: NameValueList
+		var name_value_list: NameValueList,
+        var randomColour : Int
 )
 
 data class NameValueList(

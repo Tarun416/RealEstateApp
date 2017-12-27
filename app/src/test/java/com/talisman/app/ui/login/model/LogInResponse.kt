@@ -16,7 +16,7 @@ data class Data(
         val User: User,
         val Business: Business,
         val vns: List<Vn>,
-        val Locations: List<Location>
+        val Locations: Locations
 )
 
 data class User(
@@ -44,8 +44,9 @@ data class BusinessVnMapping(
         val vn: String //+911133190778
 )
 
-data class Location(
+data class Locations(
         val id: String, //2
         val name: String, //Mumbai
-        val api_url: String //http://mumbai.tecd.in:8200/pirest
+        val api_url: String ,//http://mumbai.tecd.in:8200/pirest
+        val vn : String
 )

@@ -9,6 +9,7 @@ import com.squareup.leakcanary.LeakCanary
  * Created by varun on 11/8/17.
  */
 class TalismanPiApplication : Application() {
+
     companion object {
         lateinit var mNetComponent: NetComponent
         lateinit var appDatabase: AppDataBase
@@ -41,6 +42,5 @@ class TalismanPiApplication : Application() {
     fun getDatabase(): AppDataBase {
         return appDatabase
     }
-
 
 }

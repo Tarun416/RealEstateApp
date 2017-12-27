@@ -27,6 +27,7 @@ class Constants
         val USER_NAME = "userName"
         val VIRTUAL_NUMBER = "virtualNumber"
         val PWDMD5 = "passwordInMD5"
+        val CDRURL = "cdrUrl"
     }
 
 }

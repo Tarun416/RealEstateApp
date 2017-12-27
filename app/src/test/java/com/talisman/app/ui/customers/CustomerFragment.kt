@@ -31,6 +31,8 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     @Inject
     lateinit var customerPresenter: CustomerPresenter
 
+    private  lateinit var randomColorArray : IntArray
+
     private lateinit var filteredItems: ArrayList<Entry>
 
     companion object {
@@ -80,6 +82,7 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
     private fun initUi() {
         customerList= ArrayList()
         filteredItems = ArrayList()
+       randomColorArray = activity.resources.getIntArray(R.array.random_array)!!
         setRecyclerView()
         clear_search.setOnClickListener(this)
 
@@ -198,6 +201,10 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
         customerRecyclerView.visibility=View.VISIBLE
         emptyText.visibility=View.GONE
         customerList.addAll(entry_list)
+        for( i in 0 until customerList.size)
+        {
+            customerList[i].randomColour=randomColorArray[i]
+        }
         customerAdapter.notifyDataSetChanged()
     }
 

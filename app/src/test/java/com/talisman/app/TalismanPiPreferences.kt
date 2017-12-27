@@ -19,4 +19,5 @@ class TalismanPiPreferences : Preferences()
     var userName by stringPref(Constants.USER_NAME)
     var virtualNo by stringPref(Constants.VIRTUAL_NUMBER)
     var passwordInMd5 by stringPref(Constants.PWDMD5)
+    var cdrUrl by stringPref(Constants.CDRURL)
 }
