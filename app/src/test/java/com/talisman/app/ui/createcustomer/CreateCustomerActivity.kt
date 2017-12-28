@@ -58,6 +58,14 @@ class CreateCustomerActivity : AppCompatActivity(), View.OnClickListener, Create
             toolbarText.text = "Create Customer"
         done.setOnClickListener(this)
         phoneNumber.text = intent.extras.getString("phone")
+
+        when{
+            intent.extras.getString("title").equals("Mr",true) -> title1.setSelection(0)
+            intent.extras.getString("title").equals("Ms",true) -> title1.setSelection(1)
+            intent.extras.getString("title").equals("Mrs",true) -> title1.setSelection(2)
+
+        }
+
     }
 
     override fun onBackPressed() {
@@ -82,7 +90,7 @@ class CreateCustomerActivity : AppCompatActivity(), View.OnClickListener, Create
 
                 presenter.crmLogin(firstName.text.toString(), lastName.text.toString(), phoneNumber.text.toString(),
                         street.text.toString(), city.text.toString(), state.text.toString(), countryValue.text.toString(),
-                        pincode.text.toString(), id,"")
+                        pincode.text.toString(), id,"",title1.selectedItem.toString())
 
             }
         }

@@ -168,6 +168,7 @@ class CustomerDetailsFragment : Fragment(), View.OnClickListener, CustomerDetail
                 intent.putExtra("pincode", pincode.text.toString())
                 intent.putExtra("street", street.text.toString())
                 intent.putExtra("id", id)
+                intent.putExtra("title", customerDetailResponse.title!!.value)
 
                 callApiOnResume = true
                 startActivity(intent)

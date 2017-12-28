@@ -96,7 +96,7 @@ class NotesFragment : Fragment() , View.OnClickListener, CreateCustomerContract.
                    return
                }
 
-               presenter.crmLogin("","","","","","","","", customerDetailResponse.id!!.value,notesboxtext.text.toString())
+               presenter.crmLogin("","","","","","","","", customerDetailResponse.id!!.value,notesboxtext.text.toString(),"")
 
            }
        }

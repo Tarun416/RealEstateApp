@@ -20,8 +20,6 @@ import java.util.*
 class CustomerAdapter(private var context: Context, private var customerClickListener: OnCustomerClick, private var customerList: ArrayList<Entry>) : RecyclerView.Adapter<CustomerAdapter.ViewHolder>() {
 
     private var sampleDrawable: Drawable = ContextCompat.getDrawable(context, R.drawable.customer_circle)!!
-    private val randomColorArray = context.resources.getIntArray(R.array.random_array)!!
-    private val random = Random()
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder!!.initialText.text = customerList[position].name_value_list.first_name.value.substring(0, 1).toUpperCase()

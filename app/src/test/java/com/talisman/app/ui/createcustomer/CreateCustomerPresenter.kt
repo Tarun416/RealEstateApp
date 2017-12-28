@@ -30,6 +30,7 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
     private var description: String = ""
     private lateinit var firstName: String
     private lateinit var lastName: String
+    private lateinit var title : String
     private lateinit var phone: String
     private lateinit var street: String
     private lateinit var city: String
@@ -64,7 +65,7 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
 
     override fun crmLogin(firstName: String, lastName: String, phone: String,
                           street: String, city: String, state: String,
-                          country: String, pincode: String, id : String,description : String) {
+                          country: String, pincode: String, id : String,description : String, title : String) {
 
         this.firstName = firstName
         this.lastName = lastName
@@ -72,6 +73,7 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
         this.street = street
         this.city = city
         this.state = state
+        this.title =title
         this.country = country
         this.pincode = pincode
         this.customerId=id
@@ -128,7 +130,7 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
                createJsonObject1.put("value", firstName)
 
                createJsonObject2.put("name", "title")
-               createJsonObject2.put("value", "")
+               createJsonObject2.put("value", title)
 
                createJsonObject3.put("name", "phone_mobile")
                createJsonObject3.put("value",  phone.substring(1,phone.length))
@@ -141,9 +143,6 @@ constructor(val retrofit: Retrofit, val view: CreateCustomerContract.View) : Cre
 
                createJsonObject6.put("name", "status")
                createJsonObject6.put("value", "New")
-
-//            createJsonObject7.put("name", "description")
-               //          createJsonObject7.put("value", "")
 
                createJsonObject8.put("name", "primary_address_street")
                createJsonObject8.put("value", street)

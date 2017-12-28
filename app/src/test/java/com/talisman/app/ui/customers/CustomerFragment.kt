@@ -203,7 +203,7 @@ class CustomerFragment : Fragment(), CustomerAdapter.OnCustomerClick, View.OnCli
         customerList.addAll(entry_list)
         for( i in 0 until customerList.size)
         {
-            customerList[i].randomColour=randomColorArray[i]
+            customerList[i].randomColour=randomColorArray[i%5]
         }
         customerAdapter.notifyDataSetChanged()
     }
